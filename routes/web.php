@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $posts = App\Post::latest('published_at')->get();
+    return view('welcome', compact('posts'));
 });
