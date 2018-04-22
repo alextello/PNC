@@ -10,7 +10,7 @@
               </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-eye"></i>Ver reportes</a></li>
+          <li><a href="{{ route('admin.posts.index') }}"><i class="fa fa-eye"></i>Ver reportes</a></li>
             <li><a href="#"><i class="fa fa-pencil"></i>Crear reporte</a></li>
           </ul>
         </li>
