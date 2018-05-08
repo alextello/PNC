@@ -6,15 +6,16 @@
     <small>Reportes PNC</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-home"></i> Inicio </a></li>
-    <li class="active">Posts</li>
+    <li><a href="{{ route('dashboard')}}"><i class="fa fa-home"></i> Inicio </a></li>
+    <li class="active"><a href="{{ route('admin.posts.index')}}">Posts</a></li>
   </ol>
 @endsection
 
 @section('content')
-<div class="box">
+<div class="box box-primary">
     <div class="box-header">
       <h3 class="box-title">lISTADO DE REPORTES</h3>
+      <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Crear publicacion</button>
     </div>
     <!-- /.box-header -->
     <div class="box-body">
@@ -46,3 +47,53 @@
     <!-- /.box-body -->
   </div>
 @endsection
+
+@push('styles')
+<link rel="stylesheet" href="/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+@endpush
+
+@push('scripts')
+<script src="/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+
+<script>
+    $(function () {
+      $('#posts-table').DataTable({
+        'paging'      : true,
+        'lengthChange': false,
+        'searching'   : false,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : false
+      });
+    });
+  </script>
+
+  <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <form action={{ route('admin.posts.store')}} method="POST">
+        @csrf
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Agregue el titulo de su nuevo reporte</h4>
+        </div>
+        <div class="modal-body">
+            <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}" >
+                <label for="">Titulo del reporte</label>
+                <input type="text" class="form-control" placeholder="Ingrese aquí el titulo del reporte" id="title" name="title">
+                {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
+                
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+    </form>
+  </div>
+@endpush
+

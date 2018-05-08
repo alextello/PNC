@@ -13,21 +13,24 @@
 
 Route::get('/', 'PagesController@home');
 
-Route::get('home', 'HomeController@index');
-
 Route::group([
     'prefix' => 'admin', 
     'namespace' => 'Admin', 
     'middleware' => 'auth'], 
     function () {
-    
-    Route::get('posts', 'PostsController@index')->name('admin.posts.index');
-
+        
+        Route::get('posts', 'PostsController@index')->name('admin.posts.index');
+        Route::get('/', 'AdminController@index')->name('dashboard');
+        Route::get('posts/create', 'PostsController@create')->name('admin.posts.create');
+        Route::post('posts', 'PostsController@store')->name('admin.posts.store');
+        Route::get('posts/{post}', 'PostsController@edit')->name('admin.posts.edit');
 });
+
+Route::get('blog/{post}', 'PostsController@show');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 // Registration Routes...
 // Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
