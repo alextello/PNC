@@ -37,27 +37,34 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        $tags = Tag::all();
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
-    // public function store(Request $request)
-    // {
-    //     $this->validate($request,[
-    //         'title' => 'required'
-    //     ]);
 
-    //     $post = new Post();
-    //     $post->title = $request->title;
-    //     $post->url = str_slug($request->title);
-    //     $post->body = $request->body;
-    //     $post->excerpt = $request->excerpt;
-    //     $post->published_at = Carbon::parse($request->published_at);
-    //     $post->category_id = $request->category;
-    //     $post->save();
-    //     //tags pendientes
-    //     $post->tags()->attach($request->tags);
+    public function update(Post $post, Request $request)
+    {
+        $this->validate($request,[
+            'title' => 'required',
+            'body' => 'required',
+            'category' => 'required',
+            'tags' => 'required',
+            'excerpt' => 'required',
+            'published_at' => 'required'
+        ]);
 
-    //     return back()->with('flash', 'Reporte creado');
+        $post->title = $request->title;
+        $post->url = str_slug($request->title);
+        $post->body = $request->body;
+        $post->excerpt = $request->excerpt;
+        $post->published_at = Carbon::parse($request->published_at);
+        $post->category_id = $request->category;
+        $post->save();
+        //tags pendientes
+        $post->tags()->sync($request->tags);
 
-    // }
+        return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');
+
+    }
 }

@@ -5,6 +5,7 @@ use App\Post;
 use Carbon\Carbon;
 use App\Category;
 use App\User;
+use App\Tag;
 
 class PostsTableSeeder extends Seeder
 {
@@ -17,6 +18,7 @@ class PostsTableSeeder extends Seeder
     {
         Post::truncate();
         Category::truncate();
+        Tag::truncate();
 
         $category = new Category();
         $category->name = 'Categoria 1';
@@ -38,6 +40,7 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now();
         $post->category_id =  1;
         $post->save();
+        $post->tags()->attach(Tag::create(['name' => 'etiqueta 1']));
 
         $post = new Post();
         $post->title = 'segundo post';
@@ -47,15 +50,17 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(1);
         $post->category_id =  2;
         $post->save();
+        $post->tags()->attach(Tag::create(['name' => 'etiqueta 2']));
 
         $post = new Post();
-        $post->title = 'segundo post';
-        $post->url = str_slug('segundo post');
-        $post->excerpt = 'Extracto segundo post';
-        $post->body = '<p>Contenido segundo post</p>';
+        $post->title = 'tercer post';
+        $post->url = str_slug('tercer post');
+        $post->excerpt = 'Extracto tercer post';
+        $post->body = '<p>Contenido tercer post</p>';
         $post->published_at = Carbon::now()->subDays(2);
         $post->category_id =  3;
         $post->save();
+        $post->tags()->attach(Tag::create(['name' => 'etiqueta 3']));
 
         $user = new User();
         $user->name = 'Edwin Tello';
