@@ -68,13 +68,13 @@
                             </div>
                             <!-- /.input group -->
                     </div>
-                    <div class="form-group {{$errors->has('category') ? 'has-error' : ''}}" >
+                    <div class="form-group {{$errors->has('category_id') ? 'has-error' : ''}}" >
                         <label for="">Seleccione una categoría</label>
-                        <select name="category" class="form-control select2">
+                        <select name="category_id" class="form-control select2">
                             <option value="">Seleccione la categoria</option>
                             @foreach ($categories as $cat)
                             <option value="{{ $cat->id}}"
-                                {{ old('category', $post->category_id) == $cat->id ? 'selected' : '' }}
+                                {{ old('category_id', $post->category_id) == $cat->id ? 'selected' : '' }}
                                 >{{ $cat->name }}</option>
                             @endforeach
                         </select>

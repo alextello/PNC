@@ -8,6 +8,7 @@ use App\Post;
 use App\Category;
 use App\Tag;
 use Carbon\Carbon;
+use App\Http\Requests\StorePostRequest;
 
 class PostsController extends Controller
 {
@@ -42,32 +43,10 @@ class PostsController extends Controller
     }
 
 
-    public function update(Post $post, Request $request)
+    public function update(Post $post, StorePostRequest $request)
     {
-        $this->validate($request,[
-            'title' => 'required',
-            'body' => 'required',
-            'category' => 'required',
-            'tags' => 'required',
-            'excerpt' => 'required',
-            'published_at' => 'required'
-        ]);
-
-        $post->title = $request->title;
-        $post->body = $request->body;
-        $post->excerpt = $request->excerpt;
-        $post->published_at = Carbon::parse($request->published_at);
-        $post->category_id = $request->category;
-        $post->save();
-
-        $tags = [];
-        
-        foreach(request('tags') as $tag){
-            $tags[] =  Tag::find($tag) ? $tag : Tag::create([ 'name' => $tag])->id;
-        }
-
-        $post->tags()->sync($tags);
-
+        $post->update($request->all());
+        $post->syncTags(request()->get('tags'));
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');
 
     }
