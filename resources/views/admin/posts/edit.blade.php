@@ -12,7 +12,27 @@
 @endsection
 
 @section('content')
+@if($post->photos->count())
 <div class="row">
+        <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-body">
+                            <div class="row">
+                                    @foreach($post->photos as $photo)
+                                    <form action="{{ route('admin.photos.destroy', $photo) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <div class="col-md-2">
+                                            <button class="btn btn-danger btn-xs" style="position: absolute"><i class="fa fa-remove"></i></button>
+                                            <img src="{{ url($photo->url) }}" alt="" class="img-responsive">
+                                        </div> 
+                                    </form>
+                                    @endforeach
+                             </div>
+                    </div>     
+                </div>
+            </div>
+@endif
     <form action={{ route('admin.posts.update', $post)}} method="POST">
         @csrf
         @method('PUT')
@@ -31,6 +51,7 @@
                 <textarea name="body" id="editor" class="form-control" rows="10" placeholder="Detalle aquí el reporte">{{ old('body', $post->body)}}</textarea>
                         {!! $errors->first('body', '<span class="help-block">:message</span>') !!}
                    </div>
+                  
             </div>
         </div>
     </div>
@@ -49,7 +70,7 @@
                     </div>
                     <div class="form-group {{$errors->has('category') ? 'has-error' : ''}}" >
                         <label for="">Seleccione una categoría</label>
-                        <select name="category" class="form-control">
+                        <select name="category" class="form-control select2">
                             <option value="">Seleccione la categoria</option>
                             @foreach ($categories as $cat)
                             <option value="{{ $cat->id}}"
@@ -78,10 +99,12 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">Guardar</button>
                 </div>
+               
             </div>
         </div>
     </div>
 </form>
+
 </div>
 @endsection
 
@@ -101,17 +124,30 @@
     autoclose: true
   });
     CKEDITOR.replace('editor');
-    $('.select2').select2();
+    $('.select2').select2({
+        tags: true
+    });
+
+    CKEDITOR.config.height = 315;
 
     Dropzone.autoDiscover = false;
 
-    new Dropzone(".dropzone", { 
+    var myDropzone = new Dropzone(".dropzone", { 
         url: '/admin/posts/{{ $post->url }}/photos',
+        acceptedFiles: 'image/*',
+        maxFilesize: 2,
+        maxFiles: 2,
+        paramName: 'photo',
         dictDefaultMessage: 'Arrastre aquí las fotos o haga click para seleccionarlas',
         headers:{
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
         
+        });
+
+        myDropzone.on('error', function(fle, res){
+           var msg = res.errors.photo[0];
+           $('.dz-error-message:last > span').text(msg);
         });
 </script>
 @endpush

@@ -1,31 +1,44 @@
 @extends('layout')
 
 @section('content')
-	<section class="posts container">
 
+<section class="posts container">
+	
+	@if(isset($title))
+		<h2>{{ $title}}</h2>
+	@endif
 		@foreach($posts as $post)
-		<article class="post no-image">
+		<article class="post">
+	
+
 			<div class="content-post">
 				<header class="container-flex space-between">
 					<div class="date">
 					<span class="c-gray-1">{{ $post->published_at->format('M d') }}</span>
 					</div>
 					<div class="post-category">
-					<span class="category text-capitalize">{{$post->category->name}}</span>
+					<span class="category text-capitalize"><a href="{{ route('categories.show', $post->category) }}">{{$post->category->name}}</a></span>
 					</div>
 				</header>
 				<h1>{{$post->title}}</h1>
 				<div class="divider"></div>
 				<p>{{$post->excerpt}}</p>
+				@if($post->photos->count()===1)	
+					<figure><img src="{{ $post->photos->first()->url }}" alt="" class="img-responsive"></figure>
+					@elseif($post->photos->count()>1)
+					@include('posts.carousel')
+					@endif
 				<footer class="container-flex space-between">
+					
 					<div class="read-more">
-					<a href="/blog/{{ $post->url }}" class="text-uppercase c-green">Leer más</a>
+					<a href="/reportes/{{ $post->url }}" class="text-uppercase c-green">Leer más</a>
 					</div>
 					<div class="tags container-flex">
 						@foreach ($post->tags as $tag)
-						<span class="tag c-gray-1 text-capitalize cite">#{{$tag->name}}</span>
+					<span class="tag c-gris"><a href="{{ route('tags.show', $tag) }}">#{{$tag->name}}</a></span>
 						@endforeach
 					</div>
+				
 				</footer>
 			</div>
 		</article>
@@ -232,12 +245,25 @@
 
 	</section><!-- fin del div.posts.container -->
 
-	<div class="pagination">
+	{{$posts->links()}}
+	{{-- <div class="pagination">
 		<ul class="list-unstyled container-flex space-center">
 			<li><a href="#" class="pagination-active">1</a></li>
 			<li><a href="#">2</a></li>
 			<li><a href="#">3</a></li>
 		</ul>
-	</div>
+	</div> --}}
 @endsection
+
+@push('styles')
+  <link rel="stylesheet" type="text/css" href="/css/twitter-bootstrap.css">
+@endpush
+
+@push('scripts')
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script src="/js/twitter-bootstrap.js"></script>
+@endpush
 	

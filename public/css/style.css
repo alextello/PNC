@@ -49,6 +49,11 @@ header nav li a:hover {
     text-transform: capitalize;
 }
 
+.post .category a {
+    color: inherit;
+    font-size: inherit;
+}
+
 .post figure {
     margin: 0;
 }
@@ -76,6 +81,11 @@ header nav li a:hover {
     margin: 0 5px;
 }
 
+.post .tag a {
+    color: inherit;
+    font-size: inherit;
+}
+
 .post footer {
     margin-top: 45px;
     background: none;
@@ -92,6 +102,7 @@ header nav li a:hover {
 
 .masonry .gallery-image {
     display: inline-block;
+    overflow: hidden;
     width: 100%;
     margin-bottom: 20px;
     padding: 4px;

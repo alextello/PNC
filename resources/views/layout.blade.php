@@ -12,21 +12,14 @@
 	<link rel="stylesheet" href="/css/responsive.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+	@stack('styles')
 </head>
 <body>
 	<div class="preload"></div>
 	<header class="space-inter">
 		<div class="container container-flex space-between">
 			<figure class="logo"><img src="/img/logo.png" alt=""></figure>
-			<nav class="custom-wrapper" id="menu">
-				<div class="pure-menu"></div>
-				<ul class="container-flex list-unstyled">
-					<li><a href="/" class="text-uppercase">Home</a></li>
-					<li><a href="about.html" class="text-uppercase">About</a></li>
-					<li><a href="archive.html" class="text-uppercase">Archive</a></li>
-					<li><a href="contact.html" class="text-uppercase">Contact</a></li>
-				</ul>
-			</nav>
+			@include('partials.nav')
 		</div>
 		@stack('scripts')
 		
@@ -40,10 +33,10 @@
 				<figure class="logo"><img src="/img/logo.png" alt=""></figure>
 				<nav>
 					<ul class="container-flex space-center list-unstyled">
-						<li><a href="index.html" class="text-uppercase c-white">home</a></li>
-						<li><a href="about.html" class="text-uppercase c-white">about</a></li>
-						<li><a href="archive.html" class="text-uppercase c-white">archive</a></li>
-						<li><a href="contact.html" class="text-uppercase c-white">contact</a></li>
+						<li><a href=" {{ route('pages.home') }}" class="text-uppercase c-white">Inicio</a></li>
+						<li><a href=" {{ route('pages.about') }}" class="text-uppercase c-white">Acerca de</a></li>
+						<li><a href=" {{ route('pages.archive') }}" class="text-uppercase c-white">archive</a></li>
+						<li><a href=" {{ route('pages.contact') }}" class="text-uppercase c-white">Contacto</a></li>
 					</ul>
 				</nav>
 				<div class="divider-2"></div>

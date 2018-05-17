@@ -29,8 +29,7 @@ class PostsController extends Controller
             'title' => 'required'
         ]);
 
-        $post = Post::create(['title' => $request->get('title'),
-                            'url' => str_slug($request->get('title'))]);
+        $post = Post::create( $request->only('title') );
 
         return redirect()->route('admin.posts.edit', $post);
     }
@@ -55,14 +54,19 @@ class PostsController extends Controller
         ]);
 
         $post->title = $request->title;
-        $post->url = str_slug($request->title);
         $post->body = $request->body;
         $post->excerpt = $request->excerpt;
         $post->published_at = Carbon::parse($request->published_at);
         $post->category_id = $request->category;
         $post->save();
-        //tags pendientes
-        $post->tags()->sync($request->tags);
+
+        $tags = [];
+        
+        foreach(request('tags') as $tag){
+            $tags[] =  Tag::find($tag) ? $tag : Tag::create([ 'name' => $tag])->id;
+        }
+
+        $post->tags()->sync($tags);
 
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');
 

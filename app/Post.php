@@ -18,8 +18,19 @@ class Post extends Model
         return $this->belongsTo('App\Category');
     }
 
+    public function photos()
+    {
+        return $this->hasMany('App\Photo');
+    }
+
     public function tags()
     {
         return $this->belongsToMany('App\Tag');
+    }
+
+    public function setTitleAttribute($title)
+    {
+        $this->attributes['title'] = $title;
+        $this->attributes['url'] = str_slug($title);
     }
 }

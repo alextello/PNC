@@ -9,7 +9,22 @@ class PagesController extends Controller
 {
     public function home()
     {
-        $posts = Post::whereNotNull('published_at')->latest('published_at')->get();
-        return view('welcome', compact('posts'));
+        $posts = Post::whereNotNull('published_at')->latest('published_at')->paginate();
+        return view('pages.home', compact('posts'));
+    }
+
+    public function about()
+    {
+        return view('pages.about');
+    }
+
+    public function archive()
+    {
+        return view('pages.archive');
+    }
+
+    public function contact()
+    {
+        return view('pages.contact');
     }
 }
