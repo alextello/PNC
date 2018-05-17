@@ -50,4 +50,10 @@ class PostsController extends Controller
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');
 
     }
+
+    public function destroy(Post $post)
+    {
+        $post->delete();
+        return redirect()->route('admin.posts.index')->with('flash', 'Reporte Eliminado');
+    }
 }

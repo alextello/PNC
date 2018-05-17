@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use App\Post;
 use Carbon\Carbon;
 use App\Category;
@@ -19,6 +20,7 @@ class PostsTableSeeder extends Seeder
         Post::truncate();
         Category::truncate();
         Tag::truncate();
+        Storage::disk('public')->deleteDirectory('posts');
 
         $category = new Category();
         $category->name = 'Categoria 1';

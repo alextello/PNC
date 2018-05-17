@@ -13,7 +13,7 @@
             @foreach($post->photos as $photo)
 
             <div class="item {{ $loop->first ? 'active' : ''}}">
-            <img src="{{ url($photo->url) }}" alt="">
+            <img src="/storage/{{ $photo->url }}" alt="">
             </div>
 
             @endforeach

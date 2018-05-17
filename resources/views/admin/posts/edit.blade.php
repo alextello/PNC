@@ -24,7 +24,7 @@
                                         @method('DELETE')
                                         <div class="col-md-2">
                                             <button class="btn btn-danger btn-xs" style="position: absolute"><i class="fa fa-remove"></i></button>
-                                            <img src="{{ url($photo->url) }}" alt="" class="img-responsive">
+                                            <img src="/storage/{{ $photo->url }}" alt="" class="img-responsive">
                                         </div> 
                                     </form>
                                     @endforeach
