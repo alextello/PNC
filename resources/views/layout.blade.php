@@ -13,6 +13,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 	@stack('styles')
+	<link rel="shortcut icon" type="image/x-icon" href="/adminlte/img/pnc.jpg" />
 </head>
 <body>
 	<div class="preload"></div>

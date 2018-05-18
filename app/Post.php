@@ -36,10 +36,21 @@ class Post extends Model
         return $this->belongsToMany('App\Tag');
     }
 
-    public function setTitleAttribute($title)
+    public static function create(array $attributes = [])
     {
-        $this->attributes['title'] = $title;
-        $this->attributes['url'] = str_slug($title);
+        $post = static::query()->create($attributes);
+        $post->generarUrl();
+        return $post;
+    }
+
+    public function generarUrl()
+    {
+        $url = str_slug($this->title);
+        if($this->whereUrl($url)->exists()){ 
+            $url = "{$url}-{$this->id}";
+        }
+        $this->url = $url;
+        $this->save();
     }
 
     public function setCategoryIdAttribute($category)

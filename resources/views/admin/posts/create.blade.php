@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <form action={{ route('admin.posts.store')}} method="POST">
+    <form action={{ route('admin.posts.store', '#create')}} method="POST">
         @csrf
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -11,7 +11,7 @@
         <div class="modal-body">
             <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}" >
                 <label for="">Titulo del reporte</label>
-                <input type="text" class="form-control" placeholder="Ingrese aquí el titulo del reporte" id="title" name="title" required>
+                <input type="text" class="form-control" placeholder="Ingrese aquí el titulo del reporte" id="title" name="title" required autofocus>
                 {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
                 
             </div>

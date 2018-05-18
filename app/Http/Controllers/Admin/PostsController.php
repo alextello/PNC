@@ -27,10 +27,11 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required'
+            'title' => 'required|min:5'
         ]);
 
         $post = Post::create( $request->only('title') );
+      
 
         return redirect()->route('admin.posts.edit', $post);
     }
