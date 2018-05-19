@@ -46,6 +46,10 @@ class PostsController extends Controller
 
     public function update(Post $post, StorePostRequest $request)
     {
+   
+        if(Carbon::parse($request->published_at) > today()){
+            return redirect()->route('admin.posts.edit', $post)->with('error', 'La fecha no debe ser futura');
+        }
         $post->update($request->all());
         $post->syncTags(request()->get('tags'));
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');

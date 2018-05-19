@@ -53,6 +53,11 @@ class Post extends Model
         $this->save();
     }
 
+    public function isPublished()
+    {
+        return (bool) $this->published_at;
+    }
+
     public function setCategoryIdAttribute($category)
     {
         $this->attributes['category_id'] = Category::find($category) ? $category : Category::create(['name' => $category])->id;

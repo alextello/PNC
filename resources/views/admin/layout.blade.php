@@ -276,6 +276,8 @@ desired effect
     <section class="content container-fluid">
       @if (session()->has('flash'))
     <div class="alert alert-success">{{ session('flash') }}</div>
+    @elseif(session()->has('error'))
+    <div class="alert alert-danger">{{ session('error') }}</div>
       @endif
       @yield('content')
 
