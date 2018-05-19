@@ -13,6 +13,7 @@ class Post extends Model
         'excerpt',
         'published_at',
         'category_id',
+        'user_id',
     ];
 
     protected $dates = ['published_at'];
@@ -34,6 +35,11 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Tag');
+    }
+
+    public function owner()
+    {
+        return $this->belongsTo('App\User', 'user_id');
     }
 
     public static function create(array $attributes = [])

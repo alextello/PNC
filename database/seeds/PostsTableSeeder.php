@@ -22,6 +22,12 @@ class PostsTableSeeder extends Seeder
         Tag::truncate();
         Storage::disk('public')->deleteDirectory('posts');
 
+        $user = new User();
+        $user->name = 'Edwin Tello';
+        $user->email = 'alex@hotmail.com';
+        $user->password = bcrypt('admin');
+        $user->save();
+
         $category = new Category();
         $category->name = 'Categoria 1';
         $category->save();
@@ -41,6 +47,7 @@ class PostsTableSeeder extends Seeder
         $post->body = '<p>Contenido primer post</p>';
         $post->published_at = Carbon::now();
         $post->category_id =  1;
+        $post->user_id =  1;
         $post->save();
         $post->tags()->attach(Tag::create(['name' => 'etiqueta 1']));
 
@@ -51,6 +58,7 @@ class PostsTableSeeder extends Seeder
         $post->body = '<p>Contenido segundo post</p>';
         $post->published_at = Carbon::now()->subDays(1);
         $post->category_id =  2;
+        $post->user_id =  1;
         $post->save();
         $post->tags()->attach(Tag::create(['name' => 'etiqueta 2']));
 
@@ -61,13 +69,10 @@ class PostsTableSeeder extends Seeder
         $post->body = '<p>Contenido tercer post</p>';
         $post->published_at = Carbon::now()->subDays(2);
         $post->category_id =  3;
+        $post->user_id =  1;
         $post->save();
         $post->tags()->attach(Tag::create(['name' => 'etiqueta 3']));
 
-        $user = new User();
-        $user->name = 'Edwin Tello';
-        $user->email = 'alex@hotmail.com';
-        $user->password = bcrypt('admin');
-        $user->save();
+       
     }
 }
