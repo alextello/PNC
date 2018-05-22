@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Category;
 use App\User;
 use App\Tag;
+use Spatie\Permission\Models\Role;
 
 class PostsTableSeeder extends Seeder
 {
@@ -17,16 +18,22 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        Role::truncate();
         Post::truncate();
         Category::truncate();
         Tag::truncate();
         Storage::disk('public')->deleteDirectory('posts');
 
+        $adminRole = Role::create(['name' => 'Admin']);
+
         $user = new User();
         $user->name = 'Edwin Tello';
         $user->email = 'alex@hotmail.com';
+        $user->codigo = 'AF200E';
+        $user->telefono = '35202684';
         $user->password = bcrypt('admin');
         $user->save();
+        $user->assignRole($adminRole);
 
         $category = new Category();
         $category->name = 'Categoria 1';

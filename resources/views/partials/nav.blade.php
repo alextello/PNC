@@ -6,5 +6,6 @@
         <li><a href="{{ route('pages.about') }}" class="text-uppercase {{ setActiveRoute('pages.about') }}">Acerca de</a></li>
         <li><a href="{{ route('pages.archive') }}" class="text-uppercase {{ setActiveRoute('pages.archive') }}">Archivo</a></li>
         <li><a href="{{ route('pages.contact') }}" class="text-uppercase {{ setActiveRoute('pages.contact') }}">Contacto</a></li>
+        <li><a href="{{ route('login') }}" class="text-uppercase {{ setActiveRoute('auth.login') }}">Login</a></li>
     </ul>
 </nav>

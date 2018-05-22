@@ -30,17 +30,17 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="/home"><b>Admin</b>LTE</a>
+  <a href="{{ route('login')}}"><b>Policia Nacional Civil</a></b>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg">Iniciar sesión</p>
 
    <form method="POST" action="{{ route('login') }}">
                         @csrf
 
       <div class="form-group {{ $errors->has('email') ? ' is-invalid' : '' }} has-feedback">
-        <input type="email" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
+        <input class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required autofocus>
         @if ($errors->has('email'))
         <span class="invalid-feedback">
             <strong>{{ $errors->first('email') }}</strong>
@@ -67,7 +67,7 @@
         </div>
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
         </div>
         <!-- /.col -->
       </div>

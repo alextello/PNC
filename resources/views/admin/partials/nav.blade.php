@@ -20,6 +20,20 @@
             </li>
           </ul>
         </li>
+
+        <li class="treeview {{ request()->is('admin/users*') ? 'active' : ''}}" >
+            <a href="#"><i class="fa fa-users"></i> <span>Usuarios</span>
+              <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+              <li {{ request()->is('admin/users') ? 'class=active' : ''}}><a href="{{ route('admin.users.index') }}"><i class="fa fa-eye"></i>Ver usuarios</a></li>
+              <li {{ request()->is('admin/users/create') ? 'class=active' : ''}}>
+                 <a href="{{ route('admin.users.create') }}"><i class="fa fa-pencil"></i>Crear usuario</a>
+              </li>
+            </ul>
+          </li>
  </ul>
 
  @push('scripts')
