@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-offset-3 col-md-6">
+    <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-body">
                 @if($errors->any())
@@ -52,6 +52,34 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-md-6">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Roles</h3>
+            </div>
+            <div class="box-body">
+                <form action="{{ route('admin.users.roles.update', $user) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    @include('admin.roles.checkboxes')
+                <button class="btn btn-primary btn-block">Actualizar Roles</button>
+                 </form>
+            </div>
+        </div>
+        <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Permisos</h3>
+                </div>
+                <div class="box-body">
+                    <form action="{{ route('admin.users.permissions.update', $user) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        @include('admin.permissions.checkboxes')
+                    <button class="btn btn-primary btn-block">Actualizar Permisos</button>
+                     </form>
+                </div>
+            </div>
     </div>
 </div>
 

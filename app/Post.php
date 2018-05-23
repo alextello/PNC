@@ -82,6 +82,18 @@ class Post extends Model
 
         return $this->tags()->sync($tagIds);
     }
+    
+    public function scopeAllowed($query)
+    {
+        if(auth()->user()->hasPermissionTo('Ver reportes'))
+        {
+            return $query;
+        }
+        else
+        {
+             return $query->where('user_id', auth()->id());
+        }
+    }
 
     protected static function boot()
     {

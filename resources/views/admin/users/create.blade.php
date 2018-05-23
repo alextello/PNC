@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-            <div class="col-md-offset-3 col-md-6">
+        <div class=" col-md-offset-3 col-md-6">
                     <div class="box box-primary">
                         <div class="box-body">
                             @if($errors->any())
@@ -45,11 +45,19 @@
                                         <input type="password" name="password_confirmation" class="form-control" placeholder="Repita la contraseña">
                                        
                                     </div>
-                                    <button class="btn btn-primary btn-block">Actualizar</button>
+                                    <div class="form-group col-md-6">
+                                        <label for="">Roles</label>
+                                        @include('admin.roles.checkboxes')
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                         <label for="">Permisos</label>
+                                         @include('admin.permissions.checkboxes')
+                                    </div>
+                                    <button class="btn btn-primary btn-block">Crear usuario</button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div>
+             </div>
     </div>
 @endsection

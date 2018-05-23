@@ -11,6 +11,7 @@
   </ol>
 @endsection
 
+
 @section('content')
 <div class="box box-primary">
     <div class="box-header">
@@ -26,6 +27,7 @@
           <th>Nombre</th>
           <th>Codigo</th>
           <th>Telefono</th>
+          <th>Roles</th>
           <th>Acciones</th>
         </tr>
         </thead>
@@ -35,6 +37,7 @@
                 <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{$user->codigo}}</td>
+                <td>{{$user->roles->pluck('name')->implode(', ')}}</td>
                 <td>{{$user->telefono}}</td>
                 <td>
                     <a href="{{ route('admin.users.show', $user)}}" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>

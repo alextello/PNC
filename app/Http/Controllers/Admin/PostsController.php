@@ -13,7 +13,8 @@ use App\Http\Requests\StorePostRequest;
 class PostsController extends Controller
 {
     public function index(){
-        $posts = Post::all();
+        
+       $posts = Post::allowed()->get();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -43,9 +44,22 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
-        $categories = Category::all();
-        $tags = Tag::all();
-        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+        if($post->user_id == auth()->user()->id)
+        {
+            $categories = Category::all();
+            $tags = Tag::all();
+            return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+        }
+        else if(auth()->user()->hasPermissionTo('Editar reportes'))
+        {
+            $categories = Category::all();
+            $tags = Tag::all();
+            return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+        }
+        else{
+            abort(404);
+        }
+
     }
 
 
@@ -63,7 +77,14 @@ class PostsController extends Controller
 
     public function destroy(Post $post)
     {
-        $post->delete();
-        return redirect()->route('admin.posts.index')->with('flash', 'Reporte Eliminado');
+        if(auth()->user()->hasPermissionTo('Eliminar reportes'))
+        {
+            $post->delete();
+            return redirect()->route('admin.posts.index')->with('flash', 'Reporte Eliminado');
+        }
+        else
+        {
+            return back()->withError('No tiene permisos');
+        }
     }
 }

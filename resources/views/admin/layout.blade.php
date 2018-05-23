@@ -182,7 +182,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="/adminlte/img/pnc.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{auth()->user()->name}}</span>
+              <span class="hidden-xs">{{auth()->user()->name}} / {{ auth()->user()->roles->first()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -190,7 +190,7 @@ desired effect
                 <img src="/adminlte/img/pnc.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  {{auth()->user()->name}}
+                  {{auth()->user()->name}} / {{ auth()->user()->roles->first()->name }}
                 <small>Usuario desde {{ auth()->user()->created_at->format('d/m/Y') }}</small>
                 </p>
               </li>
