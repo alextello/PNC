@@ -116,7 +116,7 @@
     </div>
 </form>
 
-</div>
+
 @endsection
 
 @push('styles')

@@ -20,6 +20,7 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
+        <input type="text" id="myInput" class="form-control" placeholder="Buscar..." >
       <table id="users-table" class="table table-bordered table-striped">
         <thead>
         <tr>
@@ -31,7 +32,7 @@
           <th>Acciones</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="miTabla">
             @foreach ($users as $user)
             <tr>
                 <td>{{ $user->id }}</td>
@@ -79,6 +80,15 @@
     });
   </script>
 
-  
+<script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#miTabla tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+      </script>
 @endpush
 
