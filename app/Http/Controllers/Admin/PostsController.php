@@ -8,6 +8,7 @@ use App\Post;
 use App\Category;
 use App\Tag;
 use Carbon\Carbon;
+use App\Plantilla;
 use App\Http\Requests\StorePostRequest;
 
 class PostsController extends Controller
@@ -37,8 +38,8 @@ class PostsController extends Controller
             'user_id' => auth()->id()
 
         ]);
-      
 
+      
         return redirect()->route('admin.posts.edit', $post);
     }
 
@@ -48,13 +49,15 @@ class PostsController extends Controller
         {
             $categories = Category::all();
             $tags = Tag::all();
-            return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+            $plantillas = Plantilla::all();
+            return view('admin.posts.edit', compact('post', 'categories', 'tags', 'plantillas'));
         }
         else if(auth()->user()->hasPermissionTo('Editar reportes'))
         {
             $categories = Category::all();
+            $plantillas = Plantilla::all();
             $tags = Tag::all();
-            return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+            return view('admin.posts.edit', compact('post', 'categories', 'tags', 'plantillas'));
         }
         else{
             abort(404);

@@ -37,6 +37,17 @@
         @csrf
         @method('PUT')
     <div class="col-md-8">
+            <div class="box box-primary">
+                    <div class="box-body">
+                        <label for="plantilla">Plantilla</label>
+                            <select name="plantilla" class="form-control select2" onchange="cambio(this)">
+                                    <option value="" selected>Seleccione la plantilla</option>
+                                    @foreach ($plantillas as $pl)
+                                    <option value="{{ $pl->id}}">{{ $pl->name }}</option>
+                                    @endforeach
+                                </select>
+                    </div>
+                </div>
     <div class="box box-primary">
             <div class="box-body">
                 <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}" >
@@ -48,7 +59,7 @@
                 
                 <div class="form-group {{$errors->has('body') ? 'has-error' : ''}}" >
                         <label for="">Contenido del reporte</label>
-                <textarea name="body" id="editor" class="form-control" rows="10" placeholder="Detalle aquí el reporte">{{ old('body', $post->body)}}</textarea>
+                <textarea name="body" id="editor" class="form-control" rows="10" placeholder="Detalle aquí el reporte">{{ old('body', $post->body ? $post->body : $post->plantilla )}}</textarea>
                         {!! $errors->first('body', '<span class="help-block">:message</span>') !!}
                    </div>
                   
@@ -120,6 +131,20 @@
 <script src="/adminlte/bower_components/ckeditor/ckeditor.js"></script>
 <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
+function cambio(selectObject) {
+    var value = selectObject.value; 
+    $.ajax({
+        headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    },
+        type: "POST",
+        url: '/admin/plantilla',
+        data: { plantilla: value},
+        success: function(data) {
+        CKEDITOR.instances.editor.setData(data.body);
+        }
+    })
+};
     $('#datepicker').datepicker({
     autoclose: true
   });
@@ -149,5 +174,6 @@
            var msg = res.errors.photo[0];
            $('.dz-error-message:last > span').text(msg);
         });
+
 </script>
 @endpush

@@ -10,6 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+// use App\Plantilla;
+
+// Route::get('file', function(){
+//     $plantilla = '<p>mi plantilla</p>';
+//    $p = Plantilla::create([
+//         'name' => 'mi primer plantilla',
+//         'body' => $plantilla
+//     ]);
+//     return $p;
+// });
+
 
 Route::get('/', 'PagesController@home')->name('pages.home');
 Route::get('nosotros', 'PagesController@about')->name('pages.about');
@@ -33,6 +44,8 @@ Route::group([
         
         Route::post('posts/{post}/photos', 'PhotosController@store')->name('admin.posts.photos.store');
         Route::delete('photos/{photo}', 'PhotosController@destroy')->name('admin.photos.destroy');
+        Route::resource('plantillas', 'PlantillasController', ['as' => 'admin']);
+        Route::post('/plantilla', 'PlantillaSelectController@index');
 });
 
 Route::get('reportes/{post}', 'PostsController@show')->name('posts.show');

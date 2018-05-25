@@ -4,19 +4,32 @@
 <li {{ request()->is('admin') ? 'class=active' : ''}}><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
         {{-- <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li> --}}
         <li class="treeview {{ request()->is('admin/posts*') ? 'active' : ''}}" >
-          <a href="#"><i class="fa fa-clipboard"></i> <span>Reportes</span>
+          <a href="#"><i class="fa fa-folder"></i> <span>Eventos</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li {{ request()->is('admin/posts') ? 'class=active' : ''}}><a href="{{ route('admin.posts.index') }}"><i class="fa fa-eye"></i>Ver reportes</a></li>
+            <li {{ request()->is('admin/posts') ? 'class=active' : ''}}><a href="{{ route('admin.posts.index') }}"><i class="fa fa-eye"></i>Ver eventos</a></li>
             <li>
               @if(request()->is('admin/posts/*'))
-               <a href="{{ route('admin.posts.index', '#create') }}"><i class="fa fa-pencil"></i>Crear reporte</a>
+               <a href="{{ route('admin.posts.index', '#create') }}"><i class="fa fa-pencil"></i>Crear evento</a>
               @else
-              <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Crear reporte</a>
+              <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Crear evento</a>
               @endif
+            </li>
+          </ul>
+        </li>
+        <li class="treeview {{ request()->is('admin/plantillas*') ? 'active' : ''}}" >
+          <a href="#"><i class="fa fa-align-left"></i> <span>Plantillas</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+          </a>
+          <ul class="treeview-menu">
+            <li {{ request()->is('admin/plantillas') ? 'class=active' : ''}}><a href="{{ route('admin.plantillas.index') }}"><i class="fa fa-eye"></i>Ver plantillas</a></li>
+            <li {{ request()->is('admin/plantillas/create') ? 'class=active' : ''}}>
+               <a href="{{ route('admin.plantillas.create') }}"><i class="fa fa-pencil"></i>Crear plantilla</a>
             </li>
           </ul>
         </li>

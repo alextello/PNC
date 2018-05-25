@@ -11,9 +11,8 @@
         <div class="modal-body">
             <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}" >
                 <label for="">Titulo del reporte</label>
-                <input type="text" class="form-control" placeholder="Ingrese aquí el titulo del reporte" id="title" name="title" required autofocus>
+                <input type="text" class="form-control" placeholder="Ingrese aquí el titulo del reporte" id="title" name="title"  autofocus>
                 {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
-                
             </div>
         </div>
         <div class="modal-footer">

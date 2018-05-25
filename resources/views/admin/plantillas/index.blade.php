@@ -3,20 +3,19 @@
 @section('header')
 <h1>
    TABLA
-    <small>USUARIOS PNC</small>
+    <small>PLANTILLAS PNC</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="{{ route('dashboard')}}"><i class="fa fa-home"></i> Inicio </a></li>
-    <li class="active"><a href="{{ route('admin.users.index')}}">Usuarios</a></li>
+    <li class="active"><a href="{{ route('admin.plantillas.index')}}">Plantillas</a></li>
   </ol>
 @endsection
-
 
 @section('content')
 <div class="box box-primary">
     <div class="box-header">
       <h3 class="box-title">lISTADO DE USUARIOS</h3>
-      <a href="{{ route('admin.users.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Crear Usuario </a>
+      <a href="{{ route('admin.plantillas.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Crear Plantilla </a>
     </div>
     <!-- /.box-header -->
     <div class="box-body">
@@ -25,27 +24,21 @@
         <tr>
           <th>ID</th>
           <th>Nombre</th>
-          <th>Codigo</th>
-          <th>Telefono</th>
-          <th>Roles</th>
           <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
-            @foreach ($users as $user)
+            @foreach ($blades as $bl)
             <tr>
-                <td>{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{$user->codigo}}</td>
-                <td>{{$user->telefono}}</td>
-                <td>{{$user->roles->pluck('name')->implode(', ')}}</td>
+                <td>{{ $bl->id }}</td>
+                <td>{{ $bl->name }}</td>
                 <td>
-                    <a href="{{ route('admin.users.show', $user)}}" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>
-                    <a href="{{ route('admin.users.edit', $user)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
-                     <form action="{{ route('admin.users.destroy', $user) }}" method="user" style="display: inline">
+                    <a href="{{ route('admin.plantillas.show', $bl)}}" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>
+                    <a href="{{ route('admin.plantillas.edit', $bl)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
+                     <form action="{{ route('admin.plantillas.destroy', $bl) }}" method="POST" style="display: inline">
                        @csrf
                        @method('DELETE')
-                       <button class="btn btn-xs btn-danger" onclick="return confirm('¿Está seguro de querer eliminar este usuario?')"><i class="fa fa-times"></i></button>
+                       <button class="btn btn-xs btn-danger" onclick="return confirm('¿Está seguro de querer eliminar esta plantilla?')"><i class="fa fa-times"></i></button>
                      </form>
                 </td>
             </tr>
@@ -68,7 +61,7 @@
 
 <script>
     $(function () {
-      $('#users-table').DataTable({
+      $('#posts-table').DataTable({
         'paging'      : true,
         'lengthChange': false,
         'searching'   : false,
@@ -81,4 +74,3 @@
 
   
 @endpush
-

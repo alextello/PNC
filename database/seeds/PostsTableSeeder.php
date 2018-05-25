@@ -29,6 +29,7 @@ class PostsTableSeeder extends Seeder
         $adminRole = Role::create(['name' => 'Administrador']);
         $escritorRole = Role::create(['name' => 'Escritor']);
 
+        ////permisos de usuarios
         $p = Permission::create(['name' => 'Ver Usuario']);
         $adminRole->givePermissionTo($p);
         $p = Permission::create(['name' => 'Editar Usuario']);
@@ -37,8 +38,8 @@ class PostsTableSeeder extends Seeder
         $adminRole->givePermissionTo($p);
         $p = Permission::create(['name' => 'Eliminar Usuario']);
         $adminRole->givePermissionTo($p);
-        /////////////
 
+        /////////////permisos de eventos
         $p = Permission::create(['name' => 'Ver reportes']);
         $adminRole->givePermissionTo($p);
         $p = Permission::create(['name' => 'Editar reportes']);
@@ -48,6 +49,20 @@ class PostsTableSeeder extends Seeder
         $escritorRole->givePermissionTo($p);
         $p = Permission::create(['name' => 'Eliminar reportes']);
         $adminRole->givePermissionTo($p);
+
+        /////permisos de plantillas
+        $p = Permission::create(['name' => 'Ver plantilla']);
+        $adminRole->givePermissionTo($p);
+        $escritorRole->givePermissionTo($p);
+        $p = Permission::create(['name' => 'Editar plantilla']);
+        $adminRole->givePermissionTo($p);
+        $escritorRole->givePermissionTo($p);
+        $p = Permission::create(['name' => 'Crear plantilla']);
+        $adminRole->givePermissionTo($p);
+        $escritorRole->givePermissionTo($p);
+        $p = Permission::create(['name' => 'Eliminar plantilla']);
+        $adminRole->givePermissionTo($p);
+        $escritorRole->givePermissionTo($p);
         
         
 
