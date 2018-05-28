@@ -26,8 +26,8 @@ class PostsTableSeeder extends Seeder
         Tag::truncate();
         Storage::disk('public')->deleteDirectory('posts');
 
-        $adminRole = Role::create(['name' => 'Administrador']);
-        $escritorRole = Role::create(['name' => 'Escritor']);
+        $adminRole = Role::create(['name' => 'Administrador', 'display_name' => 'Admin']);
+        $escritorRole = Role::create(['name' => 'Escritor', 'display_name' => 'Escritor']);
 
         ////permisos de usuarios
         $p = Permission::create(['name' => 'Ver Usuario']);
@@ -49,6 +49,7 @@ class PostsTableSeeder extends Seeder
         $escritorRole->givePermissionTo($p);
         $p = Permission::create(['name' => 'Eliminar reportes']);
         $adminRole->givePermissionTo($p);
+        
 
         /////permisos de plantillas
         $p = Permission::create(['name' => 'Ver plantilla']);

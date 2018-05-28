@@ -6,15 +6,7 @@
     <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-body">
-                @if($errors->any())
-                    <ul class="list-group">
-                        @foreach ($errors->all() as $error)
-                            <li class="list-group-item list-group-item-danger">
-                                {{$error}}
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
+                    @include('admin.partials.error-messages')
                 <div class="box-header with-border">
                     <h3>Datos Personales</h3>
                 </div>
@@ -59,12 +51,20 @@
                 <h3 class="box-title">Roles</h3>
             </div>
             <div class="box-body">
+                @role('Administrador')
                 <form action="{{ route('admin.users.roles.update', $user) }}" method="POST">
                     @csrf
                     @method('PUT')
                     @include('admin.roles.checkboxes')
                 <button class="btn btn-primary btn-block">Actualizar Roles</button>
                  </form>
+                 @else
+                 <ul class="list-group">
+                     @foreach ($user->roles as $role)
+                        <li class="list-group-item">{{$role->name}}</li>
+                     @endforeach
+                 </ul>
+                 @endrole
             </div>
         </div>
         <div class="box box-primary">
@@ -72,12 +72,31 @@
                     <h3 class="box-title">Permisos</h3>
                 </div>
                 <div class="box-body">
+                    @role('Administrador')
                     <form action="{{ route('admin.users.permissions.update', $user) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        @include('admin.permissions.checkboxes')
+                        @include('admin.permissions.checkboxes', ['model' => $user])
                     <button class="btn btn-primary btn-block">Actualizar Permisos</button>
                      </form>
+                     @else
+                     <ul class="list-group">
+                         @php
+                         $pr = $user->getAllPermissions()->pluck('name');
+                         @endphp
+                         @foreach($pr as $p)
+                         <li class="list-group-item">
+                            {{$p}}
+                        </li>
+                             @endforeach
+                     {{-- <li class="list-group-item">{{ $user->getAllPermissions()->pluck('name')->implode(', ') }}</li> --}}
+                         {{-- @forelse ($user->permissions as $perm)
+                            <li class="list-group-item">{{$perm->name}}</li>
+                            @empty
+                            <li class="list-group-item">No tiene permisos adicionales</li>
+                         @endforelse --}}
+                     </ul>
+                     @endrole
                 </div>
             </div>
     </div>

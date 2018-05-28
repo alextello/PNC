@@ -5,15 +5,7 @@
         <div class=" col-md-offset-3 col-md-6">
                     <div class="box box-primary">
                         <div class="box-body">
-                            @if($errors->any())
-                                <ul class="list-group">
-                                    @foreach ($errors->all() as $error)
-                                        <li class="list-group-item list-group-item-danger">
-                                            {{$error}}
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            @endif
+                                @include('admin.partials.error-messages')
                             <div class="box-header with-border">
                                 <h3>Insertar datos</h3>
                             </div>
@@ -51,7 +43,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                          <label for="">Permisos</label>
-                                         @include('admin.permissions.checkboxes')
+                                         @include('admin.permissions.checkboxes', ['model' => $user])
                                     </div>
                                     <button class="btn btn-primary btn-block">Crear usuario</button>
                                 </form>
