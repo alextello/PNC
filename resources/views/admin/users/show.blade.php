@@ -36,7 +36,7 @@
                         <a href="{{ route('posts.show', $post) }}" target="_blank">
                         <strong>{{ $post->title }}</strong>
                         </a><br>
-                        <small class="text-muted">Publicado el {{$post->published_at->format('d/M/Y')}}</small>
+                        <small class="text-muted">Publicado el {{ optional($post->published_at)->format('d/M/Y')}}</small>
                         <p class="text-muted"> {{$post->excerpt}} </p>
                         @unless ($loop->last)
                         <hr>

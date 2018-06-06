@@ -47,16 +47,40 @@
               </li>
             </ul>
           </li>
+
+          <li class="treeview {{ request()->is('admin/estadisticas*') ? 'active' : ''}}" >
+            <a href="#"><i class="fa fa-pie-chart"></i> <span>Estadisticas</span>
+              <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+              <li {{ request()->is('admin/estadisticas/tag') ? 'class=active' : ''}}>
+                <a href="{{ route('admin.estadisticas.tag') }}"><i class="fa fa-tags"></i>Ver por etiquetas</a>
+              </li>
+              <li {{ request()->is('admin/estadisticas/total') ? 'class=active' : ''}}>
+                 <a href="{{ route('admin.estadisticas.total') }}"><i class="fa fa-tag"></i>Ver por totalegoria</a>
+              </li>
+              <li {{ request()->is('admin/estadisticas/auth') ? 'class=active' : ''}}>
+                 <a href="{{ route('admin.estadisticas.auth') }}"><i class="fa fa-user"></i>Ver por autor</a>
+              </li>
+            </ul>
+          </li>
  </ul>
 
  @push('scripts')
  <script>
+
     if(window.location.hash === '#create')
     {
       $('#myModal').modal('show');
       $('#title').focus();
     }
-   
+
+    // if(window.localtion.hash === '#error')
+    // {
+    //   $('#myModal').modal('hide');
+    // }   
        $('#myModal').on('hide.bs.modal', function(){
          window.location.hash = '#';
        });

@@ -2,7 +2,7 @@
 <div class="checkbox">
     <label for="">
         <input type="checkbox" name="permissions[]" value="{{$id}}" 
-        {{ $model->permissions->contains($id) || collect(old('permissions'))->contains($name) ? 'checked' : '' }}>
+        {{ $model->getAllPermissions()->contains($id) || collect(old('permissions'))->contains($name) ? 'checked' : '' }}>
         <p>{{ $name }}</p>
     </label>
 </div>

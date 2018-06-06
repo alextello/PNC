@@ -158,22 +158,35 @@ function cambio(selectObject) {
     Dropzone.autoDiscover = false;
 
     var myDropzone = new Dropzone(".dropzone", { 
+        addRemoveLinks: true,
+        dictRemoveFile: 'Eliminar',
         url: '/admin/posts/{{ $post->url }}/photos',
         acceptedFiles: 'image/*',
         maxFilesize: 2,
         maxFiles: 2,
         paramName: 'photo',
         dictDefaultMessage: 'Arrastre aquí las fotos o haga click para seleccionarlas',
+        removedFile: function(file){
+    //         $.ajax({
+    //     type: 'POST',
+    //     headers: '{{ csrf_token() }}',
+    //     url: '/admin/photos/'+file
+    // });
+        console.log(file.value);
+        },
         headers:{
             'X-CSRF-TOKEN': '{{ csrf_token() }}'
         }
         
         });
 
+          
+
         myDropzone.on('error', function(fle, res){
            var msg = res.errors.photo[0];
            $('.dz-error-message:last > span').text(msg);
         });
 
+       
 </script>
 @endpush

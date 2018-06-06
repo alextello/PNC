@@ -182,7 +182,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="/adminlte/img/pnc.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{auth()->user()->name}} / {{ auth()->user()->roles->first()->name }}</span>
+              <span class="hidden-xs">{{ auth()->user()->name}} / {{ optional(auth()->user()->roles->first())->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -190,7 +190,7 @@ desired effect
                 <img src="/adminlte/img/pnc.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  {{auth()->user()->name}} / {{ auth()->user()->roles->first()->name }}
+                  {{auth()->user()->name}} / {{ optional(auth()->user()->roles->first())->name }}
                 <small>Usuario desde {{ auth()->user()->created_at->format('d/m/Y') }}</small>
                 </p>
               </li>
@@ -263,9 +263,11 @@ desired effect
 
     <!-- Main content -->
     <section class="content container-fluid">
-      @if (session()->has('flash'))
-    <div class="alert alert-success">{{ session('flash') }}</div>
-    @elseif(session()->has('error'))
+      @if (session()->has('flash') && isset($post))
+      <div class="alert alert-success">{{ session('flash') }} <a href="{{ url('reportes/'.$post->url) }}"><h4>Ir al reporte</h4></a></div>
+      @elseif(session()->has('flash'))
+      <div class="alert alert-success">{{ session('flash') }}</div>
+      @elseif(session()->has('error'))
     <div class="alert alert-danger">{{ session('error') }}</div>
       @endif
       @yield('content')

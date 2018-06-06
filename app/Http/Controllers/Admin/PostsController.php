@@ -28,19 +28,26 @@ class PostsController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required|min:5'
-        ]);
+        if(auth()->user()->hasPermissionTo('Crear reportes'))
+        {
 
-       // $post = Post::create( $request->only('title') );
-        $post = Post::create([
-            'title' => $request->get('title'),
-            'user_id' => auth()->id()
-
-        ]);
-
-      
-        return redirect()->route('admin.posts.edit', $post);
+            $this->validate($request, [
+                'title' => 'required|min:5'
+            ]);
+    
+           // $post = Post::create( $request->only('title') );
+            $post = Post::create([
+                'title' => $request->get('title'),
+                'user_id' => auth()->id()
+    
+            ]);
+    
+            return redirect()->route('admin.posts.edit', $post);
+        }
+        else
+        {
+            return redirect()->route('dashboard', '#error')->withError('No tiene permiso');
+        }
     }
 
     public function edit(Post $post)

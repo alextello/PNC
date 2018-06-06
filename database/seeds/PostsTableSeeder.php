@@ -64,6 +64,23 @@ class PostsTableSeeder extends Seeder
         $p = Permission::create(['name' => 'Eliminar plantilla']);
         $adminRole->givePermissionTo($p);
         $escritorRole->givePermissionTo($p);
+
+        //permisos para roles
+        $p = Permission::create(['name' => 'Ver role']);
+        $adminRole->givePermissionTo($p);
+        $p = Permission::create(['name' => 'Editar role']);
+        $adminRole->givePermissionTo($p);
+        $p = Permission::create(['name' => 'Crear role']);
+        $adminRole->givePermissionTo($p);
+        $p = Permission::create(['name' => 'Eliminar role']);
+        $adminRole->givePermissionTo($p);
+
+        //permiso para permisos
+        $p = Permission::create(['name' => 'Ver permisos']);
+        $adminRole->givePermissionTo($p);
+        $p = Permission::create(['name' => 'Editar permisos']);
+        $adminRole->givePermissionTo($p);
+
         
         
 

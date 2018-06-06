@@ -39,14 +39,19 @@ Route::group([
         Route::get('/', 'AdminController@index')->name('dashboard');
         Route::resource('posts', 'PostsController', ['except' => 'show', 'as' => 'admin']);
         Route::resource('users', 'UsersController', ['as' => 'admin']);
-        Route::resource('roles', 'RolesController', ['as' => 'admin']);
+        Route::resource('roles', 'RolesController', ['except' => 'show', 'as' => 'admin']);
+        Route::resource('permissions', 'PermissionsController', ['only' => ['index', 'edit', 'update'], 'as' => 'admin']);
         Route::middleware('role:Administrador')->put('users/{user}/roles', 'UsersRolesController@update')->name('admin.users.roles.update');
         Route::middleware('role:Administrador')->put('users/{user}/permissions', 'UsersPermissionsController@update')->name('admin.users.permissions.update');
-        
+    
         Route::post('posts/{post}/photos', 'PhotosController@store')->name('admin.posts.photos.store');
         Route::delete('photos/{photo}', 'PhotosController@destroy')->name('admin.photos.destroy');
         Route::resource('plantillas', 'PlantillasController', ['as' => 'admin']);
         Route::post('/plantilla', 'PlantillaSelectController@index');
+        Route::get('/estadisticas/tag', 'EstadisticasController@tag')->name('admin.estadisticas.tag');
+        Route::get('/estadisticas/total', 'EstadisticasController@total')->name('admin.estadisticas.total');
+        Route::get('/estadisticas/auth', 'EstadisticasController@auth')->name('admin.estadisticas.auth');
+        Route::post('/estadisticas/fecha', 'EstadisticasController@fecha')->name('admin.estadisticas.fecha');
 });
 
 Route::get('reportes/{post}', 'PostsController@show')->name('posts.show');
