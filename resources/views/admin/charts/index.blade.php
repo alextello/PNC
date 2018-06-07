@@ -36,6 +36,7 @@
        inicio();
 });
 
+
 function inicio(dataF){
     $.ajax({
 		url: "/admin/estadisticas/total",
