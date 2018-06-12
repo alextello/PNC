@@ -19,7 +19,17 @@
         </div>
         </div>
     </form>
-<canvas id="mycanvas" width="1300" height="600"></canvas>
+    <br>
+    <div class="col-md-6 form-group">
+        <div class="btn-group" role="group">
+            <a href="{{ route('admin.estadisticas.tabla') }}" target="_blank" class="btn btn-primary">Ver tabla</a>
+        </div>
+    </div>
+
+    <label class="col-lg-10" id="fechas" for="">Estadistica historica a partir del 2019</label>
+    <div id='canvas'>
+        <canvas id="mycanvas" width="1300" height="600"></canvas>
+    </div>
 @endsection
 
 @push('styles')
@@ -31,19 +41,25 @@
 <script src="/adminlte/bower_components/moment/min/moment.min.js"></script>
 <script src="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script>
-    $('#reservation').daterangepicker()
+    $('#reservation').daterangepicker({
+        'startDate': '01/01/2019',
+        'endDate': '02/01/2019',
+        locale: {
+      format: 'D/M/YYYY'
+    }
+    });
    $(document).ready(function(){
-       inicio();
+     inicio();
 });
 
 
 
 function inicio(dataF){
     $.ajax({
-		url: "/admin/estadisticas/total",
+        url: (window.location.pathname == '/admin/estadisticas/tag') ? '/admin/estadisticas/total' : '/admin/estadisticas/totalcat',
 		method: "GET",
+        dataType: 'json',
 		success: function(data) {
-			console.log(data);
 			var player = [];
 			var score = [];
             var coloR = [];
@@ -56,17 +72,19 @@ function inicio(dataF){
             };
             if( typeof dataF === 'undefined' )
             {
+                console.log('No entra F');
 			for(var i in data) {
-				player.push("Etiqueta " + data[i].name);
+				player.push("Etiqueta: " + data[i].name);
 				score.push(data[i].cantidad);
                 coloR.push(dynamicColors());
 			}
                 
             }
             else{
-                for(var i in data) {
-				player.push("Etiqueta " + data[i].name);
-				score.push(data[i].cantidad);
+                console.log('si F');
+                for(var i in dataF.tags) {
+				player.push("Etiqueta: " + dataF.tags[i].name);
+				score.push(dataF.tags[i].cantidad);
                 coloR.push(dynamicColors());
 			}
             }
@@ -125,25 +143,30 @@ $( "#searchForm" ).submit(function( event ) {
  
  // Stop form from submitting normally
  event.preventDefault();
-
+ $( "#mycanvas" ).remove();
+ var txt1 = "<canvas id='mycanvas' width='1300' height='600'></canvas>";  
+ $("#canvas").append(txt1); 
  // Get some values from elements on the page:
  var $form = $( this ),
-   term = $form.find( "input[name='reservation']" ).val(),
-   url = $form.attr( "action" );
+   term = $form.find( "input[name='reservation']" ).val();
+  // url = $form.attr( "action" );
 
  // Send the data using post
- var posting = $.post( url, 
+ console.log(window.location.pathname);
+ var posting = $.post( window.location.path, 
     {
     fecha: term,
     "_token": "{{ csrf_token() }}", 
     });
+ 
+ 
 
  // Put the results in a div
  posting.done(function( dataF ) {
-     console.log(dataF);
+     var date = $("#reservation").val().split("-")
+     $("#fechas").text('Estadistica del ' + date[0] + 'al ' + date[1] );
      inicio(dataF);
-//    var content = $( data ).find( "#content" );
-//    $( "#result" ).empty().append( content );
+
  });
 });
 

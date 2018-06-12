@@ -58,8 +58,8 @@
               <li {{ request()->is('admin/estadisticas/tag') ? 'class=active' : ''}}>
                 <a href="{{ route('admin.estadisticas.tag') }}"><i class="fa fa-tags"></i>Ver por etiquetas</a>
               </li>
-              <li {{ request()->is('admin/estadisticas/total') ? 'class=active' : ''}}>
-                 <a href="{{ route('admin.estadisticas.total') }}"><i class="fa fa-tag"></i>Ver por totalegoria</a>
+              <li {{ request()->is('admin/estadisticas/categoria') ? 'class=active' : ''}}>
+                 <a href="{{ route('admin.estadisticas.categoria') }}" ><i class="fa fa-tag"></i>Ver por categorias</a>
               </li>
               <li {{ request()->is('admin/estadisticas/auth') ? 'class=active' : ''}}>
                  <a href="{{ route('admin.estadisticas.auth') }}"><i class="fa fa-user"></i>Ver por autor</a>
@@ -89,5 +89,9 @@
          window.location.hash = '#create';
          $('#title').focus();
        });
+   </script>
+
+   <script>
+ 
    </script>
  @endpush
