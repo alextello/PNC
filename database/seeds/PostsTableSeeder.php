@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Category;
 use App\User;
 use App\Tag;
+use App\Subcategory;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -23,6 +24,7 @@ class PostsTableSeeder extends Seeder
         Role::truncate();
         Post::truncate();
         Category::truncate();
+        Subcategory::truncate();
         Tag::truncate();
         Storage::disk('public')->deleteDirectory('posts');
 
@@ -110,9 +112,17 @@ class PostsTableSeeder extends Seeder
         $category->name = 'Categoria 2';
         $category->save();
 
-        $category = new Category();
-        $category->name = 'Categoria 3';
-        $category->save();
+
+        $subcategory = new Subcategory();
+        $subcategory->name = 'Hechos contra la propiedad';
+        $subcategory->category_id = '1';
+        $subcategory->save();
+
+
+        $subcategory = new Subcategory();
+        $subcategory->name = 'Hechos contra la propiedad';
+        $subcategory->category_id = '2';
+        $subcategory->save();
 
         $post = new Post();
         $post->title = 'Primer post';
@@ -121,6 +131,7 @@ class PostsTableSeeder extends Seeder
         $post->body = '<p>Contenido primer post</p>';
         $post->published_at = Carbon::now();
         $post->category_id =  1;
+        $post->subcategory_id =  1;
         $post->user_id =  1;
         $post->save();
         $post->tags()->attach(Tag::create(['name' => 'etiqueta 1']));
@@ -132,6 +143,7 @@ class PostsTableSeeder extends Seeder
         $post->body = '<p>Contenido segundo post</p>';
         $post->published_at = Carbon::now()->subDays(1);
         $post->category_id =  2;
+        $post->subcategory_id =  1;
         $post->user_id =  2;
         $post->save();
         $post->tags()->attach(Tag::create(['name' => 'etiqueta 2']));
@@ -142,7 +154,8 @@ class PostsTableSeeder extends Seeder
         $post->excerpt = 'Extracto tercer post';
         $post->body = '<p>Contenido tercer post</p>';
         $post->published_at = Carbon::now()->subDays(2);
-        $post->category_id =  3;
+        $post->category_id =  1;
+        $post->subcategory_id =  1;
         $post->user_id =  2;
         $post->save();
         $post->tags()->attach(Tag::create(['name' => 'etiqueta 3']));

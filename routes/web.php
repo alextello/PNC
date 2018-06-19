@@ -10,15 +10,13 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// use App\Plantilla;
+// use App\Post;
 
-// Route::get('file', function(){
-//     $plantilla = '<p>mi plantilla</p>';
-//    $p = Plantilla::create([
-//         'name' => 'mi primer plantilla',
-//         'body' => $plantilla
-//     ]);
-//     return $p;
+// Route::get('prueba', function(){
+//    $tag = App\Tag::find(2);
+//    return $tag->posts()
+//                 ->where('category_id', 2)
+//                 ->where('subcategory_id', 1)->get();
 // });
 
 
@@ -52,6 +50,7 @@ Route::group([
         Route::get('/estadisticas/total', 'EstadisticasController@total')->name('admin.estadisticas.total');
         Route::get('/estadisticas/auth', 'EstadisticasController@auth')->name('admin.estadisticas.auth');
         Route::post('/estadisticas/fecha', 'EstadisticasController@fecha')->name('admin.estadisticas.fecha');
+        Route::get('/Subcategory/{id}', 'SubcategoryController@subs')->name('admin.subcategorias.subs');
 });
 
 Route::get('reportes/{post}', 'PostsController@show')->name('posts.show');
