@@ -157,6 +157,7 @@ function cambio(selectObject) {
 
     Dropzone.autoDiscover = false;
 
+
     var myDropzone = new Dropzone(".dropzone", { 
         addRemoveLinks: true,
         dictRemoveFile: 'Eliminar',
