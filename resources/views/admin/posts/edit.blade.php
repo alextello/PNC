@@ -81,7 +81,7 @@
                     </div>
                     <div class="form-group {{$errors->has('category_id') ? 'has-error' : ''}}" >
                         <label for="">Seleccione una categoría</label>
-                        <select name="category_id" class="form-control select2">
+                        <select name="category_id" id="category_id" class="form-control select2">
                             <option value="">Seleccione la categoria</option>
                             @foreach ($categories as $cat)
                             <option value="{{ $cat->id}}"
@@ -90,6 +90,17 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="form-group {{$errors->has('subcategory_id') ? 'has-error' : ''}}" >
+                            <label for="">Seleccione una subcategoría</label>
+                            <select name="subcategory_id" id="subcategory_id" class="form-control select2">
+                                <option value="">Seleccione la subcategoria</option>
+                                {{-- @foreach ($categories as $cat)
+                                <option value="{{ $cat->id}}"
+                                    {{ old('subcategory_id', $post->subcategory_id) == $cat->id ? 'selected' : '' }}
+                                    >{{ $cat->name }}</option>
+                                @endforeach --}}
+                            </select>
+                        </div>
                     <div class="form-group {{$errors->has('tags') ? 'has-error' : ''}}" >
                         <label for="">Etiquetas</label>
                             <select name="tags[]" class="form-control select2" multiple="multiple" data-placeholder="Elija las etiquetas"
@@ -150,7 +161,10 @@ function cambio(selectObject) {
   });
     CKEDITOR.replace('editor');
     $('.select2').select2({
-        tags: true
+        tags: true,
+        createTag: function(params) {
+                return undefined;
+           }
     });
 
     CKEDITOR.config.height = 315;
@@ -190,4 +204,30 @@ function cambio(selectObject) {
 
        
 </script>
+
+<script>
+    $(document).ready(function(){
+        $('#category_id').change(function() {
+            console.log('cambio');
+        $('#subcategy_id').empty();
+        var id = $('#category_id').val();
+         $('#subcategory_id').html('<option value="">Seleccione subcategoria</option>');
+        var url = '/admin/Subcategory/'+id;
+      $.ajax({
+          url: url,
+          type: "GET",
+          dataType: "json",
+          success:function(data) {
+              $.each(data, function(key, value) {
+                  $('#subcategory_id').append('<option value="'+value.id+'">'+value.name+'</option>');
+              });
+    
+          },
+          error:function(result){
+              console.log('error');
+          }
+      });
+        });
+    });
+  </script>
 @endpush
