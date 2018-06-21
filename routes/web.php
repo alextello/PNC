@@ -55,12 +55,10 @@ Route::group([
         Route::post('/estadisticas/categoria', 'EstadisticasController@fechacat')->name('admin.estadisticas.fechacat');
 
         Route::get('/estadisticas/auth', 'EstadisticasController@auth')->name('admin.estadisticas.auth');
-<<<<<<< HEAD
         Route::get('/estadisticas/tabla', 'EstadisticasController@tabla')->name('admin.estadisticas.tabla');
-=======
         Route::post('/estadisticas/fecha', 'EstadisticasController@fecha')->name('admin.estadisticas.fecha');
         Route::get('/Subcategory/{id}', 'SubcategoryController@subs')->name('admin.subcategorias.subs');
->>>>>>> 6e6157c40783b20e323bca72fed54a6649bf93ae
+
 });
 
 Route::get('reportes/{post}', 'PostsController@show')->name('posts.show');

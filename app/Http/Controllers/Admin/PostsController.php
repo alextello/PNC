@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Tag;
 use App\Post;
 use App\Category;
-use App\Tag;
-use Carbon\Carbon;
 use App\Plantilla;
+use Carbon\Carbon;
+use App\Subcategory;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 
 class PostsController extends Controller
@@ -52,20 +53,14 @@ class PostsController extends Controller
 
     public function edit(Post $post)
     {
-        if($post->user_id == auth()->user()->id)
+        if($post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
         {
-            $categories = Category::all();
+            $categories = Category::with('subcategories')->get();
             $tags = Tag::all();
             $plantillas = Plantilla::all();
             return view('admin.posts.edit', compact('post', 'categories', 'tags', 'plantillas'));
         }
-        else if(auth()->user()->hasPermissionTo('Editar reportes'))
-        {
-            $categories = Category::all();
-            $plantillas = Plantilla::all();
-            $tags = Tag::all();
-            return view('admin.posts.edit', compact('post', 'categories', 'tags', 'plantillas'));
-        }
+       
         else{
             abort(404);
         }
@@ -75,10 +70,11 @@ class PostsController extends Controller
 
     public function update(Post $post, StorePostRequest $request)
     {
-   
+ 
         if(Carbon::parse($request->published_at) > today()){
             return redirect()->route('admin.posts.edit', $post)->with('error', 'La fecha no debe ser futura');
         }
+        $request->merge(['time' => date("H:i", strtotime($request->time))]);
         $post->update($request->all());
         $post->syncTags(request()->get('tags'));
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');

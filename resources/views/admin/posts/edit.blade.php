@@ -79,6 +79,21 @@
                             </div>
                             <!-- /.input group -->
                     </div>
+                    <div class="bootstrap-timepicker">
+                        <div class="form-group {{$errors->has('time') ? 'has-error' : ''}}">
+                          <label>Hora del suceso:</label>
+        
+                          <div class="input-group">
+                            <input type="text" name="time" class="form-control timepicker" value="{{ old('time', $post->time ?  date("g:i a", strtotime($post->time)): '') }}">
+        
+                            <div class="input-group-addon">
+                              <i class="fa fa-clock-o"></i>
+                            </div>
+                          </div>
+                          <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                      </div>
                     <div class="form-group {{$errors->has('category_id') ? 'has-error' : ''}}" >
                         <label for="">Seleccione una categoría</label>
                         <select name="category_id" id="category_id" class="form-control select2">
@@ -94,11 +109,17 @@
                             <label for="">Seleccione una subcategoría</label>
                             <select name="subcategory_id" id="subcategory_id" class="form-control select2">
                                 <option value="">Seleccione la subcategoria</option>
-                                {{-- @foreach ($categories as $cat)
-                                <option value="{{ $cat->id}}"
-                                    {{ old('subcategory_id', $post->subcategory_id) == $cat->id ? 'selected' : '' }}
-                                    >{{ $cat->name }}</option>
-                                @endforeach --}}
+                                @if(isset($post->subcategory_id))
+                                @foreach ($categories as $category)
+                                @if($category->id == $post->category_id)
+                                @foreach ($category->subcategories as $sub)
+                                <option value="{{ $sub->id}}"
+                                    {{ old('subcategory_id', $post->subcategory_id) == $sub->id ? 'selected' : '' }}
+                                    >{{ $sub->name }}</option>
+                                @endforeach
+                                @endif
+                                @endforeach
+                                @endif
                             </select>
                         </div>
                     <div class="form-group {{$errors->has('tags') ? 'has-error' : ''}}" >
@@ -134,12 +155,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.css">
 <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css">
+<link rel="stylesheet" href="/adminlte/plugins/timepicker/bootstrap-timepicker.min.css">
 @endpush
 
 @push('scripts')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.js"></script>
 <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 <script src="/adminlte/bower_components/ckeditor/ckeditor.js"></script>
+<script src="/adminlte/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
 <script>
 function cambio(selectObject) {
@@ -229,5 +252,13 @@ function cambio(selectObject) {
       });
         });
     });
+  </script>
+
+  <script>
+   $('.timepicker').timepicker({
+      showInputs: false,
+      minuteStep: 5,
+      defaultTime: 'current'
+    })
   </script>
 @endpush

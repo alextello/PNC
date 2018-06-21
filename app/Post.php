@@ -14,7 +14,8 @@ class Post extends Model
         'published_at',
         'category_id',
         'user_id',
-        'subcategory_id'
+        'subcategory_id',
+        'time',
     ];
 
     protected $dates = ['published_at'];

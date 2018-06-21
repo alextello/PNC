@@ -29,7 +29,9 @@ class StorePostRequest extends FormRequest
             'category_id' => 'required',
             'tags' => 'required',
             'excerpt' => 'required',
-            'published_at' => 'required'
+            'published_at' => 'required',
+            'time' => 'required',
+            'subcategory_id' =>'required'
         ];
     }
 }
