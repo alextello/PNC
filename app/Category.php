@@ -12,7 +12,10 @@ class Category extends Model
         return 'url';
     }
 
-    
+    public function tags()
+    {
+        return $this->hasManyThrough('App\Tag', 'App\Subcategory');
+    }
 
     public function subcategories()
     {

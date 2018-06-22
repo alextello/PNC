@@ -20,7 +20,14 @@ class SubcategoriesController extends Controller
         // // ->paginate();
         // $posts = $subcategory->tags()->get()->posts();
         // dd($posts);
-        return view('pages.home', ['posts' => $subcategory->posts()->paginate(),
+        $posts = $subcategory->posts()->with(['tags' => function ($q){
+            $q->with(['subcategory' => function ($query){
+                $query->with('category');
+            }]);
+        }])->with('photos')->with('owner')->latest('published_at')->paginate();
+
+
+        return view('pages.home', ['posts' => $posts,
         'title' => "Reportes de la categoria {$subcategory->name}"]);
     }
 }
