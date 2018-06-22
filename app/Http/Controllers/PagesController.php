@@ -9,7 +9,8 @@ class PagesController extends Controller
 {
     public function home()
     {
-        $posts = Post::whereNotNull('published_at')->latest('published_at')->paginate();
+        $posts = Post::with('tags')->whereNotNull('published_at')->latest('published_at')->paginate();
+   
         return view('pages.home', compact('posts'));
     }
 

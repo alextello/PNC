@@ -22,7 +22,6 @@
 					@include('posts.carousel')
 					@endif
 				<footer class="container-flex space-between">
-					
 					<div class="read-more">
 					<a href="{{ route('posts.show', $post) }}" class="text-uppercase c-green">Leer más</a>
 					</div>
@@ -245,6 +244,8 @@
 
 @push('styles')
   <link rel="stylesheet" type="text/css" href="/css/twitter-bootstrap.css">
+  <link rel="stylesheet" href="/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
 @endpush
 
 @push('scripts')

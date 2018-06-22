@@ -18,7 +18,17 @@ class Subcategory extends Model
     {
         return $this->belongsTo('App\Category');
     }
-    
+
+    public function tags()
+    {
+        return $this->hasMany('App\Tag');
+    }
+
+    public function posts()
+    {
+        return $this->hasManyThrough('App\Post', 'App\Tag');
+    }
+
     public function syncTags($tag)
     {
         $tagIds = collect($tag)->map(function($tag){

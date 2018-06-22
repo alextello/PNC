@@ -16,6 +16,7 @@ class Post extends Model
         'user_id',
         'subcategory_id',
         'time',
+        'tag_id'
     ];
 
     protected $dates = ['published_at'];
@@ -36,7 +37,7 @@ class Post extends Model
 
     public function tags()
     {
-        return $this->belongsToMany('App\Tag');
+        return $this->belongsTo('App\Tag', 'tag_id');
     }
 
     public function owner()

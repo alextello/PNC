@@ -54,6 +54,11 @@ header nav li a:hover {
     font-size: inherit;
 }
 
+.post .label-warning a {
+    color: inherit;
+    font-size: inherit;
+}
+
 .post figure {
     margin: 0;
 }

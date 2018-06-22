@@ -17,6 +17,7 @@ class CreateTagsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('url');
+            $table->unsignedInteger('subcategory_id');
             $table->timestamps();
         });
     }

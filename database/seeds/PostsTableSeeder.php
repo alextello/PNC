@@ -124,17 +124,25 @@ class PostsTableSeeder extends Seeder
         $subcategory->category_id = '2';
         $subcategory->save();
 
+        $tag = new Tag();
+        $tag->name = 'Etiqueta 1';
+        $tag->subcategory_id = 1;
+        $tag->save();
+
+        $tag = new Tag();
+        $tag->name = 'Etiqueta 2';
+        $tag->subcategory_id = 2;
+        $tag->save();
+
         $post = new Post();
         $post->title = 'Primer post';
         $post->url = str_slug('Primer post');
         $post->excerpt = 'Extracto primer post';
         $post->body = '<p>Contenido primer post</p>';
         $post->published_at = Carbon::now();
-        $post->category_id =  1;
-        $post->subcategory_id =  1;
         $post->user_id =  1;
+        $post->tag_id = 1;
         $post->save();
-        $post->tags()->attach(Tag::create(['name' => 'etiqueta 1']));
 
         $post = new Post();
         $post->title = 'segundo post';
@@ -142,11 +150,9 @@ class PostsTableSeeder extends Seeder
         $post->excerpt = 'Extracto segundo post';
         $post->body = '<p>Contenido segundo post</p>';
         $post->published_at = Carbon::now()->subDays(1);
-        $post->category_id =  2;
-        $post->subcategory_id =  1;
         $post->user_id =  2;
+        $post->tag_id = 1;
         $post->save();
-        $post->tags()->attach(Tag::create(['name' => 'etiqueta 2']));
 
         $post = new Post();
         $post->title = 'tercer post';
@@ -154,12 +160,9 @@ class PostsTableSeeder extends Seeder
         $post->excerpt = 'Extracto tercer post';
         $post->body = '<p>Contenido tercer post</p>';
         $post->published_at = Carbon::now()->subDays(2);
-        $post->category_id =  1;
-        $post->subcategory_id =  1;
         $post->user_id =  2;
+        $post->tag_id = 2;
         $post->save();
-        $post->tags()->attach(Tag::create(['name' => 'etiqueta 3']));
-
        
     }
 }

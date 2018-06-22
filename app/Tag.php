@@ -15,9 +15,13 @@ class Tag extends Model
 
     public function posts()
     {
-       return $this->belongsToMany('App\Post');
+       return $this->hasMany('App\Post');
     }
 
+    public function subcategory()
+    {
+        return $this->belongsTo('App\Subcategory');
+    }
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = $name;

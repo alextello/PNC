@@ -12,16 +12,13 @@ class Category extends Model
         return 'url';
     }
 
-    public function posts()
-    {
-        return $this->hasMany('App\Post');
-    }
+    
 
     public function subcategories()
     {
         return $this->hasMany('App\Subcategory');
     }
-
+    
     public function setNameAttribute($name)
     {
         $this->attributes['name'] = $name;

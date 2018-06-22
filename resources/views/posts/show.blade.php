@@ -36,6 +36,7 @@
 
 @push('styles')
   <link rel="stylesheet" type="text/css" href="/css/twitter-bootstrap.css">
+  <link rel="stylesheet" href="/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
 @endpush
 @push('scripts')
 <script
@@ -43,5 +44,5 @@
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
 <script src="/js/twitter-bootstrap.js"></script>
-<script id="dsq-count-scr" src="//zendero.disqus.com/count.js" async></script>
+{{-- <script id="dsq-count-scr" src="//zendero.disqus.com/count.js" async></script> --}}
 @endpush

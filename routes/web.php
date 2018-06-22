@@ -26,6 +26,7 @@ Route::get('archivo', 'PagesController@archive')->name('pages.archive');
 Route::get('contacto', 'PagesController@contact')->name('pages.contact');
 
 Route::get('categorias/{category}', 'CategoriesController@show')->name('categories.show');
+Route::get('subcategorias/{subcategory}', 'SubcategoriesController@show')->name('subcategories.show');
 Route::get('tags/{tag}', 'TagsController@show')->name('tags.show');
 
 Route::group([
