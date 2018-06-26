@@ -26,12 +26,10 @@ class StorePostRequest extends FormRequest
         return [
             'title' => 'required',
             'body' => 'required',
-            'category_id' => 'required',
             'tags' => 'required',
             'excerpt' => 'required',
             'published_at' => 'required',
             'time' => 'required',
-            'subcategory_id' =>'required'
         ];
     }
 }

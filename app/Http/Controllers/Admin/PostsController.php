@@ -15,8 +15,7 @@ use App\Http\Requests\StorePostRequest;
 class PostsController extends Controller
 {
     public function index(){
-        
-       $posts = Post::allowed()->get();
+        $posts = Post::with('owner', 'tags')->allowed()->latest('published_at')->get();
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -76,7 +75,7 @@ class PostsController extends Controller
         }
         $request->merge(['time' => date("H:i", strtotime($request->time))]);
         $post->update($request->all());
-        $post->syncTags(request()->get('tags'));
+        // $post->syncTags(request()->get('tags'));
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');
 
     }

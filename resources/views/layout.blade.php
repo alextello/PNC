@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="/css/framework.css">
 	<link rel="stylesheet" href="/css/style.css">
 	<link rel="stylesheet" href="/css/responsive.css">
+	<link rel="stylesheet" href="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 	@stack('styles')
@@ -55,4 +56,15 @@
 	</section>
 	
 </body>
+<script src="/adminlte/bower_components/moment/min/moment.min.js"></script>
+<script src="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script> --}}
+<script>
+	$('#reservation').daterangepicker({
+	  'startDate': '01/01/2019',
+	  'endDate': '02/01/2019',
+	  locale: {
+	format: 'D/M/YYYY'
+  }
+  });
+</script>
 </html>

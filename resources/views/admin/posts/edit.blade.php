@@ -94,7 +94,7 @@
                         </div>
                         <!-- /.form group -->
                       </div>
-                    <div class="form-group {{$errors->has('category_id') ? 'has-error' : ''}}" >
+                    {{-- <div class="form-group {{$errors->has('category_id') ? 'has-error' : ''}}" >
                         <label for="">Seleccione una categoría</label>
                         <select name="category_id" id="category_id" class="form-control select2">
                             <option value="">Seleccione la categoria</option>
@@ -104,8 +104,8 @@
                                 >{{ $cat->name }}</option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="form-group {{$errors->has('subcategory_id') ? 'has-error' : ''}}" >
+                    </div> --}}
+                    {{-- <div class="form-group {{$errors->has('subcategory_id') ? 'has-error' : ''}}" >
                             <label for="">Seleccione una subcategoría</label>
                             <select name="subcategory_id" id="subcategory_id" class="form-control select2">
                                 <option value="">Seleccione la subcategoria</option>
@@ -121,10 +121,10 @@
                                 @endforeach
                                 @endif
                             </select>
-                        </div>
+                        </div> --}}
                     <div class="form-group {{$errors->has('tags') ? 'has-error' : ''}}" >
-                        <label for="">Etiquetas</label>
-                            <select name="tags[]" class="form-control select2" multiple="multiple" data-placeholder="Elija las etiquetas"
+                        <label for="">Etiqueta</label>
+                            <select name="tags" class="form-control select2" data-placeholder="Elija las etiquetas"
                             style="width: 100%;">
                             @foreach ($tags as $tag)
                              <option {{ collect(old('tags', $post->tags->pluck('id')))->contains($tag->id) ? 'selected' : '' }}

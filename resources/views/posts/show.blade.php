@@ -19,6 +19,9 @@
         @elseif($post->photos->count()>1)
         @include('posts.carousel')
         @endif
+        <div class="divider"></div>
+					<p><i class="fa fa-fw fa-calendar-minus-o"></i>{{' '.$post->published_at->format('d M Y') }}</p>
+					<p><i class="fa fa-fw fa-clock-o">{{ date("H:i", strtotime($post->time)) }}</i></p>
         <footer class="container-flex space-between">
         @include('partials.social-links', ['description' => $post->title])
           
@@ -36,7 +39,8 @@
 
 @push('styles')
   <link rel="stylesheet" type="text/css" href="/css/twitter-bootstrap.css">
-  <link rel="stylesheet" href="/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  {{-- <link rel="stylesheet" href="/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css"> --}}
+  <link rel="stylesheet" href="/adminlte/bower_components/font-awesome/css/font-awesome.min.css">
 @endpush
 @push('scripts')
 <script

@@ -4,18 +4,18 @@
 <li {{ request()->is('admin') ? 'class=active' : ''}}><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
         {{-- <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li> --}}
         <li class="treeview {{ request()->is('admin/posts*') ? 'active' : ''}}" >
-          <a href="#"><i class="fa fa-folder"></i> <span>Eventos</span>
+          <a href="#"><i class="fa fa-folder"></i> <span>Novedades</span>
             <span class="pull-right-container">
                 <i class="fa fa-angle-left pull-right"></i>
               </span>
           </a>
           <ul class="treeview-menu">
-            <li {{ request()->is('admin/posts') ? 'class=active' : ''}}><a href="{{ route('admin.posts.index') }}"><i class="fa fa-eye"></i>Ver eventos</a></li>
+            <li {{ request()->is('admin/posts') ? 'class=active' : ''}}><a href="{{ route('admin.posts.index') }}"><i class="fa fa-eye"></i>Ver novedades</a></li>
             <li>
               @if(request()->is('admin/posts/*'))
-               <a href="{{ route('admin.posts.index', '#create') }}"><i class="fa fa-pencil"></i>Crear evento</a>
+               <a href="{{ route('admin.posts.index', '#create') }}"><i class="fa fa-pencil"></i>Crear novedad</a>
               @else
-              <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Crear evento</a>
+              <a href="#" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i>Crear novedad</a>
               @endif
             </li>
           </ul>

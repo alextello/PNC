@@ -19,22 +19,28 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-      <input type="text" id="myInput" class="form-control" placeholder="Buscar..." >
+      {{-- <input type="text" id="myInput" class="form-control" placeholder="Buscar..." > --}}
       <table id="posts-table" class="table table-bordered table-striped">
         <thead>
         <tr>
           <th>ID</th>
+          <th>Fecha</th>
           <th>Titulo</th>
           <th>Preview</th>
+          <th>Etiqueta</th>
+          <th>Autor</th>
           <th>Acciones</th>
         </tr>
         </thead>
         <tbody id="miTabla">
             @foreach ($posts as $post)
             <tr>
-                <td>{{ $post->id }}</td>
+              <td>{{ $post->id }}</td>
+              <td> {{ $post->published_at->format('d M y') }} </td>
                 <td>{{ $post->title }}</td>
-                <td>{{$post->excerpt}}</td>
+                <td>{{ str_limit($post->excerpt, 50) }}</td>
+                <td>{{ $post->tags->name }}</td>
+                <td>{{ $post->owner->email  }}</td>
                 <td>
                     <a href="{{ route('posts.show', $post)}}" class="btn btn-xs btn-default" target="_blank"><i class="fa fa-eye"></i></a>
                     <a href="{{ route('admin.posts.edit', $post)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>

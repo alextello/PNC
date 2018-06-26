@@ -103,7 +103,7 @@ class Post extends Model
         parent::boot();
         
         static::deleting(function($post){
-            $post->tags()->detach();
+            // $post->tags()->detach();
             $post->photos->each->delete();
         });
     }
