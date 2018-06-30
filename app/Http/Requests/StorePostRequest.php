@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePostRequest extends FormRequest
@@ -26,9 +27,11 @@ class StorePostRequest extends FormRequest
         return [
             'title' => 'required',
             'body' => 'required',
-            'tags' => 'required',
+            'tag_id' => 'required',
             'excerpt' => 'required',
-            'published_at' => 'required',
+            'published_at' => 'required|before_or_equal:'.Carbon::now()->toDateTimeString(),
+            'municipio' => 'required',
+            'address_id' => 'required',
             'time' => 'required',
         ];
     }

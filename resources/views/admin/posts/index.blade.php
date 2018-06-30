@@ -36,10 +36,10 @@
             @foreach ($posts as $post)
             <tr>
               <td>{{ $post->id }}</td>
-              <td> {{ $post->published_at->format('d M y') }} </td>
+              <td> {{ optional($post->published_at)->format('d M y') }} </td>
                 <td>{{ $post->title }}</td>
                 <td>{{ str_limit($post->excerpt, 50) }}</td>
-                <td>{{ $post->tags->name }}</td>
+                <td>{{ optional($post->tags)->name }}</td>
                 <td>{{ $post->owner->email  }}</td>
                 <td>
                     <a href="{{ route('posts.show', $post)}}" class="btn btn-xs btn-default" target="_blank"><i class="fa fa-eye"></i></a>

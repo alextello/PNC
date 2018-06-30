@@ -34,6 +34,7 @@
 					@include('posts.carousel')
 					@endif
 					<div class="divider"></div>
+					<div style="overflow: hidden; white-space: nowrap;"><p><i class="fa fa-fw fa-map-marker">{{ $post->address->name. ' '. $post->address->municipio->name }}</i></p></div>
 					<p><i class="fa fa-fw fa-calendar-minus-o"></i>{{' '.$post->published_at->format('d M Y') }}</p>
 					<p><i class="fa fa-fw fa-clock-o">{{ date("H:i", strtotime($post->time)) }}</i></p>
 				<footer class="container-flex space-between">

@@ -1,14 +1,17 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Storage;
-use App\Post;
-use Carbon\Carbon;
-use App\Category;
-use App\User;
 use App\Tag;
+use App\Post;
+use App\User;
+use App\Address;
+use App\Category;
+use App\Municipio;
+use Carbon\Carbon;
 use App\Subcategory;
+use App\Departamento;
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Models\Permission;
 
 class PostsTableSeeder extends Seeder
@@ -26,6 +29,9 @@ class PostsTableSeeder extends Seeder
         Category::truncate();
         Subcategory::truncate();
         Tag::truncate();
+        Address::truncate();
+        Municipio::truncate();
+        Departamento::truncate();
         Storage::disk('public')->deleteDirectory('posts');
 
         $adminRole = Role::create(['name' => 'Administrador', 'display_name' => 'Admin']);
@@ -83,6 +89,27 @@ class PostsTableSeeder extends Seeder
         $p = Permission::create(['name' => 'Editar permisos']);
         $adminRole->givePermissionTo($p);
 
+        //Departamento
+
+        $dep = Departamento::create(['name' => 'Sololá']);
+        $mun = Municipio::create(['name' => 'Santiago Atitlán', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'San José Chacayá', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'Concepción', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'Santa Catarina Ixtahuacán', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'San Juan La Laguna', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'San Pablo La Laguna', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'San Pedro La Laguna', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'Santa Clara La Laguna', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'Santa Cruz La Laguna', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'Nahualá', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'San Antonio Polopó', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'Santa Catarina Pololpó', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'Panajachel', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'San Andrés Semetabaj', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'Sololá', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'San Lucas Tolimán', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'Santa Lucía Utatlán', 'departamento_id' => '1']);
+        $mun = Municipio::create(['name' => 'Santa María Visitación', 'departamento_id' => '1']);
         
         
 
@@ -142,6 +169,7 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now();
         $post->user_id =  1;
         $post->tag_id = 1;
+        $post->address_id = Address::create(['name' => '1ra. Calle 5-22 zona 3', 'municipio_id' => '1'])->id;
         $post->save();
 
         $post = new Post();
@@ -152,6 +180,7 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(1);
         $post->user_id =  2;
         $post->tag_id = 1;
+        $post->address_id = Address::create(['name' => '11av. 8-20 zona 1', 'municipio_id' => '2'])->id;
         $post->save();
 
         $post = new Post();
@@ -162,6 +191,7 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(2);
         $post->user_id =  2;
         $post->tag_id = 2;
+        $post->address_id = Address::create(['name' => '4ta. calle 6-32 zona 2', 'municipio_id' => '3'])->id;
         $post->save();
        
     }

@@ -28,7 +28,11 @@ class SubcategoriesController extends Controller
                 $q->with(['subcategory' => function ($query){
                     $query->with('category');
                 }]);
-            }])->with('photos')->with('owner')->latest('published_at')
+            }])->with(['address' => function($a){
+                $a->with('municipio');
+            }])->with('photos')->with('owner')
+            ->whereNotNull('published_at')
+            ->latest('published_at')
             ->where('published_at', '>', Carbon::createFromFormat('d/m/Y', $fechas[0])->subDays(1))
             ->where('published_at', '<', Carbon::createFromFormat('d/m/Y', $fechas[2]))
             ->paginate();
@@ -38,7 +42,11 @@ class SubcategoriesController extends Controller
                 $q->with(['subcategory' => function ($query){
                     $query->with('category');
                 }]);
-            }])->with('photos')->with('owner')->latest('published_at')->paginate();
+            }])->with(['address' => function($a){
+                $a->with('municipio');
+            }])->with('photos')->with('owner')
+            ->whereNotNull('published_at')
+            ->latest('published_at')->paginate();
         }
 
 

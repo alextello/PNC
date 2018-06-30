@@ -16,7 +16,8 @@ class Post extends Model
         'user_id',
         'subcategory_id',
         'time',
-        'tag_id'
+        'tag_id',
+        'address_id'
     ];
 
     protected $dates = ['published_at'];
@@ -25,6 +26,12 @@ class Post extends Model
     {
         return 'url';
     }
+
+    public function address()
+    {
+        return $this->belongsTo('App\Address');
+    }
+    
     public function category()
     {
         return $this->belongsTo('App\Category');

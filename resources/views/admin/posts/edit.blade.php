@@ -69,6 +69,31 @@
     <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-body">
+                     <div class="form-group {{$errors->has('municipio') ? 'has-error' : ''}}" >
+                        <label for="">Seleccione el municipio</label>
+                        <select name="municipio" id="municipio" class="form-control select2">
+                            <option value="">Seleccione el municipio</option>
+                            @if($post->address!=null)
+                            @foreach ($municipios as $muni)
+                            <option value="{{ $muni->id}}"
+                                {{ old('municipio', $post->address->municipio->id) == $muni->id ? 'selected' : '' }}
+                                >{{ $muni->name }}</option>
+                             @endforeach
+                             @else
+                             @foreach ($municipios as $muni)
+                            <option value="{{ $muni->id}}"
+                                {{ old('municipio') == $muni->id ? 'selected' : '' }}
+                                >{{ $muni->name }}</option>
+                             @endforeach
+                            @endif
+                        </select>
+                    </div>
+
+                    <div class="form-group {{$errors->has('address_id') ? 'has-error' : ''}}" >
+                            <label>Dirección del suceso</label>
+                            <input name="address_id" type="text" class="form-control" id="address_id" value="{{ old('address_id', $post->address_id ? $post->address()->pluck('name')->implode('') : '') }}">
+                            <!-- /.input group -->
+                    </div>
                     <div class="form-group {{$errors->has('published_at') ? 'has-error' : ''}}" >
                             <label>Fecha de suceso</label>
                             <div class="input-group date">
@@ -122,12 +147,12 @@
                                 @endif
                             </select>
                         </div> --}}
-                    <div class="form-group {{$errors->has('tags') ? 'has-error' : ''}}" >
+                    <div class="form-group {{$errors->has('tag_id') ? 'has-error' : ''}}" >
                         <label for="">Etiqueta</label>
-                            <select name="tags" class="form-control select2" data-placeholder="Elija las etiquetas"
+                            <select name="tag_id" class="form-control select2" data-placeholder="Elija la etiqueta"
                             style="width: 100%;">
                             @foreach ($tags as $tag)
-                             <option {{ collect(old('tags', $post->tags->pluck('id')))->contains($tag->id) ? 'selected' : '' }}
+                             <option {{ collect(old('tag_id', optional($post->tags)->id))->contains($tag->id) ? 'selected' : '' }}
                              value="{{ $tag->id }}">{{ $tag->name }}</option>
                             @endforeach
                     </select>

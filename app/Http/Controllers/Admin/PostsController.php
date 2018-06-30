@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Tag;
 use App\Post;
+use App\Address;
 use App\Category;
+use App\Municipio;
 use App\Plantilla;
 use Carbon\Carbon;
 use App\Subcategory;
@@ -50,14 +52,16 @@ class PostsController extends Controller
         }
     }
 
-    public function edit(Post $post)
+    public function edit($id)
     {
+        $post = Post::where('url', $id)->with(['address', 'tags'])->first();
         if($post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
         {
+            $municipios = Municipio::all();
             $categories = Category::with('subcategories')->get();
             $tags = Tag::all();
             $plantillas = Plantilla::all();
-            return view('admin.posts.edit', compact('post', 'categories', 'tags', 'plantillas'));
+            return view('admin.posts.edit', compact('post', 'categories', 'tags', 'plantillas', 'municipios'));
         }
        
         else{
@@ -70,10 +74,11 @@ class PostsController extends Controller
     public function update(Post $post, StorePostRequest $request)
     {
  
-        if(Carbon::parse($request->published_at) > today()){
-            return redirect()->route('admin.posts.edit', $post)->with('error', 'La fecha no debe ser futura');
-        }
+        // if(Carbon::parse($request->published_at) > today()){
+        //     return redirect()->route('admin.posts.edit', $post)->with('error', 'La fecha no debe ser futura');
+        // }
         $request->merge(['time' => date("H:i", strtotime($request->time))]);
+        $request->merge(['address_id' => Address::create(['name' => $request->address_id, 'municipio_id' => $request->municipio])->id]);
         $post->update($request->all());
         // $post->syncTags(request()->get('tags'));
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');
