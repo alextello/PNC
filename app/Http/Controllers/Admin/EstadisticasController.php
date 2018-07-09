@@ -20,11 +20,12 @@ class EstadisticasController extends Controller
     public function total()
     {
 
-        $tags = DB::table('post_tag')
-            ->join('tags', 'post_tag.tag_id', '=', 'tags.id')
+        $tags = DB::table('posts')
+            ->join('tags', 'posts.tag_id', '=', 'tags.id')
             ->select(DB::raw('count(tag_id) as cantidad'))
             ->groupBy('tag_id')
             ->addSelect('tags.name')
+            ->orderBy('cantidad', 'desc')
             ->get();
             return $tags;
             
@@ -34,13 +35,12 @@ class EstadisticasController extends Controller
     public function fecha()
     {
         $fechas = explode(' ', request()->fecha);
-        $tags = DB::table('post_tag')
+        $tags = DB::table('posts')
         ->select(DB::raw('count(tag_id) as cantidad'))
-        ->join('posts', 'posts.id', '=', 'post_tag.post_id')
-        ->join('tags', 'post_tag.tag_id', '=', 'tags.id')
-        ->where('posts.published_at', '>', Carbon::createFromFormat('d/m/Y', $fechas[0]))
-        ->where('posts.published_at', '<', Carbon::createFromFormat('d/m/Y', $fechas[2]))
-        ->groupBy('tag_id')
+        ->join('tags', 'tags.id', '=', 'posts.tag_id')
+        ->where('posts.published_at', '>', date(Carbon::createFromFormat('d/m/Y', $fechas[0])))
+        ->where('posts.published_at', '<', date(Carbon::createFromFormat('d/m/Y', $fechas[2])))
+        ->groupBy('posts.tag_id')
         ->addSelect('tags.name')
         ->get();
         return response()->json(array(
@@ -53,11 +53,13 @@ class EstadisticasController extends Controller
     {
         $fechas = explode(' ', request()->fecha);
         $cats = DB::table('posts')
-        ->join('categories', 'posts.category_id', '=', 'categories.id')
-        ->select(DB::raw('count(posts.category_id) as cantidad'))
-        ->where('posts.published_at', '>', Carbon::createFromFormat('d/m/Y', $fechas[0]))
-        ->where('posts.published_at', '<', Carbon::createFromFormat('d/m/Y', $fechas[2]))
-        ->groupBy('posts.category_id')
+        ->join('tags', 'posts.tag_id', '=', 'tags.id')
+        ->join('subcategories', 'tags.subcategory_id', '=', 'subcategories.id')
+        ->join('categories', 'subcategories.category_id', '=', 'categories.id')
+        ->select(DB::raw('count(subcategories.category_id) as cantidad'))
+        ->where('posts.published_at', '>=', date(Carbon::createFromFormat('d/m/Y', $fechas[0])->subDays(1)))
+        ->where('posts.published_at', '<=', date(Carbon::createFromFormat('d/m/Y', $fechas[2])))
+        ->groupBy('subcategories.category_id')
         ->addSelect('categories.name')
         ->get();
         return response()->json(array(
@@ -79,14 +81,68 @@ class EstadisticasController extends Controller
     public function totalcat()
     {
         $cats = DB::table('posts')
-        ->join('categories', 'posts.category_id', '=', 'categories.id')
-        ->select(DB::raw('count(posts.category_id) as cantidad'))
-        ->groupBy('posts.category_id')
+        ->join('tags', 'tags.id', '=', 'posts.tag_id')
+        ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
+        ->select(DB::raw('count(subcategories.category_id) as cantidad'))
+        ->join('categories', 'categories.id', '=', 'tags.subcategory_id')
+        ->groupBy('subcategories.category_id', 'categories.name')
         ->addSelect('categories.name')
         ->get();
         return $cats;
     }
-    // select count(tag_id), tags.name from post_tag 
-    // inner join posts on posts.id = post_tag.post_id
-    //  inner join tags on post_tag.tag_id = tags.id where posts.published_at > TIMESTAMP '2017/01/01 18:33:55' and posts.published_at < TIMESTAMP '2019/01/01 18:33:55' group by tag_id;
+    
+    public function personas()
+    {
+        return view('admin.charts.personas');
+    }
+
+    public function totalpersonas()
+    {
+        $personas =  DB::table('involucrados')
+        ->join('involucrado_post', 'involucrado_post.involucrado_id', '=', 'involucrados.id')
+        ->select(DB::raw('count(involucrado_post.post_id) as cantidad'))
+        ->groupBy('involucrados.genero')
+        ->addSelect('involucrados.genero')
+        ->get();
+
+        $personasFP =  DB::table('involucrados')
+        ->join('involucrado_post', 'involucrado_post.involucrado_id', '=', 'involucrados.id')
+        ->select(DB::raw('count(involucrado_post.post_id) as cantidad'))
+        ->join('posts', 'posts.id', '=', 'involucrado_post.post_id')
+        ->join('tags', 'posts.tag_id', '=', 'tags.id')
+        ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
+        ->join('categories', 'categories.id', '=', 'subcategories.category_id')
+        ->groupBy('tags.name')
+        ->addSelect('tags.name')
+        ->where('involucrados.gender', 'F')
+        ->where('categories.name', 'Categoria 1')
+        ->get();
+
+        $personasFN =  DB::table('involucrados')
+        ->join('involucrado_post', 'involucrado_post.involucrado_id', '=', 'involucrados.id')
+        ->select(DB::raw('count(involucrado_post.post_id) as cantidad'))
+        ->join('posts', 'posts.id', '=', 'involucrado_post.post_id')
+        ->join('tags', 'posts.tag_id', '=', 'tags.id')
+        ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
+        ->join('categories', 'categories.id', '=', 'subcategories.category_id')
+        ->groupBy('tags.name')
+        ->addSelect('tags.name')
+        ->where('involucrados.gender', 'F')
+        ->where('categories.name', 'Categoria 2')
+        ->get();
+
+        $personasM =  DB::table('involucrados')
+        ->join('involucrado_post', 'involucrado_post.involucrado_id', '=', 'involucrados.id')
+        ->select(DB::raw('count(involucrado_post.post_id) as cantidad'))
+        ->groupBy('involucrados.genero')
+        ->addSelect('involucrados.genero')->where('involucrados.gender', 'M')
+        ->get();
+
+
+        return response()->json(array(
+            'personas' => $personas,
+            'personasFP' => $personasFP,
+            'personasFN' => $personasFN
+        ));
+    }
 }

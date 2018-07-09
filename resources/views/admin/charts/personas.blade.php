@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('content')
-<form action="{{route('admin.estadisticas.fecha')}}" id="searchForm" method="POST">
+<form action="" id="searchForm" method="POST">
     @csrf
     <label>Rango de fecha:</label>
     <div class="form-group">
@@ -27,10 +27,10 @@
     </div>
 
     <label class="col-lg-10" id="fechas" for="">Estadistica historica a partir del 2019</label>
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Barras</h3>
+                <h3 class="box-title">Hechos positivos (Generon femenino)</h3>
                 <div class="box-tools pull-right">
                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                    </button>
@@ -39,11 +39,28 @@
             </div>
             <div class="box-body">
                 <div class="chart" id="barras">
-                    <canvas id="mycanvas" width="1300" height="300"></canvas>
+                    <canvas id="mycanvas" width="1300" height="800"></canvas>
                 </div>
             </div>
         </div>
     </div>
+    <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Hechos Negativos (Generon femenino)</h3>
+                    <div class="box-tools pull-right">
+                       <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                       </button>
+                       <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                     </div>
+                </div>
+                <div class="box-body">
+                    <div class="chart" id="barras">
+                        <canvas id="mycanvas" width="1300" height="800"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     <div class="col-md-12">
         <!-- AREA CHART -->
         <div class="box box-primary">
@@ -94,7 +111,7 @@
 
 function area(){
     $.ajax({
-        url: (window.location.pathname == '/admin/estadisticas/tag') ? '/admin/estadisticas/total' : '/admin/estadisticas/totalcat',
+        url: '/admin/estadisticas/personas',
 		method: "GET",
         dataType: 'json',
         success: function(data) {
@@ -139,14 +156,13 @@ error: function(data) {
 
 function inicio(dataF){
     $.ajax({
-        url: (window.location.pathname == '/admin/estadisticas/tag') ? '/admin/estadisticas/total' : '/admin/estadisticas/totalcat',
+        url: '/admin/estadisticas/totalpersonas',
 		method: "GET",
         dataType: 'json',
 		success: function(data) {
 			var player = [];
 			var score = [];
             var coloR = [];
-
             var dynamicColors = function() {
             var r = Math.floor(Math.random() * 255);
             var g = Math.floor(Math.random() * 255);
@@ -156,9 +172,9 @@ function inicio(dataF){
             if( typeof dataF === 'undefined' )
             {
                 console.log('No entra F');
-			for(var i in data) {
-				player.push("Etiqueta: " + data[i].name);
-				score.push(data[i].cantidad);
+			for(var i in data.personasFP) {
+				player.push("Etiqueta: " + data.personasFP[i].name);
+				score.push(data.personasFP[i].cantidad);
                 coloR.push(dynamicColors());
 			}
                 
@@ -166,7 +182,7 @@ function inicio(dataF){
             else{
                 console.log('si F');
                 for(var i in dataF.tags) {
-				player.push("Etiqueta: " + dataF.tags[i].name);
+				player.push("Genero: " + dataF.tags[i].name);
 				score.push(dataF.tags[i].cantidad);
                 coloR.push(dynamicColors());
 			}

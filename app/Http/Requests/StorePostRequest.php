@@ -31,6 +31,7 @@ class StorePostRequest extends FormRequest
             'excerpt' => 'required',
             'published_at' => 'required|before_or_equal:'.Carbon::now()->toDateTimeString(),
             'municipio' => 'required',
+            'oficio' => 'required|integer',
             'address_id' => 'required',
             'time' => 'required',
         ];

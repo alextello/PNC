@@ -161,6 +161,7 @@ class PostsTableSeeder extends Seeder
         $tag->subcategory_id = 2;
         $tag->save();
 
+
         $post = new Post();
         $post->title = 'Primer post';
         $post->url = str_slug('Primer post');
@@ -169,6 +170,7 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now();
         $post->user_id =  1;
         $post->tag_id = 1;
+        $post->oficio = 1;
         $post->address_id = Address::create(['name' => '1ra. Calle 5-22 zona 3', 'municipio_id' => '1'])->id;
         $post->save();
 
@@ -180,6 +182,7 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(1);
         $post->user_id =  2;
         $post->tag_id = 1;
+        $post->oficio = 11;
         $post->address_id = Address::create(['name' => '11av. 8-20 zona 1', 'municipio_id' => '2'])->id;
         $post->save();
 
@@ -191,6 +194,7 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(2);
         $post->user_id =  2;
         $post->tag_id = 2;
+        $post->oficio = 1111;
         $post->address_id = Address::create(['name' => '4ta. calle 6-32 zona 2', 'municipio_id' => '3'])->id;
         $post->save();
        

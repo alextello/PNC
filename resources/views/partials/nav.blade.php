@@ -31,9 +31,6 @@ request()->routeIs('tags.show') )
       </div>
       </div>
   </form>
-  <div class="text-muted">
-        <p>Escoja un dia antes del deseado en el rango de fecha</p>
-    </div>
 @endif
 {{-- <div class="container container-flex space-between">
   <nav class="custom-wrapper" id="menu">

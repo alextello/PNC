@@ -54,7 +54,7 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-        $post = Post::where('url', $id)->with(['address', 'tags'])->first();
+        $post = Post::where('url', $id)->with(['address', 'tags', 'involucrados', 'photos'])->first();
         if($post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
         {
             $municipios = Municipio::all();
@@ -80,14 +80,15 @@ class PostsController extends Controller
         $request->merge(['time' => date("H:i", strtotime($request->time))]);
         $request->merge(['address_id' => Address::create(['name' => $request->address_id, 'municipio_id' => $request->municipio])->id]);
         $post->update($request->all());
-        // $post->syncTags(request()->get('tags'));
+        
+        $post->syncInvolucrados(request()->get('involucrados'),request()->get('dpi'),request()->get('genero'));
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');
 
     }
 
     public function destroy(Post $post)
     {
-        if(auth()->user()->hasPermissionTo('Eliminar reportes'))
+        if(auth()->user()->hasPermissionTo('Eliminar reportes') || auth()->user->hasRole('Administrador'))
         {
             $post->delete();
             return redirect()->route('admin.posts.index')->with('flash', 'Reporte Eliminado');

@@ -1,5 +1,6 @@
+
 @if ($paginator->hasPages())
-<div class="pagination">
+    <div class="pagination pag">
 
 
 
@@ -38,5 +39,12 @@
         @endif
     </ul>
 
-    </div>
+</div>
+
+<style>
+    .pag{
+        display: block !important;
+    }
+</style>
+    
 @endif

@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->text('body')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->time('time')->nullable();
+            $table->Integer('oficio')->nullable();
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('tag_id')->nullable();
             $table->unsignedInteger('address_id')->nullable();

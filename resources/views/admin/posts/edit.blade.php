@@ -33,9 +33,59 @@
                 </div>
             </div>
 @endif
+
+@if($post->involucrados->count())
+<div class="col-md-12">
+
+    <div class="box box-primary">
+        <div class="box-header">
+            <h3 class="box-title">
+                Involucrados
+                <small></small>
+            </h3>
+            <!-- tools box -->
+            <div class="pull-right box-tools">
+                <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                    <i class="fa fa-minus"></i></button>
+                </div>
+                <!-- /. tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body pad" style="">
+                <label for="" class="col-md-5">Nombre</label>
+                <label for="" class="col-md-5">DPI</label>
+                <label for="" class="col-md-1">Género</label>
+                <label for="" class="col-md-1">Eliminar</label>
+                @foreach ($post->involucrados as $inv)
+                <div class="form-group col-md-5" >
+                <input type="text" class="form-control" placeholder="Nombre completo" name="involucrados[]" disabled value="{{ $inv->name }}">
+                </div>
+                <div class="form-group col-md-5" >
+                    <input type="text" class="form-control" placeholder="Nombre completo" name="dpi[]" disabled value="{{ $inv->dpi }}">
+                </div>
+                <div class="form-group col-md-1" >
+                    <input type="text" class="form-control" placeholder="Nombre completo" name="genero[]" disabled value="{{ $inv->gender }}">
+                </div>
+                <div class="form-group col-md-1" >
+                    <form action=" {{ route('admin.involucrados.destroy', [$inv->id, $post->id] )}} " method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-md btn-danger"><span>X</span></button>
+                    </form>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+@endif
     <form action={{ route('admin.posts.update', $post)}} method="POST">
         @csrf
         @method('PUT')
+        @foreach ($post->involucrados as $inv)
+        <input type="hidden" value="{{$inv->name}}" name="involucrados[]">
+        <input type="hidden" value="{{$inv->dpi}}" name="dpi[]">
+        <input type="hidden" value="{{$inv->gender}}" name="genero[]">
+        @endforeach
     <div class="col-md-8">
             <div class="box box-primary">
                     <div class="box-body">
@@ -48,7 +98,8 @@
                                 </select>
                     </div>
                 </div>
-    <div class="box box-primary">
+
+    {{-- <div class="box box-primary">
             <div class="box-body">
                 <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}" >
                     <label for="">Titulo del reporte</label>
@@ -64,11 +115,87 @@
                    </div>
                   
             </div>
-        </div>
+        </div> --}}
+        <div class="box box-primary">
+                <div class="box-header">
+                  <h3 class="box-title">
+                      Nueva novedad
+                    <small>llene todos los campos</small>
+                  </h3>
+                  <!-- tools box -->
+                  <div class="pull-right box-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                      <i class="fa fa-minus"></i></button>
+                  </div>
+                  <!-- /. tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body pad" style="">
+                <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}" >
+                      <label for="">Titulo del reporte</label>
+                  <input type="text" class="form-control" placeholder="Ingrese aquí el titulo del reporte" id="title" name="title" value="{{ old('title', $post->title)}}">
+                      {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
+                      
+                  </div>
+                  
+                  <div class="form-group {{$errors->has('body') ? 'has-error' : ''}}" >
+                          <label for="">Contenido del reporte</label>
+                  <textarea name="body" id="editor" class="form-control" rows="10" placeholder="Detalle aquí el reporte">{{ old('body', $post->body ? $post->body : $post->plantilla )}}</textarea>
+                          {!! $errors->first('body', '<span class="help-block">:message</span>') !!}
+                  </div>
+                </div>
+              </div>
+
+              <div class="box box-primary">
+                    <div class="box-header">
+                      <h3 class="box-title">
+                          Registre involucrados en la novedad si desea
+                        <small>(opcional)</small>
+                      </h3>
+                      <!-- tools box -->
+                      <div class="pull-right box-tools">
+                        <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                          <i class="fa fa-minus"></i></button>
+                      </div>
+                      <!-- /. tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body pad" style="" id='dinamico'>
+                    <div id="conjunto">
+                    <div class="form-group col-md-4" >
+                          <label for="">Nombre</label>
+                      <input type="text" class="form-control" placeholder="Nombre completo"  name="involucrados[]" >
+                          
+                      </div>
+                      <div class="form-group col-md-4" >
+                            <label for="">DPI (opcional)</label>
+                        <input type="number" class="form-control" placeholder="" id="dpi" name="dpi[]">
+                            
+                        </div>
+                        <div class="form-group col-md-2" >
+                                <label for="">Género</label>
+                            <select type="text" class="form-control select2" placeholder="Nombre completo" id="genero" name="genero[]">
+                                <option value="M">M</option>
+                                <option value="F">F</option>
+                            </select>
+                            </div>
+
+                      <div class="form-group col-md-2" >
+                          <label for="">Añadir otro</label>
+                            <button class="form-control btn btn-success" type="button" name='otro' id='otro'><span><i class="fa fa-plus"></i></span></button>
+                        </div>
+                    </div>
+                    </div>
+                  </div>
     </div>
     <div class="col-md-4">
         <div class="box box-primary">
             <div class="box-body">
+                    <div class="form-group {{$errors->has('oficio') ? 'has-error' : ''}}" >
+                            <label>Oficio:</label>
+                            <input name="oficio" type="number" class="form-control" id="oficio" value="{{ old('oficio', $post->oficio ? $post->oficio : '') }}">
+                            <!-- /.input group -->
+                    </div>
                      <div class="form-group {{$errors->has('municipio') ? 'has-error' : ''}}" >
                         <label for="">Seleccione el municipio</label>
                         <select name="municipio" id="municipio" class="form-control select2">
@@ -215,6 +342,7 @@ function cambio(selectObject) {
            }
     });
 
+
     CKEDITOR.config.height = 315;
 
     Dropzone.autoDiscover = false;
@@ -252,31 +380,43 @@ function cambio(selectObject) {
 
        
 </script>
-
 <script>
     $(document).ready(function(){
-        $('#category_id').change(function() {
-            console.log('cambio');
-        $('#subcategy_id').empty();
-        var id = $('#category_id').val();
-         $('#subcategory_id').html('<option value="">Seleccione subcategoria</option>');
-        var url = '/admin/Subcategory/'+id;
-      $.ajax({
-          url: url,
-          type: "GET",
-          dataType: "json",
-          success:function(data) {
-              $.each(data, function(key, value) {
-                  $('#subcategory_id').append('<option value="'+value.id+'">'+value.name+'</option>');
-              });
-    
-          },
-          error:function(result){
-              console.log('error');
-          }
-      });
+        var i = 1;
+        $('#otro').click(function(){
+            i++;
+            $('#dinamico').append("<div id='conjunto"+i+"'> <div class='form-group col-md-4'> <label for=''>Nombre</label><input type='text' class='form-control' placeholder='Nombre completo'  name='involucrados[]' ></div><div class='form-group col-md-4' ><label for=''>DPI (opcional)</label><input type='number' class='form-control' placeholder='' id='dpi' name='dpi[]'></div><div class='form-group col-md-2' ><label for=''>Género</label><select type='text' class='form-control select2' id='genero' name='genero[]'> <option value='M'>M</option><option value='F'>F</option></select></div><div class='form-group col-md-2' ><label for=''>Quitar</label><button class='form-control btn btn-danger btn_remove' type='button' name='remove' id='"+i+"'><span><i class='fa fa-minus'></i></span></button></div></div>");
+        });
+        $(document).on('click', '.btn_remove', function(){
+            var button_id = $(this).attr("id");
+            $('#conjunto'+button_id).remove();
         });
     });
+</script>
+<script>
+    // $(document).ready(function(){
+    //     $('#category_id').change(function() {
+    //         console.log('cambio');
+    //     $('#subcategy_id').empty();
+    //     var id = $('#category_id').val();
+    //      $('#subcategory_id').html('<option value='">Seleccione subcategoria</option>');
+    //     var url = '/admin/Subcategory/'+id;
+    //   $.ajax({
+    //       url: url,
+    //       type: "GET",
+    //       dataType: "json",
+    //       success:function(data) {
+    //           $.each(data, function(key, value) {
+    //               $('#subcategory_id').append('<option value="'+value.id+'">'+value.name+'</option>');
+    //           });
+    
+    //       },
+    //       error:function(result){
+    //           console.log('error');
+    //       }
+    //   });
+    //     });
+    // });
   </script>
 
   <script>

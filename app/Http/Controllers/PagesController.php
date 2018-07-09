@@ -26,7 +26,7 @@ class PagesController extends Controller
             ->whereNotNull('published_at')
             ->latest('published_at')
             ->where('published_at', '<=', Carbon::createFromFormat('d/m/Y', $fechas[2]))
-            ->where('published_at', '>=', Carbon::createFromFormat('d/m/Y', $fechas[0]))
+            ->where('published_at', '>=', Carbon::createFromFormat('d/m/Y', $fechas[0])->subDays(1))
             ->paginate();
         }
         else

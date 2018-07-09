@@ -2,6 +2,7 @@
         <li class="header">Navegación</li>
         <!-- Optionally, you can add icons to the links -->
 <li {{ request()->is('admin') ? 'class=active' : ''}}><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
+<li {{ request()->is('admin/antecedentes') ? 'class=active' : ''}}><a href="{{ route('admin.antecedentes.index') }}"><i class="fa fa-fw fa-user-secret"></i> <span>Antecedentes</span></a></li>
         {{-- <li><a href="#"><i class="fa fa-link"></i> <span>Another Link</span></a></li> --}}
         <li class="treeview {{ request()->is('admin/posts*') ? 'active' : ''}}" >
           <a href="#"><i class="fa fa-folder"></i> <span>Novedades</span>
@@ -61,8 +62,8 @@
               <li {{ request()->is('admin/estadisticas/categoria') ? 'class=active' : ''}}>
                  <a href="{{ route('admin.estadisticas.categoria') }}" ><i class="fa fa-tag"></i>Ver por categorias</a>
               </li>
-              <li {{ request()->is('admin/estadisticas/auth') ? 'class=active' : ''}}>
-                 <a href="{{ route('admin.estadisticas.auth') }}"><i class="fa fa-user"></i>Ver por autor</a>
+              <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
+                 <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-user"></i>Ver por personas</a>
               </li>
             </ul>
           </li>

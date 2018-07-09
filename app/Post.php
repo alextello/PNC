@@ -2,8 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Involucrado;
+use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
@@ -17,7 +18,8 @@ class Post extends Model
         'subcategory_id',
         'time',
         'tag_id',
-        'address_id'
+        'address_id',
+        'oficio'
     ];
 
     protected $dates = ['published_at'];
@@ -52,6 +54,11 @@ class Post extends Model
         return $this->belongsTo('App\User', 'user_id');
     }
 
+    public function involucrados()
+    {
+        return $this->belongsToMany('App\Involucrado');
+    }
+
     public static function create(array $attributes = [])
     {
         $post = static::query()->create($attributes);
@@ -81,16 +88,43 @@ class Post extends Model
 
     public function setPublishedAtAttribute($published_at)
     {
-        $this->attributes['published_at'] = Carbon::parse($published_at);
+        $this->attributes['published_at'] = Carbon::parse($published_at)->hour(0);
     }
 
-    public function syncTags($tag)
-    {
-        $tagIds = collect($tag)->map(function($tag){
-            return Tag::find($tag) ? $tag : Tag::create([ 'name' => $tag])->id;
-        });
+    // public function syncTags($tag)
+    // {
+    //     $tagIds = collect($tag)->map(function($tag){
+    //         return Tag::find($tag) ? $tag : Tag::create([ 'name' => $tag])->id;
+    //     });
 
-        return $this->tags()->sync($tagIds);
+    //     return $this->tags()->sync($tagIds);
+    // }
+
+    public function syncInvolucrados($involucrado, $dpi, $genero)
+    {
+        $coleccion = collect();
+        $i = 0;
+        $involucrado = collect($involucrado)->filter()->all();
+        
+        foreach($involucrado as $in)
+        {
+            $coleccion->push(['name' => $involucrado[$i], 'dpi' => $dpi[$i], 'gender' => $genero[$i]]);
+            $i++;
+        }
+
+        // $involucradosIds = $coleccion->map(function($coleccion){
+        //     return Involucrado::find( $coleccion['dpi']) ? $coleccion : Involucrado::create($coleccion)->id;
+        // });
+        // dd($involucradosIds);
+        $in = [];
+        foreach($coleccion as $col)
+        {
+            $found = Involucrado::find($col)->first();
+            $in[] = $found ? $found->id : Involucrado::create($col)->id;
+        }
+        // dd($in);
+        return $this->involucrados()->sync($in);
+
     }
     
     public function scopeAllowed($query)
@@ -111,6 +145,7 @@ class Post extends Model
         
         static::deleting(function($post){
             // $post->tags()->detach();
+            $post->involucrados()->detach();
             $post->photos->each->delete();
         });
     }

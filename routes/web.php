@@ -10,14 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-// use App\Post;
-
-// Route::get('prueba', function(){
-//    $tag = App\Tag::find(2);
-//    return $tag->posts()
-//                 ->where('category_id', 2)
-//                 ->where('subcategory_id', 1)->get();
-// });
+// use App\Involucrado;
+// $a = collect(['name' => 'algo', 'dpi' => '1', 'gender' => 'M']);
+// $s = Involucrado::find($a);
+// dd($s);
 
 
 Route::get('/', 'PagesController@home')->name('pages.home');
@@ -55,10 +51,18 @@ Route::group([
         Route::get('/estadisticas/totalcat', 'EstadisticasController@totalcat')->name('admin.estadisticas.totalcat');
         Route::post('/estadisticas/categoria', 'EstadisticasController@fechacat')->name('admin.estadisticas.fechacat');
 
-        Route::get('/estadisticas/auth', 'EstadisticasController@auth')->name('admin.estadisticas.auth');
+        Route::get('/estadisticas/personas', 'EstadisticasController@personas')->name('admin.estadisticas.personas');
+        Route::get('/estadisticas/totalpersonas', 'EstadisticasController@totalpersonas')->name('admin.estadisticas.totalpersonas');
+
+
+        
+        Route::get('/estadisticas/personas', 'EstadisticasController@personas')->name('admin.estadisticas.personas');
         Route::get('/estadisticas/tabla', 'EstadisticasController@tabla')->name('admin.estadisticas.tabla');
         Route::post('/estadisticas/fecha', 'EstadisticasController@fecha')->name('admin.estadisticas.fecha');
         Route::get('/Subcategory/{id}', 'SubcategoryController@subs')->name('admin.subcategorias.subs');
+        Route::delete('/involucrado/{id}/{postid}', 'InvolucradoController@destroy')->name('admin.involucrados.destroy');
+        Route::get('/antecedentes', 'AntecedentesController@index')->name('admin.antecedentes.index');
+        Route::get('/antecedentes/posts/{post}', 'AntecedentesController@posts')->name('admin.antecedentes.posts');
 
 });
 

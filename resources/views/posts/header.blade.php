@@ -2,6 +2,8 @@
         <div class="date">
         <span class="c-gris">{{ optional($post->published_at)->format('M d') }} / {{ $post->owner->name }}</span>
         <hr>
+        <span class="c-gris">{{'Oficio: '.$post->oficio }}</span>
+        <hr>
         <span class="label label-warning"><a href="{{ route('subcategories.show', $post->tags->subcategory ) }}">{{ $post->tags->subcategory->name }}</a></span>
         </div>
         <div class="post-category">
