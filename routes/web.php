@@ -17,6 +17,10 @@
 
 
 Route::get('/', 'PagesController@home')->name('pages.home');
+// Route::get('/', function(){
+//     $p = App\Post::find(1);
+//     dd($p->photos->first()->url);
+// });
 Route::get('nosotros', 'PagesController@about')->name('pages.about');
 Route::get('archivo', 'PagesController@archive')->name('pages.archive');
 Route::get('contacto', 'PagesController@contact')->name('pages.contact');
@@ -71,6 +75,12 @@ Route::get('reportes/{post}', 'PostsController@show')->name('posts.show');
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/word/{id}', 'FileController@word')->name('file.word');
+Route::get('/pfd/{id}', 'FileController@pfd')->name('file.pdf');
+Route::get('/prueba/{id}', function(){
+
+});
 
 // Registration Routes...
 // Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');

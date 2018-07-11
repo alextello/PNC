@@ -17,7 +17,7 @@
 				<div class="divider"></div>
 				<p>{{$post->excerpt}}</p>
 				@if($post->photos->count()===1)	
-					<figure><img src="/storage/{{ $post->photos->url }}" alt="" class="img-responsive"></figure>
+					<figure><img src="/storage/{{ $post->photos->first()->url }}" alt="" class="img-responsive"></figure>
 					@elseif($post->photos->count()>1)
 					@include('posts.carousel')
 					@endif
