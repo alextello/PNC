@@ -63,8 +63,11 @@
                  <a href="{{ route('admin.estadisticas.categoria') }}" ><i class="fa fa-tag"></i>Ver por categorias</a>
               </li>
               <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
-                 <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-user"></i>Ver por personas</a>
+                 <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-venus-mars"></i> Ver por género</a>
               </li>
+             <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
+                <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-map-signs"></i>Ver por municipio</a>
+             </li>
             </ul>
           </li>
  </ul>

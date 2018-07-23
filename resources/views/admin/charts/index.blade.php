@@ -30,7 +30,9 @@
     <div class="col-md-12">
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">Barras</h3>
+                <h3 class="box-title">Positivas</h3>
+                <br>
+                <button class="printMe"><span class="fa fa-fw fa-print"></span></button>
                 <div class="box-tools pull-right">
                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                    </button>
@@ -38,8 +40,27 @@
                  </div>
             </div>
             <div class="box-body">
-                <div class="chart" id="barras">
-                    <canvas id="mycanvas" width="1300" height="300"></canvas>
+                <div class="chart" id="barrasP">
+                    <canvas id="mycanvasP" class="mycanvasP" width="1300" height="400"></canvas>
+                    <img src="" id="canvasIMG" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Negativas</h3>
+                <div class="box-tools pull-right">
+                   <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                   </button>
+                   <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                 </div>
+            </div>
+            <div class="box-body">
+                <div class="chart barrasN" id="barrasN">
+                    <canvas id="mycanvasN" width="1300" height="400"></canvas>
                 </div>
             </div>
         </div>
@@ -77,6 +98,7 @@
 {{-- <script src="/adminlte/bower_components/chart.js/Chart.js"></script> --}}
 <script src="/adminlte/bower_components/moment/min/moment.min.js"></script>
 <script src="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="/js/jQuery.print.min.js"></script>
 <script>
     $('#reservation').daterangepicker({
         'startDate': '01/01/2019',
@@ -143,9 +165,13 @@ function inicio(dataF){
 		method: "GET",
         dataType: 'json',
 		success: function(data) {
-			var player = [];
-			var score = [];
-            var coloR = [];
+			var etiquetaP = [];
+			var scoreP = [];
+            var coloRP = [];
+
+            var etiquetaN = [];
+			var scoreN = [];
+            var coloRN = [];
 
             var dynamicColors = function() {
             var r = Math.floor(Math.random() * 255);
@@ -155,33 +181,61 @@ function inicio(dataF){
             };
             if( typeof dataF === 'undefined' )
             {
-                console.log('No entra F');
-			for(var i in data) {
-				player.push("Etiqueta: " + data[i].name);
-				score.push(data[i].cantidad);
-                coloR.push(dynamicColors());
+             //ciclo positivo   
+			for(var i in data.tagsP) {
+				etiquetaP.push("Etiqueta: " + data.tagsP[i].name);
+				scoreP.push(data.tagsP[i].cantidad);
+                coloRP.push(dynamicColors());
 			}
-                
+
+            //ciclo negativo
+            for(var i in data.tagsN) {
+				etiquetaN.push("Etiqueta: " + data.tagsN[i].name);
+				scoreN.push(data.tagsN[i].cantidad);
+                coloRN.push(dynamicColors());
+			}
+
             }
             else{
-                console.log('si F');
-                for(var i in dataF.tags) {
-				player.push("Etiqueta: " + dataF.tags[i].name);
-				score.push(dataF.tags[i].cantidad);
-                coloR.push(dynamicColors());
+                //POSITIVAS
+                for(var i in dataF.tagsP) {
+				etiquetaP.push("Etiqueta: " + dataF.tagsP[i].name);
+				scoreP.push(dataF.tagsP[i].cantidad);
+                coloRP.push(dynamicColors());
 			}
+                //NEGATIVAS
+            for(var i in dataF.tagsN) {
+				etiquetaN.push("Etiqueta: " + dataF.tagsN[i].name);
+				scoreN.push(dataF.tagsN[i].cantidad);
+                coloRN.push(dynamicColors());
+			}
+
             }
 
-			var chartdata = {
-				labels: player,
+			var chartdataP = {
+				labels: etiquetaP,
 				datasets : [
 					{
 						label: 'Cantidad de ocurrencias',
-						backgroundColor:  coloR,
+						backgroundColor:  coloRP,
 						borderColor:  'rgba(255,99,132,1)',
 						hoverBackgroundColor: 'rgba(64, 90, 118, 0.9)',
 						hoverBorderColor: 'rgba(255,99,132,1)',
-						data: score
+						data: scoreP
+					}
+				]
+			};
+
+            var chartdataN = {
+				labels: etiquetaN,
+				datasets : [
+					{
+						label: 'Cantidad de ocurrencias',
+						backgroundColor:  coloRN,
+						borderColor:  'rgba(255,99,132,1)',
+						hoverBackgroundColor: 'rgba(64, 90, 118, 0.9)',
+						hoverBorderColor: 'rgba(255,99,132,1)',
+						data: scoreN
 					}
 				]
 			};
@@ -208,14 +262,22 @@ function inicio(dataF){
   responsive:true
 };
 
-			var ctx = $("#mycanvas");
+			var ctx = $("#mycanvasP");
+            var ctxn = $("#mycanvasN");
 
 			var barGraph = new Chart(ctx, {
 				type: 'bar',
-				data: chartdata,
+				data: chartdataP,
                 options:option
 			});
+            var barGraph = new Chart(ctxn, {
+				type: 'bar',
+				data: chartdataN,
+                options:option
+			});
+            
 		},
+        
 		error: function(data) {
 			console.log(data);
 		}
@@ -226,9 +288,12 @@ $( "#searchForm" ).submit(function( event ) {
  
  // Stop form from submitting normally
  event.preventDefault();
- $( "#mycanvas" ).remove();
- var txt1 = "<canvas id='mycanvas'  width='1300' height='300'></canvas>";  
- $("#barras").append(txt1); 
+ $( "#mycanvasP" ).remove();
+ $( "#mycanvasN" ).remove();
+ var txt1 = "<canvas id='mycanvasP'  width='1300' height='400'></canvas>";
+ var txt2 = "<canvas id='mycanvasN'  width='1300' height='400'></canvas>";    
+ $("#barrasP").append(txt1); 
+ $("#barrasN").append(txt2); 
  // Get some values from elements on the page:
  var $form = $( this ),
    term = $form.find( "input[name='reservation']" ).val();
@@ -254,5 +319,14 @@ $( "#searchForm" ).submit(function( event ) {
 });
 
 
+    </script>
+
+    <script>
+        $('.printMe').click(function(){
+            var canvas = document.getElementById('mycanvasP');
+            var dataURL = canvas.toDataURL();
+            document.getElementById('canvasIMG').src = dataURL;
+            $('#canvasIMG').print();
+        });
     </script>
 @endpush

@@ -6,7 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Involucrado extends Model
 {
-    protected $guarded = [];
+    protected $fillable = [
+        'gender',
+        'genero',
+        'name',
+        'tattoos',
+        'gang_id',
+        'dpi',
+        'age',
+    ];
 
     public function getRouteKeyName()
     {
@@ -15,6 +23,11 @@ class Involucrado extends Model
     public function posts()
     {
         return $this->belongsToMany('App\Post');
+    }
+
+    public function mara()
+    {
+        return $this->belongsTo('App\Gang');
     }
     public function setGenderAttribute($genero)
     {

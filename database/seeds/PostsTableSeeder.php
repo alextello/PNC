@@ -9,6 +9,8 @@ use App\Municipio;
 use Carbon\Carbon;
 use App\Subcategory;
 use App\Departamento;
+use App\Involucrado;
+use App\Gang;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
@@ -173,6 +175,8 @@ class PostsTableSeeder extends Seeder
         $post->oficio = 1;
         $post->address_id = Address::create(['name' => '1ra. Calle 5-22 zona 3', 'municipio_id' => '1'])->id;
         $post->save();
+
+
 
         $post = new Post();
         $post->title = 'segundo post';

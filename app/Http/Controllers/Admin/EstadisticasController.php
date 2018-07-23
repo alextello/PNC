@@ -20,31 +20,65 @@ class EstadisticasController extends Controller
     public function total()
     {
 
-        $tags = DB::table('posts')
+        $tagsP = DB::table('posts')
             ->join('tags', 'posts.tag_id', '=', 'tags.id')
+            ->join('subcategories', 'subcategories.id', 'tags.subcategory_id')
+            ->join('categories', 'categories.id', 'subcategories.category_id')
             ->select(DB::raw('count(tag_id) as cantidad'))
+            ->where('categories.id', '1')
             ->groupBy('tag_id')
             ->addSelect('tags.name')
             ->orderBy('cantidad', 'desc')
             ->get();
-            return $tags;
-            
+
+        $tagsN = DB::table('posts')
+            ->join('tags', 'posts.tag_id', '=', 'tags.id')
+            ->join('subcategories', 'subcategories.id', 'tags.subcategory_id')
+            ->join('categories', 'categories.id', 'subcategories.category_id')
+            ->select(DB::raw('count(tag_id) as cantidad'))
+            ->where('categories.id', '2')
+            ->groupBy('tag_id')
+            ->addSelect('tags.name')
+            ->orderBy('cantidad', 'desc')
+            ->get();
+
+            return response()->json(array(
+                'tagsP' => $tagsP,
+                'tagsN' => $tagsN
+            ));
     }
 
     
     public function fecha()
     {
         $fechas = explode(' ', request()->fecha);
-        $tags = DB::table('posts')
+        $tagsP = DB::table('posts')
         ->select(DB::raw('count(tag_id) as cantidad'))
         ->join('tags', 'tags.id', '=', 'posts.tag_id')
+        ->join('subcategories', 'subcategories.id', 'tags.subcategory_id')
+        ->join('categories', 'categories.id', 'subcategories.category_id')
         ->where('posts.published_at', '>', date(Carbon::createFromFormat('d/m/Y', $fechas[0])))
         ->where('posts.published_at', '<', date(Carbon::createFromFormat('d/m/Y', $fechas[2])))
+        ->where('categories.id', '1')
         ->groupBy('posts.tag_id')
         ->addSelect('tags.name')
         ->get();
+
+        $tagsN = DB::table('posts')
+        ->select(DB::raw('count(tag_id) as cantidad'))
+        ->join('tags', 'tags.id', '=', 'posts.tag_id')
+        ->join('subcategories', 'subcategories.id', 'tags.subcategory_id')
+        ->join('categories', 'categories.id', 'subcategories.category_id')
+        ->where('posts.published_at', '>', date(Carbon::createFromFormat('d/m/Y', $fechas[0])))
+        ->where('posts.published_at', '<', date(Carbon::createFromFormat('d/m/Y', $fechas[2])))
+        ->where('categories.id', '2')
+        ->groupBy('posts.tag_id')
+        ->addSelect('tags.name')
+        ->get();
+
         return response()->json(array(
-            'tags' => $tags,
+            'tagsP' => $tagsP,
+            'tagsN' => $tagsN,
             'fechas' => $fechas
         ));
     }

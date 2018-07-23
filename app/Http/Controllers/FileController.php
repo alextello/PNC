@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use PDF;
 
 class FileController extends Controller
 {
@@ -46,7 +47,7 @@ class FileController extends Controller
     {
         $post = Post::find($id);
         $post->load('photos');
-        $pdf = PDF::loadView('pdf.invoice', $post);
-        return $pdf->download($post->url);
+        $pdf = PDF::loadView('posts.pdf', ['post' => $post]);
+        return $pdf->download($post->url.'.pdf');
     }
 }

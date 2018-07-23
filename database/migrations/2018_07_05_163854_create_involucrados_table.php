@@ -19,6 +19,10 @@ class CreateInvolucradosTable extends Migration
             $table->bigInteger('dpi')->nullable();
             $table->char('gender', 1);
             $table->string('genero');
+            $table->unsignedInteger('gang_id')->nullable();
+            $table->string('tattoos')->nullable();
+            $table->string('alias')->nullable();
+            $table->unsignedInteger('age')->default('1')->nullable();
             $table->timestamps();
         });
     }

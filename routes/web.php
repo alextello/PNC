@@ -14,13 +14,12 @@
 // $a = collect(['name' => 'algo', 'dpi' => '1', 'gender' => 'M']);
 // $s = Involucrado::find($a);
 // dd($s);
-
+Route::get('prueba', function(){
+    $post = App\Post::find(1);
+    return view('posts.pdf', ['post' => $post]);
+});
 
 Route::get('/', 'PagesController@home')->name('pages.home');
-// Route::get('/', function(){
-//     $p = App\Post::find(1);
-//     dd($p->photos->first()->url);
-// });
 Route::get('nosotros', 'PagesController@about')->name('pages.about');
 Route::get('archivo', 'PagesController@archive')->name('pages.archive');
 Route::get('contacto', 'PagesController@contact')->name('pages.contact');
@@ -67,6 +66,8 @@ Route::group([
         Route::delete('/involucrado/{id}/{postid}', 'InvolucradoController@destroy')->name('admin.involucrados.destroy');
         Route::get('/antecedentes', 'AntecedentesController@index')->name('admin.antecedentes.index');
         Route::get('/antecedentes/posts/{post}', 'AntecedentesController@posts')->name('admin.antecedentes.posts');
+        Route::get('/involucrado/{id}/{postid}', 'PostsController@involucrado')->name('involucrado.index');
+        Route::post('/involucrado/update/{id}/{postid}', 'PostsController@involucradoUpdate')->name('admin.involucrado.update');
 
 });
 
@@ -77,7 +78,7 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/word/{id}', 'FileController@word')->name('file.word');
-Route::get('/pfd/{id}', 'FileController@pfd')->name('file.pdf');
+Route::get('/pfd/{id}', 'FileController@pdf')->name('file.pdf');
 Route::get('/prueba/{id}', function(){
 
 });

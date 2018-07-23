@@ -100,31 +100,63 @@ class Post extends Model
     //     return $this->tags()->sync($tagIds);
     // }
 
-    public function syncInvolucrados($involucrado, $dpi, $genero)
+    public function syncInvolucrados($involucrado, $dpi, $genero, $request)
     {
+        
+        if(isset($request->gang))
+        {
+            $gangs = $this->syncGangs($request->gang);
+        }
+        else
+        {
+            $gangs[]=0;
+        }
         $coleccion = collect();
         $i = 0;
-        $involucrado = collect($involucrado)->filter()->all();
+        $involucrado = collect($involucrado);
         
         foreach($involucrado as $in)
         {
-            $coleccion->push(['name' => $involucrado[$i], 'dpi' => $dpi[$i], 'gender' => $genero[$i]]);
+            $coleccion->push(['name' => $involucrado[$i], 'dpi' => $dpi[$i], 'gender' => $genero[$i], 'gang_id' => $gangs[$i], 'alias' => $request->alias[$i], 'tattoos' => $request->tattoos[$i], 'age'=>$request->age[$i] ]);
             $i++;
         }
-
-        // $involucradosIds = $coleccion->map(function($coleccion){
-        //     return Involucrado::find( $coleccion['dpi']) ? $coleccion : Involucrado::create($coleccion)->id;
-        // });
-        // dd($involucradosIds);
+        $i = 0;
+   
+        foreach($coleccion as $col)
+        {
+            if(!isset($col['name']))
+            {
+                $coleccion->forget([$i]);
+            }
+            $i++;
+        }
+        
         $in = [];
         foreach($coleccion as $col)
         {
-            $found = Involucrado::find($col)->first();
+            $found = Involucrado::where('dpi', $col['dpi'])->first();
             $in[] = $found ? $found->id : Involucrado::create($col)->id;
         }
-        // dd($in);
+
         return $this->involucrados()->sync($in);
 
+    }
+
+    public function syncGangs($gangs)
+    {
+        $gangsID = collect();
+        foreach($gangs as $gang)
+        {
+             if($item = Gang::where('name', $gang)->first())
+            {
+                $gangsID->push($item->id); 
+            }
+            else
+            {
+                $gangsID->push( Gang::create(['name' => $gang])->id );
+            }
+        }
+        return $gangsID;
     }
     
     public function scopeAllowed($query)
