@@ -145,7 +145,7 @@ return [
         'content' => 'contenido',
         'body' => 'contenido',
         'description' => 'descripción',
-        'excerpt' => 'extracto',
+        'delito_id' => 'delito',
         'date' => 'fecha',
         'time' => 'hora',
         'subject' => 'asunto',

@@ -201,14 +201,14 @@
                         <input name="oficio" type="number" class="form-control" id="oficio" value="{{ old('oficio', $post->oficio ? $post->oficio : '') }}">
                         <!-- /.input group -->
                     </div>
-                    <div class="form-group {{$errors->has('municipio') ? 'has-error' : ''}}">
-                        <label for="">Seleccione el municipio</label>
-                        <select name="municipio" id="municipio" class="form-control select2">
-                            <option value="">Seleccione el municipio</option>
-                            @if($post->address!=null) @foreach ($municipios as $muni)
-                            <option value="{{ $muni->id}}" {{ old( 'municipio', $post->address->municipio->id) == $muni->id ? 'selected' : '' }} >{{ $muni->name }}</option>
-                            @endforeach @else @foreach ($municipios as $muni)
-                            <option value="{{ $muni->id}}" {{ old( 'municipio')==$muni->id ? 'selected' : '' }} >{{ $muni->name }}</option>
+                    <div class="form-group {{$errors->has('aldea') ? 'has-error' : ''}}">
+                        <label for="">Seleccione el aldea</label>
+                        <select name="aldea" id="aldea" class="form-control select2">
+                            <option value="">Seleccione el aldea</option>
+                            @if($post->address!=null) @foreach ($aldeas as $aldea)
+                            <option value="{{ $aldea->id}}" {{ old( 'aldea', $post->address->aldea->id) == $aldea->id ? 'selected' : '' }} >{{ $aldea->name }}</option>
+                            @endforeach @else @foreach ($aldeas as $aldea)
+                            <option value="{{ $aldea->id}}" {{ old( 'aldea')==$aldea->id ? 'selected' : '' }} >{{ $aldea->name }}</option>
                             @endforeach @endif
                         </select>
                     </div>
@@ -253,9 +253,13 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group {{$errors->has('excerpt') ? 'has-error' : ''}}">
-                        <label for="">Extracto</label>
-                        <textarea name="excerpt" id="excerpt" class="form-control" placeholder="Ingrese un extracto de la publicación">{{ old('excerpt', $post->excerpt)}}</textarea>
+                    <div class="form-group">
+                        <label for="">Delito o falta</label>
+                        <select name="delito_id" class="form-control select2" id="delito_id">
+                            @foreach($delitos as $del)
+                                <option {{ collect(old( 'delito_id', optional($post->delito)->id))->contains($del->id) ? 'selected' : '' }} value="{{ $del->name }}">{{ $del->name }}</option> 
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <div class="dropzone"></div>
@@ -385,6 +389,10 @@
                 return undefined;
             }
         });
+
+        $('#delito_id').select2({
+            tags: true
+        })
 
         $('#gang').select2({
             tags: true,

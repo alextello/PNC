@@ -38,7 +38,7 @@
               <td>{{ $post->id }}</td>
               <td> {{ optional($post->published_at)->format('d M y') }} </td>
                 <td>{{ $post->title }}</td>
-                <td>{{ str_limit($post->excerpt, 50) }}</td>
+                <td>{{ $post->delito_id }}</td>
                 <td>{{ optional($post->tags)->name }}</td>
                 <td>{{ $post->owner->email  }}</td>
                 <td>

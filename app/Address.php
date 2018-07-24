@@ -8,9 +8,9 @@ class Address extends Model
 {
     protected $guarded = [];
 
-    public function municipio()
+    public function aldea()
     {
-        return $this->belongsTo('App\Municipio');
+        return $this->belongsTo('App\Aldea');
     }
 
     public function post()

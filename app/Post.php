@@ -11,7 +11,7 @@ class Post extends Model
     protected $fillable = [
         'title',
         'body',
-        'excerpt',
+        'delito_id',
         'published_at',
         'category_id',
         'user_id',
@@ -57,6 +57,11 @@ class Post extends Model
     public function involucrados()
     {
         return $this->belongsToMany('App\Involucrado');
+    }
+
+    public function delito()
+    {
+        return $this->belongsTo('App\Delito');
     }
 
     public static function create(array $attributes = [])
@@ -111,6 +116,7 @@ class Post extends Model
         {
             $gangs[]=0;
         }
+
         $coleccion = collect();
         $i = 0;
         $involucrado = collect($involucrado);
@@ -157,6 +163,13 @@ class Post extends Model
             }
         }
         return $gangsID;
+    }
+
+    public function syncDelitos($delito)
+    {
+        $query = Delito::where('name', $delito)->first();
+        $delito =  $query ? $query->id : Delito::create(['name' => $delito ])->id;
+        return $delito;
     }
     
     public function scopeAllowed($query)

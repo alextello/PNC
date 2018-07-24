@@ -22,7 +22,7 @@ class AntecedentesController extends Controller
                 $query->with('category');
             }]);
         }])->with(['address' => function($a){
-            $a->with('municipio');
+            $a->with('aldea');
         }])->with('photos')->with('owner')
         ->whereNotNull('published_at')
         ->latest('published_at')

@@ -37,7 +37,7 @@
                         <strong>{{ $post->title }}</strong>
                         </a><br>
                         <small class="text-muted">Publicado el {{ optional($post->published_at)->format('d/M/Y')}}</small>
-                        <p class="text-muted"> {{$post->excerpt}} </p>
+                        <p class="text-muted"> {{$post->delito->name}} </p>
                         @unless ($loop->last)
                         <hr>
                         @endunless

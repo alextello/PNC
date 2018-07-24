@@ -8,8 +8,10 @@ use App\Address;
 use App\Category;
 use App\Gang;
 use App\Municipio;
+use App\Aldea;
 use App\Plantilla;
 use App\Involucrado;
+use App\Delito;
 use Carbon\Carbon;
 use App\Subcategory;
 use Illuminate\Http\Request;
@@ -56,15 +58,16 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-        $post = Post::where('url', $id)->with(['address', 'tags', 'involucrados', 'photos'])->first();
+    $post = Post::where('url', $id)->with(['address', 'tags', 'involucrados', 'photos', 'delito'])->first();
         if($post && $post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
         {
-            $municipios = Municipio::all();
+            $aldeas = Aldea::all();
+            $delitos = Delito::all();
             $categories = Category::with('subcategories')->get();
             $tags = Tag::all();
             $gangs = Gang::all();
             $plantillas = Plantilla::all();
-            return view('admin.posts.edit', compact('post', 'categories', 'tags', 'plantillas', 'municipios', 'gangs'));
+            return view('admin.posts.edit', compact('post', 'categories', 'tags', 'plantillas', 'aldeas', 'gangs', 'delitos'));
         }
        
         else{
@@ -83,7 +86,9 @@ class PostsController extends Controller
         // dd($request->all());
         // dd($request->all());
         $request->merge(['time' => date("H:i", strtotime($request->time))]);
-        $request->merge(['address_id' => Address::create(['name' => $request->address_id, 'municipio_id' => $request->municipio])->id]);
+        $request->merge(['address_id' => Address::create(['name' => $request->address_id, 'aldea_id' => $request->aldea])->id]);
+        if($request->delito_id)
+        $request->merge(['delito_id' => $post->syncDelitos($request->delito_id)]);
         $post->update($request->all());
         $post->syncInvolucrados(request()->get('involucrados'),request()->get('dpi'),request()->get('genero'), $request);
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');

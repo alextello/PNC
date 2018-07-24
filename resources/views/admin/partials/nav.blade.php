@@ -66,7 +66,7 @@
                  <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-venus-mars"></i> Ver por género</a>
               </li>
              <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
-                <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-map-signs"></i>Ver por municipio</a>
+                <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-map-signs"></i>Ver por aldeas</a>
              </li>
             </ul>
           </li>

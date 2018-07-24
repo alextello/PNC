@@ -4,13 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Municipio extends Model
+class Aldea extends Model
 {
     protected $guarded = [];
 
-    public function municipios()
+    public function municipio()
     {
-        return $this->hasMany('App\Aldea');
+        $this->belongsTo('App\Municipio');
     }
 
     public function setNameAttribute($name)

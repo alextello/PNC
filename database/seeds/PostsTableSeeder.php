@@ -5,12 +5,13 @@ use App\Post;
 use App\User;
 use App\Address;
 use App\Category;
-use App\Municipio;
+use App\Aldea;
 use Carbon\Carbon;
 use App\Subcategory;
-use App\Departamento;
+use App\Municipio;
 use App\Involucrado;
 use App\Gang;
+use App\Delito;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
@@ -32,8 +33,9 @@ class PostsTableSeeder extends Seeder
         Subcategory::truncate();
         Tag::truncate();
         Address::truncate();
+        Aldea::truncate();
+        Delito::truncate();
         Municipio::truncate();
-        Departamento::truncate();
         Storage::disk('public')->deleteDirectory('posts');
 
         $adminRole = Role::create(['name' => 'Administrador', 'display_name' => 'Admin']);
@@ -93,25 +95,26 @@ class PostsTableSeeder extends Seeder
 
         //Departamento
 
-        $dep = Departamento::create(['name' => 'Sololá']);
-        $mun = Municipio::create(['name' => 'Santiago Atitlán', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'San José Chacayá', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'Concepción', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'Santa Catarina Ixtahuacán', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'San Juan La Laguna', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'San Pablo La Laguna', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'San Pedro La Laguna', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'Santa Clara La Laguna', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'Santa Cruz La Laguna', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'Nahualá', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'San Antonio Polopó', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'Santa Catarina Pololpó', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'Panajachel', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'San Andrés Semetabaj', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'Sololá', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'San Lucas Tolimán', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'Santa Lucía Utatlán', 'departamento_id' => '1']);
-        $mun = Municipio::create(['name' => 'Santa María Visitación', 'departamento_id' => '1']);
+        $dep = Municipio::create(['name' => 'San Juan Ostuncalco']);
+        $mun = Aldea::create(['name' => 'Agua Blanca', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Agua Tibia', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Buena Vista', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'El Tizate', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Espumpuja', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'La Esperanza', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'La Granadilla', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'La Nueva Concepción', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'La Reforma', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'La Unión los Mendoza', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'La Victoria', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Las Barrancas', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Las Lagunas Cuaches', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Los Alonzo', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Monrovia', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Pueblo Nuevo', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Roble Grande', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Sigüila', 'municipio_id' => '1']);
+        $mun = Aldea::create(['name' => 'Varsovia', 'municipio_id' => '1']);
         
         
 
@@ -163,17 +166,18 @@ class PostsTableSeeder extends Seeder
         $tag->subcategory_id = 2;
         $tag->save();
 
+        $delito = Delito::create(['name' => 'escandalo publico']);
 
         $post = new Post();
         $post->title = 'Primer post';
         $post->url = str_slug('Primer post');
-        $post->excerpt = 'Extracto primer post';
+        $post->delito_id = 1;
         $post->body = '<p>Contenido primer post</p>';
         $post->published_at = Carbon::now();
         $post->user_id =  1;
         $post->tag_id = 1;
         $post->oficio = 1;
-        $post->address_id = Address::create(['name' => '1ra. Calle 5-22 zona 3', 'municipio_id' => '1'])->id;
+        $post->address_id = Address::create(['name' => '1ra. Calle 5-22 zona 3', 'aldea_id' => '1'])->id;
         $post->save();
 
 
@@ -181,25 +185,25 @@ class PostsTableSeeder extends Seeder
         $post = new Post();
         $post->title = 'segundo post';
         $post->url = str_slug('segundo post');
-        $post->excerpt = 'Extracto segundo post';
+        $post->delito_id = 1;
         $post->body = '<p>Contenido segundo post</p>';
         $post->published_at = Carbon::now()->subDays(1);
         $post->user_id =  2;
         $post->tag_id = 1;
         $post->oficio = 11;
-        $post->address_id = Address::create(['name' => '11av. 8-20 zona 1', 'municipio_id' => '2'])->id;
+        $post->address_id = Address::create(['name' => '11av. 8-20 zona 1', 'aldea_id' => '2'])->id;
         $post->save();
 
         $post = new Post();
         $post->title = 'tercer post';
         $post->url = str_slug('tercer post');
-        $post->excerpt = 'Extracto tercer post';
+        $post->delito_id = 1;
         $post->body = '<p>Contenido tercer post</p>';
         $post->published_at = Carbon::now()->subDays(2);
         $post->user_id =  2;
         $post->tag_id = 2;
         $post->oficio = 1111;
-        $post->address_id = Address::create(['name' => '4ta. calle 6-32 zona 2', 'municipio_id' => '3'])->id;
+        $post->address_id = Address::create(['name' => '4ta. calle 6-32 zona 2', 'aldea_id' => '3'])->id;
         $post->save();
        
     }
