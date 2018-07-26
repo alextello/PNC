@@ -12,6 +12,9 @@ use App\Municipio;
 use App\Involucrado;
 use App\Gang;
 use App\Delito;
+use App\Marca;
+use App\Movil;
+use App\Vehiculo;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
@@ -36,6 +39,9 @@ class PostsTableSeeder extends Seeder
         Aldea::truncate();
         Delito::truncate();
         Municipio::truncate();
+        Marca::truncate();
+        Movil::truncate();
+        Vehiculo::truncate();
         Storage::disk('public')->deleteDirectory('posts');
 
         $adminRole = Role::create(['name' => 'Administrador', 'display_name' => 'Admin']);
@@ -205,6 +211,15 @@ class PostsTableSeeder extends Seeder
         $post->oficio = 1111;
         $post->address_id = Address::create(['name' => '4ta. calle 6-32 zona 2', 'aldea_id' => '3'])->id;
         $post->save();
+
+        Movil::create(['tipo' => 'Vehiculo']);
+        Movil::create(['tipo' => 'Moto']);
+        Movil::create(['tipo' => 'A pie']);
+
+        Marca::create(['name' => 'Toyota']);
+        Marca::create(['name' => 'Nissan']);
+        Marca::create(['name' => 'Honda']);
+
        
     }
 }

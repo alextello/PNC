@@ -67,7 +67,9 @@ Route::group([
         Route::get('/antecedentes', 'AntecedentesController@index')->name('admin.antecedentes.index');
         Route::get('/antecedentes/posts/{post}', 'AntecedentesController@posts')->name('admin.antecedentes.posts');
         Route::get('/involucrado/{id}/{postid}', 'PostsController@involucrado')->name('involucrado.index');
+        Route::post('/fallecidos', 'InvolucradoController@fallecidos')->name('admin.involucrados.fallecidos');
         Route::post('/involucrado/update/{id}/{postid}', 'PostsController@involucradoUpdate')->name('admin.involucrado.update');
+        Route::post('/vehiculos', 'InvolucradoController@vehiculos')->name('admin.involucrados.vehiculos');
 
 });
 

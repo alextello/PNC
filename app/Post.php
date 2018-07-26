@@ -120,7 +120,6 @@ class Post extends Model
         $coleccion = collect();
         $i = 0;
         $involucrado = collect($involucrado);
-        
         foreach($involucrado as $in)
         {
             $coleccion->push(['name' => $involucrado[$i], 'dpi' => $dpi[$i], 'gender' => $genero[$i], 'gang_id' => $gangs[$i], 'alias' => $request->alias[$i], 'tattoos' => $request->tattoos[$i], 'age'=>$request->age[$i] ]);
@@ -140,11 +139,14 @@ class Post extends Model
         $in = [];
         foreach($coleccion as $col)
         {
+            if(isset($col['dpi']))
             $found = Involucrado::where('dpi', $col['dpi'])->first();
+            else
+            $found = Involucrado::where('name', $col['name'])->first();
             $in[] = $found ? $found->id : Involucrado::create($col)->id;
         }
 
-        return $this->involucrados()->sync($in);
+        return $this->involucrados()->attach($in);
 
     }
 
@@ -170,6 +172,13 @@ class Post extends Model
         $query = Delito::where('name', $delito)->first();
         $delito =  $query ? $query->id : Delito::create(['name' => $delito ])->id;
         return $delito;
+    }
+
+    public function syncAbordo($abordo)
+    {
+        $query = Movil::where('id', $abordo)->first();
+        $abordo =  $query ? $query->id : Movil::create(['tipo' => $abordo ])->id;
+        return $abordo;
     }
     
     public function scopeAllowed($query)

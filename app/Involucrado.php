@@ -27,8 +27,14 @@ class Involucrado extends Model
 
     public function mara()
     {
-        return $this->belongsTo('App\Gang');
+        return $this->belongsTo('App\Gang', 'gang_id');
     }
+
+    public function movil()
+    {
+        return $this->belongsTo('App\Movil', 'movil_id');
+    }
+    
     public function setGenderAttribute($genero)
     {
         if($genero === 'M'){

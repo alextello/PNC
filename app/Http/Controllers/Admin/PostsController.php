@@ -9,6 +9,8 @@ use App\Category;
 use App\Gang;
 use App\Municipio;
 use App\Aldea;
+use App\Marca;
+use App\Movil;
 use App\Plantilla;
 use App\Involucrado;
 use App\Delito;
@@ -58,16 +60,20 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-    $post = Post::where('url', $id)->with(['address', 'tags', 'involucrados', 'photos', 'delito'])->first();
+    $post = Post::where('url', $id)->with(['address', 'tags', 'photos', 'delito'])->with(['involucrados' => function($q){
+        $q->with(['mara', 'movil']);
+        }])->first();
         if($post && $post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
         {
             $aldeas = Aldea::all();
             $delitos = Delito::all();
+            $movil = Movil::all();
+            $marca = Marca::all();
             $categories = Category::with('subcategories')->get();
             $tags = Tag::all();
             $gangs = Gang::all();
             $plantillas = Plantilla::all();
-            return view('admin.posts.edit', compact('post', 'categories', 'tags', 'plantillas', 'aldeas', 'gangs', 'delitos'));
+            return view('admin.posts.edit', compact('post', 'categories', 'tags', 'marca', 'plantillas', 'aldeas', 'gangs', 'movil', 'delitos'));
         }
        
         else{
@@ -111,56 +117,56 @@ class PostsController extends Controller
     public function involucrado($id, $post)
     {   
         $gangs = Gang::all();
+        $movil = Movil::all();
         $involucrado = Involucrado::find($id);
-        return view('admin.involucrados.index', compact('involucrado', 'gangs', 'post'));
+        if($involucrado->aprehendido == '1')
+        return view('admin.involucrados.index', compact('involucrado', 'gangs', 'post', 'movil'));
+        else
+        return view('admin.involucrados.fallecido', compact('involucrado', 'gangs', 'post', 'movil'));
     }
 
     public function involucradoUpdate($id, $post, Request $request)
     {   
-        if(isset($request->dpi))
-        {
-            $involucrado = Involucrado::where('dpi', $request->dpi)->first();
-            if(!$involucrado){
-                $involucrado = Involucrado::find($id)->first();    
-            }
-        }
-        else 
-        {
-            $involucrado = Involucrado::find($id)->first();
-        }
-        $item = Gang::where('id', $request->gang_id)->first();
+         
         
-        // $this->validate($request, [
-        //     'age_id' => 'required',
-        //     'name' => 'required'
-        // ]);
-            // dd($request);
-        if(isset($item))
+        $involucrado = Involucrado::find($id)->first();
+        $p = Post::find($post);
+        $gangID = (Int) $p->syncGangs([$request->gangherido])[0];
+
+        if($involucrado->aprehendido == '0')
         {
-            $involucrado->name = $request->name;
-            $involucrado->dpi = $request->dpi;
-            $involucrado->gang_id = $request->gang_id;
-            $involucrado->tattoos = $request->tattoos;
-            $involucrado->alias = $request->alias;
-            $involucrado->gender = $request->gender;
-            $involucrado->age = $request->age;
+            $this->validate($request, [
+                'herido' => 'required'
+            ]);
+            $abordo = (Int) $p->syncAbordo($request->abordo);
+            $involucrado->name = $request->herido;
+            $involucrado->dpi = $request->dpiherido;
+            $involucrado->gender = $request->generoherido;
+            $involucrado->age = $request->ageherido;
+            $involucrado->tattoos = $request->tattoosherido;
+            $involucrado->alias = $request->aliasherido;
+            $involucrado->gang_id = $gangID;
+            $involucrado->movil_id = $abordo;
+            $involucrado->heridas = $request->heridas;
+            $involucrado->motivo = $request->motivo;
+            $involucrado->diagnostico = $request->diagnostico;
+            $involucrado->observaciones = $request->observaciones;
             $involucrado->save();
         }
         else
         {
-            $gang = Gang::create(['name' => $request->gang_id])->id;
-            $request->merge(['gang_id' => $gang]);
+            $this->validate($request, [
+                'name' => 'required'
+            ]);
             $involucrado->name = $request->name;
             $involucrado->dpi = $request->dpi;
-            $involucrado->gang_id = $request->gang_id;
-            $involucrado->tattoos = $request->tattoos;
-            $involucrado->alias = $request->alias;
             $involucrado->gender = $request->gender;
             $involucrado->age = $request->age;
+            $involucrado->tattoos = $request->tattoos;
+            $involucrado->alias = $request->alias;
+            $involucrado->gang_id = $gangID;
             $involucrado->save();
-
         }
-        $p = Post::find($post);
         return redirect()->route('admin.posts.edit', $p);
     }
 }

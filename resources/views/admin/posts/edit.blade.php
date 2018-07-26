@@ -12,7 +12,8 @@
         <a href="{{ route('admin.posts.create')}}">Posts</a>
     </li>
 </ol>
-@endsection @section('content') @if($post->photos->count())
+@endsection @section('content') 
+@if($post->photos->count())
 <div class="row">
     <div class="col-md-12">
         <div class="box box-primary">
@@ -34,9 +35,9 @@
         </div>
     </div>
     @endif 
+
     @if($post->involucrados->count())
     <div class="col-md-12">
-
         <div class="box box-primary collapsed-box">
             <div class="box-header">
                 <h3 class="box-title">
@@ -54,60 +55,43 @@
             <!-- /.box-header -->
             <div class="box-body pad" style="">
                 @foreach ($post->involucrados as $inv)
+                @if($inv->aprehendido == '1')
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="">Nombre</label>
-                    <input type="text" disabled class="form-control" value="{{$inv->name}}" placeholder="Nombre completo" name="involucrados[]">
+                    <input type="text" disabled class="form-control" value="{{$inv->name}}">
 
                     </div>
                     <div class="form-group col-md-4">
                         <label for="">DPI (opcional)</label>
-                        <input type="number" disabled class="form-control" value="{{$inv->dpi}}"placeholder="" id="dpi" name="dpi[]">
+                        <input type="number" disabled class="form-control" value="{{$inv->dpi}}">
 
                     </div>
                     <div class="form-group col-md-2">
                         <label for="">Género</label>
-                        <select type="text" disabled class="form-control" placeholder="Nombre completo" id="genero" name="genero[]">
-                            <option value="{{ $inv->gender }}">{{$inv->gender}}</option>
-                            @if($inv->gender === 'M')
-                                <option value="F">F</option>
-                            @else
-                                <option value="M">M</option>
-                            @endif
-                        </select>
+                        <input type="text" class="form-control" disabled value="{{$inv->gender}}">
                     </div>
                     <div class="form-group col-md-2">
                         <label for="">Edad</label>
-                        <input name="age[]" disabled type="number" value="{{ $inv->age }}"class="form-control">
+                        <input disabled type="number" value="{{ $inv->age }}"class="form-control">
                     </div>
                 </div>
                 <div class="row">
 
                     <div class="form-group col-md-4">
                         <label for="">Tatuajes</label>
-                        <textarea name="tattoos[]" disabled id="tattoos[]" value="{{ $inv->tattoos }}" class="form-control" cols="30" rows="2"></textarea>
+                        <textarea name="tattoos[]" disabled class="form-control" cols="30" rows="2">{{ $inv->tattoos }}</textarea>
                     </div>
 
                     <div class="form-group col-md-3">
                         <label for="">Alias</label>
-                        <input type="text" name="alias[]" disabled value="{{ $inv->alias }}" class="form-control">
+                        <input type="text"  disabled value="{{ $inv->alias }}" class="form-control">
                     </div>
 
                     <div class="form-group col-md-2">
                         <label for="gang">Mara</label>
-                        <br>
-                        <select name="gang[]" id="gang" disabled class="form-control">
-                            <option value="0">Seleccione</option>
-                            @foreach($gangs as $gang)
-                            <option {{ collect($gang)->contains($inv->gang_id) ? 'selected' : '' }} value="{{ $gang->id }}">{{ $gang->name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" class="form-control" disabled value="{{$inv->mara->name}}">
                     </div>
-                    <div class="form-group col-md-1">
-                            <label class="radio"><input type="radio" name="victima[]" value="1" disabled>Victima</label>
-                            <label class="radio"><input type="radio" name="victima[]" value="0" disabled>Victimario</label> 
-                    </div>
-            
                 <div class="form-group col-md-2">
                     <form action=" {{ route('admin.involucrados.destroy', [$inv->id, $post->id] )}} " method="post" style="padding-right: 0px !important;">
                             @csrf @method('DELETE')
@@ -123,25 +107,115 @@
             </div>
             </div>
             <hr>
+                @endif
                 @endforeach
             </div>
         </div>
     </div>
-    @endif
 
+    <div class="col-md-12">
+            <div class="box box-primary collapsed-box">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        Heridos/Fallecidos
+                        <small></small>
+                    </h3>
+                    <!-- tools box -->
+                    <div class="pull-right box-tools">
+                        <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /. tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body pad" style="">
+                    @foreach ($post->involucrados as $inv)
+                    @if($inv->aprehendido == '0')
+                    <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="">Nombre</label>
+                                <input type="text" class="form-control" disabled value="{{$inv->name}}">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="">DPI</label>
+                                <input type="number" class="form-control" disabled value="{{$inv->dpi}}">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="">Género</label>
+                                <input type="text" class="form-control" disabled value="{{$inv->gender}}">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="">Edad</label>
+                                <input type="number" class="form-control" disabled value="{{$inv->age}}">
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="form-group col-md-4">
+                                <label for="">Tatuajes</label>
+                            <textarea name="tattoosherido" id="tattoosherido" class="form-control" cols="30" rows="2" disabled>{{ $inv->tattoos }}</textarea>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label for="">Alias</label>
+                                <input type="text" class="form-control" disabled value="{{$inv->alias}}">
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label for="gang">Mara</label>
+                                <input type="text" class="form-control" disabled value="{{$inv->mara->name}}">
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <label for="">Abordo:</label>
+                                <input type="text" class="form-control" disabled value="{{ optional($inv->movil)->tipo}}">
+                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="">Heridas:</label>
+                                    <textarea cols="30" rows="4" class="form-control" disabled>{{$inv->heridas}}</textarea>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="">Motivo:</label>
+                                    <textarea cols="30" rows="4" class="form-control" disabled>{{$inv->motivo}}</textarea>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <label for="">Diagnostico</label>
+                                    <textarea cols="30" rows="4" class="form-control" disabled>{{$inv->diagnostico}}</textarea>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label for="">Observaciones</label>
+                                    <textarea cols="30" rows="4" class="form-control" disabled>{{$inv->observaciones}}</textarea>
+                                </div>
+                    <div class="form-group col-md-2">
+                        <form action=" {{ route('admin.involucrados.destroy', [$inv->id, $post->id] )}} " method="post" style="padding-right: 0px !important;">
+                                @csrf @method('DELETE')
+                                <div class="btn-group">
+                            <button class="btn btn-md btn-danger">
+                                <span>X</span>
+                            </button>
+                            <a class="btn btn-md btn-info" href="{{ route('involucrado.index', [$inv->id, $post->id] ) }}">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                        </form>
+                    </div>
+                </div>
+                </div>
+                <hr>
+                    @endif
+                    @endforeach
+                </div>
+            </div>
+        </div>
+
+    @endif
+ 
     <form action={{ route( 'admin.posts.update', $post)}} method="POST">
         @csrf @method('PUT')
-        @if($post->involucrados->count())
-        @foreach($post->involucrados as $inv)
-        <input type="hidden" value="{{$inv->name}}"  name="involucrados[]">
-        <input type="hidden" value="{{$inv->dpi}}"  name="dpi[]">
-        <input type="hidden" value="{{$inv->gender}}"  name="genero[]">
-        <input type="hidden" value="{{$inv->gang_id}}"  name="gang[]">
-        <input type="hidden" value="{{$inv->alias}}"  name="alias[]">
-        <input type="hidden" value="{{$inv->age}}"  name="age[]">
-        <input type="hidden" value="{{$inv->tattoos}}"  name="tattoos[]">
-        @endforeach
-        @endif
         <div class="col-md-8">
             <div class="box box-primary">
                 <div class="box-body">
@@ -187,8 +261,8 @@
                 </div>
                 <div class="btn-group">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Añadir involucrados</button>
-                    <button type="button" class="btn btn-primary">Evidencia</button>
-                    <button type="button" class="btn btn-primary">Seguimiento</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vehiculoModal">Registrar vehiculo</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#heridosModal">Registrar heridos/fallecidos</button>
                 </div>
             </div>
 
@@ -205,11 +279,15 @@
                         <label for="">Seleccione el aldea</label>
                         <select name="aldea" id="aldea" class="form-control select2">
                             <option value="">Seleccione el aldea</option>
-                            @if($post->address!=null) @foreach ($aldeas as $aldea)
+                            @if($post->address!=null) 
+                            @foreach ($aldeas as $aldea)
                             <option value="{{ $aldea->id}}" {{ old( 'aldea', $post->address->aldea->id) == $aldea->id ? 'selected' : '' }} >{{ $aldea->name }}</option>
-                            @endforeach @else @foreach ($aldeas as $aldea)
+                            @endforeach 
+                            @else 
+                            @foreach ($aldeas as $aldea)
                             <option value="{{ $aldea->id}}" {{ old( 'aldea')==$aldea->id ? 'selected' : '' }} >{{ $aldea->name }}</option>
-                            @endforeach @endif
+                            @endforeach 
+                            @endif
                         </select>
                     </div>
 
@@ -271,6 +349,8 @@
                 </div>
             </div>
         </div>
+    
+
         <div id="myModal" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg">
 
@@ -321,16 +401,12 @@
 
                                     <div class="form-group col-md-2">
                                         <label for="gang">Mara</label>
-                                        <select name="gang[]" id="gang" class="form-control">
+                                        <select name="gang[]" id="gang" class="form-control tags">
                                             <option value="0">Seleccione</option>
                                             @foreach($gangs as $gang)
                                             <option value="{{ $gang->name }}">{{ $gang->name }}</option>
                                             @endforeach
                                         </select>
-                                    </div>
-                                    <div class="form-group col-md-1">
-                                            <label class="radio"><input type="radio" name="victima[]" value="1">Victima</label>
-                                            <label class="radio"><input type="radio" name="victima[]" value="0">Victimario</label> 
                                     </div>
                             </div>
                         </div>
@@ -350,6 +426,168 @@
     </form>
 
 
+
+    <div id="heridosModal" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Heridos/Fallecidos</h4>
+                    </div>
+                    <div class="modal-body" style="overflow:hidden;">
+                        <div class="box-body pad">
+                                        <div class="row">
+                                        <form action="{{route('admin.involucrados.fallecidos')}}" method="POST" id="heridoform">
+                                            @csrf
+                                            <input type="hidden" value="{{$post->id}}" name="post">
+                                            <div class="form-group col-md-4">
+                                                <label for="">Nombre</label>
+                                                <input type="text" class="form-control" placeholder="Nombre completo" name="herido">
+        
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label for="">DPI (opcional)</label>
+                                                <input type="number" class="form-control" placeholder="" id="dpiherido" name="dpiherido">
+        
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="">Género</label>
+                                                <select type="text" class="form-control" placeholder="Nombre completo" id="generoherido" name="generoherido">
+                                                    <option value="M" selected>M</option>
+                                                    <option value="F">F</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label for="">Edad</label>
+                                                <input name="ageherido" type="number" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+        
+                                            <div class="form-group col-md-4">
+                                                <label for="">Tatuajes</label>
+                                                <textarea name="tattoosherido" id="tattoosherido" class="form-control" cols="30" rows="2"></textarea>
+                                            </div>
+        
+                                            <div class="form-group col-md-3">
+                                                <label for="">Alias</label>
+                                                <input type="text" name="aliasherido" class="form-control">
+                                            </div>
+        
+                                            <div class="form-group col-md-2">
+                                                <label for="gang">Mara</label>
+                                                <select name="gangherido" id="gangherido" class="form-control tags">
+                                                    <option value="0">Seleccione</option>
+                                                    @foreach($gangs as $gang)
+                                                    <option value="{{ $gang->name }}">{{ $gang->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="col-md-3 form-group">
+                                                <label for="">Abordo:</label>
+                                                <select name="abordo" id="abordo" class="form-control tags">
+                                                    <br>
+                                                    <option value="">Seleccione una opcion</option>
+                                                    @foreach($movil as $mov)
+                                                    <option value="{{ $mov->id }}">{{$mov->tipo}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="">Heridas:</label>
+                                                    <textarea name="heridas" id="heridas" cols="30" rows="4" class="form-control"></textarea>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="">Motivo:</label>
+                                                    <textarea name="motivo" id="motivo" cols="30" rows="4" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 form-group">
+                                                    <label for="">Diagnostico</label>
+                                                    <textarea name="diagnostico" id="diagnostico" cols="30" rows="4" class="form-control"></textarea>
+                                                </div>
+                                                <div class="col-md-6 form-group">
+                                                    <label for="">Observaciones</label>
+                                                    <textarea name="observaciones" id="observaciones" cols="30" rows="4" class="form-control"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i></button>
+                    </form>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div id="vehiculoModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+    
+                    <!-- Modal content-->
+                    <div class="modal-content">
+    
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Vehiculo</h4>
+                        </div>
+                        <div class="modal-body" style="overflow:hidden;">
+                            <div class="box-body pad">
+                                <div class="row">
+                                    <form action="{{route('admin.involucrados.vehiculos')}}" method="POST">
+                                        @csrf
+                                        <input type="hidden" value="{{$post->id}}">
+                                    <div class="col-md-3 form-group">
+                                        <label for="">Tipo</label>
+                                        <select name="movil" id="movil" class="form-cotrol tags">
+                                            <option value="">Seleccione el tipo de vehiculo</option>
+                                            @foreach($movil as $mov)
+                                                <option value="{{$mov->id}}">{{$mov->tipo}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label for="">Marca:</label>
+                                        <br>
+                                        <select name="brand" id="brand" class="tags form-control">
+                                            <option value="">Seleccione marca</option>
+                                            @foreach($marca as $mar)
+                                             <option value="{{$mar->id}}">{{$mar->name}}</option>   
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <label for="">Color:</label>
+                                        <br>
+                                        <input type="text" class="form-control" placeholder="Ingrese color">
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <label for="">Placa:</label>
+                                        <input type="text" class="form-control" placeholder="Placa">
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                    <label for="">Modelo</label>
+                                    <input type="number" class="form-control" placeholder="1998">
+                                    </div>                                    
+                                </div>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
 
     @endsection @push('styles')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.css">
@@ -389,6 +627,10 @@
                 return undefined;
             }
         });
+        $('.tags').select2({
+            tags: true,
+            width: 200
+        })
 
         $('#delito_id').select2({
             tags: true
@@ -447,7 +689,7 @@
             var i = 1;
             $('#otro').click(function () {
                 i++;
-                $('#dinamico').append("<div id='conjunto"+i+"'><div class='row'><div class='form-group col-md-4'><label for=''>Nombre</label><input type='text' class='form-control' placeholder='Nombre completo' name='involucrados[]'></div><div class='form-group col-md-4'> <label for=''>DPI (opcional)</label> <input type='number' class='form-control' placeholder='' id='dpi' name='dpi[]'> </div> <div class='form-group col-md-2'> <label for=''>Género</label> <select type='text' class='form-control' placeholder='Nombre completo' id='genero' name='genero[]'> <option value='M'>M</option> <option value='F'>F</option> </select></div> <div class='form-group col-md-2'> <label for=''>Edad</label> <input type='number' name='age[]' class='form-control'> </div> </div> <div class='row'> <div class='form-group col-md-4'> <label for=''>Tatuajes</label> <textarea name='tattoos[]' id='tattoos[]' class='form-control' cols='30' rows='2'></textarea> </div> <div class='form-group col-md-3'> <label for=''>Alias</label> <input type='text' name='alias[]' class='form-control'> </div> <div class='form-group col-md-2'> <label for='gang'>Mara</label> <select name='gang[]' id='gang' class='form-control new-select2'> @foreach($gangs as $gang) <option value='{{ $gang->name }}'>{{ $gang->name }}</option> @endforeach </select> </div> <div class='form-group col-md-1'> <label class='radio'><input type='radio' name='victima[]' value='1'>Victima</label> <label class='radio'><input type='radio' name='victima[]' value='0'>Victimario</label> </div> <div class='form-group col-md-1'> <label for=''>Quitar</label><button class='form-control btn btn-danger btn_remove' type='button' name='remove' id='"+i+"'><span><i class='fa fa-minus'></i></span></button></div></div>");
+                $('#dinamico').append("<div id='conjunto"+i+"'><div class='row'><div class='form-group col-md-4'><label for=''>Nombre</label><input type='text' class='form-control' placeholder='Nombre completo' name='involucrados[]'></div><div class='form-group col-md-4'> <label for=''>DPI (opcional)</label> <input type='number' class='form-control' placeholder='' id='dpi' name='dpi[]'> </div> <div class='form-group col-md-2'> <label for=''>Género</label> <select type='text' class='form-control' placeholder='Nombre completo' id='genero' name='genero[]'> <option value='M'>M</option> <option value='F'>F</option> </select></div> <div class='form-group col-md-2'> <label for=''>Edad</label> <input type='number' name='age[]' class='form-control'> </div> </div> <div class='row'> <div class='form-group col-md-4'> <label for=''>Tatuajes</label> <textarea name='tattoos[]' id='tattoos[]' class='form-control' cols='30' rows='2'></textarea> </div> <div class='form-group col-md-3'> <label for=''>Alias</label> <input type='text' name='alias[]' class='form-control'> </div> <div class='form-group col-md-2'> <label for='gang'>Mara</label> <select name='gang[]' id='gang' class='form-control new-select2'> @foreach($gangs as $gang) <option value='{{ $gang->name }}'>{{ $gang->name }}</option> @endforeach </select> </div> <div class='form-group col-md-1'> <label for=''>Quitar</label><button class='form-control btn btn-danger btn_remove' type='button' name='remove' id='"+i+"'><span><i class='fa fa-minus'></i></span></button></div></div>");
                 $('.new-select2').select2({
                     tags: true
                 });
