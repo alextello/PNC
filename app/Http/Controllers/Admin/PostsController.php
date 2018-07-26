@@ -128,10 +128,9 @@ class PostsController extends Controller
     public function involucradoUpdate($id, $post, Request $request)
     {   
          
-        
         $involucrado = Involucrado::find($id)->first();
         $p = Post::find($post);
-        $gangID = (Int) $p->syncGangs([$request->gangherido])[0];
+        $gangID = (Int) $p->syncGangs([$request->gang_id])[0];
 
         if($involucrado->aprehendido == '0')
         {

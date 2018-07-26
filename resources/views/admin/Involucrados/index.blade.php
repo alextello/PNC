@@ -47,7 +47,7 @@
                                 <label for="password">Mara: </label>
                                 <select name="gang_id" id="gang" class="form-control select2">
                                      @foreach($gangs as $gang)
-                                     <option {{ collect($gang)->contains($involucrado->gang_id) ? 'selected' : '' }} value="{{ $gang->id }}">{{ $gang->name }}</option>
+                                     <option {{ collect($gang)->contains($involucrado->gang_id) ? 'selected' : '' }} value="{{ $gang->name }}">{{ $gang->name }}</option>
                                      @endforeach
                                 </select>
                             </div>
