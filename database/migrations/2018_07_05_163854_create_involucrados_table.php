@@ -22,7 +22,7 @@ class CreateInvolucradosTable extends Migration
             $table->unsignedInteger('gang_id')->defult('0');
             $table->string('tattoos')->nullable();
             $table->string('alias')->nullable();
-            $table->unsignedInteger('age')->default('1')->nullable();
+            $table->Integer('age')->default('1')->nullable();
             $table->boolean('aprehendido')->default('1');
             $table->string('heridas')->nullable();
             $table->string('motivo')->nullable();

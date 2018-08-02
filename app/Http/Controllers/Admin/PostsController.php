@@ -9,8 +9,10 @@ use App\Category;
 use App\Gang;
 use App\Municipio;
 use App\Aldea;
+use App\User;
 use App\Marca;
 use App\Movil;
+use App\Vehiculo;
 use App\Plantilla;
 use App\Involucrado;
 use App\Delito;
@@ -69,11 +71,13 @@ class PostsController extends Controller
             $delitos = Delito::all();
             $movil = Movil::all();
             $marca = Marca::all();
+            $users = User::with('procesos')->get();
+            $unidades = Vehiculo::with('procesos')->where('tipo_id', '1')->get();
             $categories = Category::with('subcategories')->get();
             $tags = Tag::all();
             $gangs = Gang::all();
             $plantillas = Plantilla::all();
-            return view('admin.posts.edit', compact('post', 'categories', 'tags', 'marca', 'plantillas', 'aldeas', 'gangs', 'movil', 'delitos'));
+            return view('admin.posts.edit', compact('post', 'users', 'unidades', 'categories', 'tags', 'marca', 'plantillas', 'aldeas', 'gangs', 'movil', 'delitos'));
         }
        
         else{
@@ -97,6 +101,14 @@ class PostsController extends Controller
         $request->merge(['delito_id' => $post->syncDelitos($request->delito_id)]);
         $post->update($request->all());
         $post->syncInvolucrados(request()->get('involucrados'),request()->get('dpi'),request()->get('genero'), $request);
+        if(isset($request->unidades))
+        $post->syncUnidades($request->unidades);
+        else
+        $post->unidades()->detach();
+        if(isset($request->agentes))
+        $post->syncAgentes($request->agentes);
+        else
+        $post->proceden()->detach();
         return redirect()->route('admin.posts.edit', $post)->with('flash', 'Reporte guardado');
 
     }
@@ -155,7 +167,7 @@ class PostsController extends Controller
         else
         {
             $this->validate($request, [
-                'name' => 'required'
+                'name' => 'required',
             ]);
             $involucrado->name = $request->name;
             $involucrado->dpi = $request->dpi;

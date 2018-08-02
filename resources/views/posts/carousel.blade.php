@@ -9,7 +9,7 @@
         </ol>
       
         <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
+        <div class="carousel-inner" role="listbox" style="max-width: 2000px; max-height: 500px">
             @foreach($post->photos as $photo)
 
             <div class="item {{ $loop->first ? 'active' : ''}}">

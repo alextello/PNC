@@ -11,7 +11,7 @@
       @include('posts.header')
     <h1>{{ $post->title }}</h1>
         <div class="divider"></div>
-        <div class="image-w-text">
+        <div class="image-w-text" style="text-align: justify;">
           {!! $post->body !!}
         </div>
         @if($post->photos->count()===1)

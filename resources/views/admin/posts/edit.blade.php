@@ -334,11 +334,33 @@
                     <div class="form-group">
                         <label for="">Delito o falta</label>
                         <select name="delito_id" class="form-control select2" id="delito_id">
+                            <option value="">Seleccione una opcion</option>
                             @foreach($delitos as $del)
                                 <option {{ collect(old( 'delito_id', optional($post->delito)->id))->contains($del->id) ? 'selected' : '' }} value="{{ $del->name }}">{{ $del->name }}</option> 
                             @endforeach
                         </select>
                     </div>
+                    
+                    <div class="form-group">
+                            <label for="">Unidades que proceden</label>
+                            <select name="unidades[]" class="form-control multiple" id="unidades" multiple="multiple">
+                                <option value="">Seleccione una opcion</option>
+                                @foreach($unidades as $unidad)
+                                    <option {{ collect(old( 'unidades', optional($unidad->procesos)->pluck('id')))->contains($post->id) ? 'selected' : '' }} value="{{ $unidad->placa }}">{{ $unidad->placa }}</option> 
+                                @endforeach
+                            </select>
+                    </div>
+
+                    <div class="form-group">
+                            <label for="">Agentes que proceden</label>
+                            <select name="agentes[]" class="form-control select2" id="agentes" multiple="multiple">
+                                <option value="">Seleccione una opcion</option>
+                                @foreach($users as $user)
+                                    <option {{ collect(old( 'agentes', optional($user->procesos)->pluck('id')))->contains($post->id) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->codigo }} / {{$user->name}}</option> 
+                                @endforeach
+                            </select>
+                    </div>
+
                     <div class="form-group">
                         <div class="dropzone"></div>
                     </div>
@@ -646,6 +668,10 @@
             placeholder: 'Ingrese tatuajes',
             width: 280
         });
+
+        $('.multiple').select2({
+            tags: true
+        })
        
       
 
@@ -664,11 +690,6 @@
             paramName: 'photo',
             dictDefaultMessage: 'Arrastre aquí las fotos o haga click para seleccionarlas',
             removedFile: function (file) {
-                //         $.ajax({
-                //     type: 'POST',
-                //     headers: '{{ csrf_token() }}',
-                //     url: '/admin/photos/'+file
-                // });
                 console.log(file.value);
             },
             headers: {
@@ -676,8 +697,11 @@
             }
 
         });
-
-
+     
+        Dropzone.options.myDropzone = {
+            resizeWidth : 100,
+            resizeHeight : 100
+        }
 
         myDropzone.on('error', function (fle, res) {
             var msg = res.errors.photo[0];

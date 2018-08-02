@@ -102,6 +102,7 @@ class PostsTableSeeder extends Seeder
         //Departamento
 
         $dep = Municipio::create(['name' => 'San Juan Ostuncalco']);
+        $mun = Aldea::create(['name' => 'San Juan Ostuncalco', 'municipio_id' => '1']);
         $mun = Aldea::create(['name' => 'Agua Blanca', 'municipio_id' => '1']);
         $mun = Aldea::create(['name' => 'Agua Tibia', 'municipio_id' => '1']);
         $mun = Aldea::create(['name' => 'Buena Vista', 'municipio_id' => '1']);
@@ -212,6 +213,7 @@ class PostsTableSeeder extends Seeder
         $post->address_id = Address::create(['name' => '4ta. calle 6-32 zona 2', 'aldea_id' => '3'])->id;
         $post->save();
 
+        Movil::create(['tipo' => 'Patrulla']);
         Movil::create(['tipo' => 'Vehiculo']);
         Movil::create(['tipo' => 'Moto']);
         Movil::create(['tipo' => 'A pie']);

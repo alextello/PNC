@@ -18,7 +18,7 @@
                 <b>Telefono</b> <a class="pull-right">{{ $user->telefono }}</a>
                 </li>
                 <li class="list-group-item">
-                <b>Pubicaciones</b> <a class="pull-right">{{ $user->posts()->count() }}</a>
+                <b>Pubicaciones</b> <a class="pull-right">{{ $user->created_by()->count() }}</a>
                 </li>
               </ul>
 
@@ -32,7 +32,7 @@
                     <h3 class="box-title">Publicaciones</h3>
                 </div>
                 <div class="box-body">
-                    @forelse($user->posts as $post)
+                    @forelse($user->created_by as $post)
                         <a href="{{ route('posts.show', $post) }}" target="_blank">
                         <strong>{{ $post->title }}</strong>
                         </a><br>

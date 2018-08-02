@@ -33,7 +33,17 @@ class Post extends Model
     {
         return $this->belongsTo('App\Address');
     }
-    
+
+    public function proceden()
+    {
+        return $this->belongsToMany('App\User');
+    }
+
+    public function unidades()
+    {
+        return $this->belongsToMany('App\Vehiculo');
+    }
+
     public function category()
     {
         return $this->belongsTo('App\Category');
@@ -191,6 +201,22 @@ class Post extends Model
         {
              return $query->where('user_id', auth()->id());
         }
+    }
+
+    public function syncUnidades($unidades)
+    {
+        $ids = [];
+        foreach($unidades as $unidad)
+        {
+            $query = Vehiculo::where('placa', $unidad)->first();
+            $ids[] = $query ? $query->id : Vehiculo::create(['placa' => $unidad, 'tipo_id' => '1'])->id;
+        }
+        $this->unidades()->sync($ids);
+    }
+
+    public function syncAgentes($agentes)
+    {
+        $this->proceden()->sync($agentes);
     }
 
     protected static function boot()

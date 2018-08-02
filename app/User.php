@@ -28,9 +28,14 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function posts()
+    public function created_by()
     {
         return $this->hasMany('App\Post');
+    }
+
+    public function procesos()
+    {   
+        return $this->belongsToMany('App\Post');
     }
 
     public function setPasswordAttribute($password)

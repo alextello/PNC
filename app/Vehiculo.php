@@ -18,8 +18,8 @@ class Vehiculo extends Model
         return $this->belongsTo('App\Marca', 'marca_id');
     }
 
-    public function post()
+    public function procesos()
     {
-        return $this->belongsTo('App\Post');
+        return $this->belongsToMany('App\Post');
     }
 }

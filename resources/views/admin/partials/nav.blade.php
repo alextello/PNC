@@ -49,6 +49,19 @@
             </ul>
           </li>
 
+          <li class="treeview {{ request()->is('admin/roles*')  ||  request()->is('admin/permissions*') ? 'active' : ''}}" >
+              <a href="#"><i class="fa fa-fw fa-bullhorn"></i> <span>Roles y permisos</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+              </a>
+              <ul class="treeview-menu">
+                <li {{ request()->is('admin/roles') ? 'class=active' : ''}}><a href="{{ route('admin.roles.index') }}"><i class="fa fa-fw fa-male"></i>Roles</a></li>
+                <li {{ request()->is('admin/permissions') ? 'class=active' : ''}}><a href="{{ route('admin.permissions.index') }}"><i class="fa fa-fw fa-hand-stop-o"></i>Permisos</a>
+                </li>
+              </ul>
+            </li>
+
           <li class="treeview {{ request()->is('admin/estadisticas*') ? 'active' : ''}}" >
             <a href="#"><i class="fa fa-pie-chart"></i> <span>Estadisticas</span>
               <span class="pull-right-container">
