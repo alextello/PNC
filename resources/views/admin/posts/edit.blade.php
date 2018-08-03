@@ -616,10 +616,10 @@
                                 <div class="row">
                                     <form action="{{route('admin.vehiculo.store') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" value="{{$post->id}}">
+                                        <input type="hidden" name="post" value="{{$post->id}}">
                                     <div class="col-md-3 form-group">
                                         <label for="">Tipo</label>
-                                        <select name="movil" id="movil" class="form-cotrol tags">
+                                        <select name="tipo_id" id="tipo_id" class="form-cotrol tags" required>
                                             <option value="">Seleccione el tipo de vehiculo</option>
                                             @foreach($movil as $mov)
                                                 <option value="{{$mov->id}}">{{$mov->tipo}}</option>
@@ -629,7 +629,7 @@
                                     <div class="col-md-3 form-group">
                                         <label for="">Marca:</label>
                                         <br>
-                                        <select name="brand" id="brand" class="tags form-control">
+                                        <select name="marca_id" id="marca_id" class="tags form-control" required>
                                             <option value="">Seleccione marca</option>
                                             @foreach($marca as $mar)
                                              <option value="{{$mar->id}}">{{$mar->name}}</option>   
@@ -639,15 +639,15 @@
                                     <div class="col-md-2 form-group">
                                         <label for="">Color:</label>
                                         <br>
-                                        <input type="text" class="form-control" placeholder="Ingrese color">
+                                        <input type="text" name="color" class="form-control" placeholder="Ingrese color" required>
                                     </div>
                                     <div class="col-md-2 form-group">
                                         <label for="">Placa:</label>
-                                        <input type="text" class="form-control" placeholder="Placa">
+                                        <input type="text" name="placa" class="form-control" placeholder="Placa" required>
                                     </div>
                                     <div class="col-md-2 form-group">
                                     <label for="">Modelo</label>
-                                    <input type="number" class="form-control" placeholder="1998">
+                                    <input type="number" name="modelo" class="form-control" placeholder="1998" required>
                                     </div>                                    
                                 </div>
                             </div>

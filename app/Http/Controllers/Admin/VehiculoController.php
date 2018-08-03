@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Vehiculo;
 use App\Movil;
 use App\Marca;
+use App\Post;
 
 class VehiculoController extends Controller
 {
@@ -21,8 +22,8 @@ class VehiculoController extends Controller
     public function update($id, Request $request)
     {
         $vehiculo = Vehiculo::find($id);
-        $tipo = $vehiculo->syncTipo($request->tipo);  
-        $marca = $vehiculo->syncMarca($request->marca);      
+        $tipo = $vehiculo->syncTipo($request->tipo_id);  
+        $marca = $vehiculo->syncMarca($request->marca_id);      
         $vehiculo->placa = $request->placa;
         $vehiculo->modelo = $request->modelo;
         $vehiculo->color = $request->color;
@@ -41,24 +42,14 @@ class VehiculoController extends Controller
 
     public function store(Request $request)
     {
-        if(!isset($request->tipo))
-        {
-            return back()->withError('Seleccione el tipo de vehiculo');
-        }
-        else
-        {
-            $vehiculo = new Vehiculo();
-            if(isset($request->tipo))
-            $tipo = $vehiculo->syncTipo($request->tipo);
-            if(isset($request->marca))
-            $marca = $vehiculo->syncMarca($request->marca);
-            $vehiculo->tipo_id = $tipo;
-            $vehiculo->marca_id = $marca;
-            $vehiculo->placa = $request->placa;
-            $vehiculo->modelo = $request->modelo;
-            $vehiculo->color = $request->color;
-            return back()->withFlash('Vehiculo registrado');
-        }
+        $post = Post::find($request->post);
+        $vehiculo = new vehiculo();
+        $request->merge(['tipo_id' => $vehiculo->syncTipo($request->tipo_id)]);
+        $request->merge(['marca_id' => $vehiculo->syncMarca($request->marca_id)]);
+        $post->vehiculo_id = Vehiculo::create($request->all())->id;
+        $post->save();
+        return back()->withFlash('Vehiculo registrado');
+        
     }
 
 
