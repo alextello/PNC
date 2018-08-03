@@ -25,6 +25,7 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('tag_id')->nullable();
             $table->unsignedInteger('address_id')->nullable();
+            $table->unsignedInteger('vehiculo_id')->nullable();
             $table->timestamps();
         });
     }

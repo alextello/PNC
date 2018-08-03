@@ -23,7 +23,7 @@
                     <form action="{{ route('admin.photos.destroy', $photo) }}" method="POST">
                         @csrf @method('DELETE')
                         <div class="col-md-2">
-                            <button class="btn btn-danger btn-xs" style="position: absolute">
+                            <button class="btn btn-danger btn-xs" onclick="return confirm('¿Está seguro de querer eliminar la imagen?')" style="position: absolute">
                                 <i class="fa fa-remove"></i>
                             </button>
                             <img src="/storage/{{ $photo->url }}" alt="" class="img-responsive">
@@ -36,6 +36,54 @@
     </div>
     @endif 
 
+    @if(optional($post->vehiculo)->count())
+        <div class="col-md-12">
+            <div class="box box-primary collapsed-box">
+                <div class="box-header">
+                    <h3 class="box-title">
+                        Vehiculo
+                    </h3>
+                    <div class="pull-right box-tools">
+                        <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body pad">
+                    <div class="row">
+                        <div class="col-md-2 form-group">
+                            <label for="">Tipo</label>
+                            <input type="text" class="form-control" value="{{$post->vehiculo->tipo->tipo}}" disabled>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label for="">Marca:</label>
+                            <input type="text" class="form-control" value="{{$post->vehiculo->brand->name}}" disabled>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label for="">Color:</label>
+                            <input type="text" class="form-control" value="{{$post->vehiculo->color}}" disabled>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label for="">Modelo:</label>
+                            <input type="text" class="form-control" value="{{$post->vehiculo->modelo}}" disabled>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label for="">Placa:</label>
+                            <input type="text" class="form-control" value="{{$post->vehiculo->placa}}" disabled>
+                        </div>
+                        <div class="col-md-2 btn-group">  
+                            <br>                          
+                            <a target="_blank" href="{{route('admin.vehiculo.edit', $post->vehiculo->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                            <form action="{{route('admin.vehiculo.delete', $post->vehiculo->id)}}" method="POST" style="display: inline">
+                                @csrf
+                                <button class="btn btn-danger"><i class="fa fa-remove" onclick="return confirm('¿Está seguro de querer eliminar el vehiculo registrado?')"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     @if($post->involucrados->count())
     <div class="col-md-12">
         <div class="box box-primary collapsed-box">
@@ -93,10 +141,11 @@
                         <input type="text" class="form-control" disabled value="{{$inv->mara->name}}">
                     </div>
                 <div class="form-group col-md-2">
+                    <br>
                     <form action=" {{ route('admin.involucrados.destroy', [$inv->id, $post->id] )}} " method="post" style="padding-right: 0px !important;">
                             @csrf @method('DELETE')
                             <div class="btn-group">
-                        <button class="btn btn-md btn-danger">
+                        <button class="btn btn-md btn-danger"  onclick="return confirm('¿Está seguro de querer eliminarlo?')">
                             <span>X</span>
                         </button>
                         <a class="btn btn-md btn-info" href="{{ route('involucrado.index', [$inv->id, $post->id] ) }}">
@@ -192,10 +241,11 @@
                                     <textarea cols="30" rows="4" class="form-control" disabled>{{$inv->observaciones}}</textarea>
                                 </div>
                     <div class="form-group col-md-2">
+                        <br>
                         <form action=" {{ route('admin.involucrados.destroy', [$inv->id, $post->id] )}} " method="post" style="padding-right: 0px !important;">
                                 @csrf @method('DELETE')
                                 <div class="btn-group">
-                            <button class="btn btn-md btn-danger">
+                            <button class="btn btn-md btn-danger"  onclick="return confirm('¿Está seguro de querer eliminarlo?')">
                                 <span>X</span>
                             </button>
                             <a class="btn btn-md btn-info" href="{{ route('involucrado.index', [$inv->id, $post->id] ) }}">
@@ -259,9 +309,9 @@
                         <span class="help-block">:message</span>') !!}
                     </div>
                 </div>
-                <div class="btn-group">
+                <div class="btn-group col-md-offset-3">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Añadir involucrados</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vehiculoModal">Registrar vehiculo</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vehiculoModal" {{ optional($post->vehiculo)->count() ? 'disabled' : '' }}>Registrar vehiculo</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#heridosModal">Registrar heridos/fallecidos</button>
                 </div>
             </div>
@@ -564,7 +614,7 @@
                         <div class="modal-body" style="overflow:hidden;">
                             <div class="box-body pad">
                                 <div class="row">
-                                    <form action="{{route('admin.involucrados.vehiculos')}}" method="POST">
+                                    <form action="{{route('admin.vehiculo.store') }}" method="POST">
                                         @csrf
                                         <input type="hidden" value="{{$post->id}}">
                                     <div class="col-md-3 form-group">

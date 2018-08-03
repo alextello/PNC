@@ -69,7 +69,10 @@ Route::group([
         Route::get('/involucrado/{id}/{postid}', 'PostsController@involucrado')->name('involucrado.index');
         Route::post('/fallecidos', 'InvolucradoController@fallecidos')->name('admin.involucrados.fallecidos');
         Route::post('/involucrado/update/{id}/{postid}', 'PostsController@involucradoUpdate')->name('admin.involucrado.update');
-        Route::post('/vehiculos', 'InvolucradoController@vehiculos')->name('admin.involucrados.vehiculos');
+        Route::get('/vehiculo/edit/{id}', 'VehiculoController@edit')->name('admin.vehiculo.edit');
+        Route::post('/vehiculo/delete/{id}', 'VehiculoController@delete')->name('admin.vehiculo.delete');
+        Route::post('/vehiculo/update/{id}', 'VehiculoController@update')->name('admin.vehiculo.update');
+        Route::post('/vehiculo/store', 'VehiculoController@store')->name('admin.vehiculo.store');
 
 });
 

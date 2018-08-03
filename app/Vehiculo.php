@@ -22,4 +22,18 @@ class Vehiculo extends Model
     {
         return $this->belongsToMany('App\Post');
     }
+
+    public function syncTipo($request)
+    {
+        $query = Movil::where('id', $request)->first();
+        $tipo =  $query ? $query->id : Movil::create(['tipo' => $request ])->id;
+        return $tipo;
+    }
+
+    public function syncMarca($request)
+    {
+        $query = Marca::where('id', $request)->first();
+        $marca =  $query ? $query->id : Movil::create(['tipo' => $request ])->id;
+        return $marca;
+    }
 }

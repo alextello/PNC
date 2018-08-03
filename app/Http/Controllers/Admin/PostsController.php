@@ -64,6 +64,8 @@ class PostsController extends Controller
     {
     $post = Post::where('url', $id)->with(['address', 'tags', 'photos', 'delito'])->with(['involucrados' => function($q){
         $q->with(['mara', 'movil']);
+        }])->with(['vehiculo' => function ($v){
+            $v->with(['brand', 'tipo']);
         }])->first();
         if($post && $post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
         {

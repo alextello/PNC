@@ -16,7 +16,7 @@ class InvolucradoController extends Controller
         if($inv->posts()->count() == 0){
             $inv->delete();
         }
-        return back();
+        return redirect()->back()->withFlash('Eliminado Exitosamente');
     }
 
     public function fallecidos(Request $request)
@@ -52,8 +52,5 @@ class InvolucradoController extends Controller
         return redirect()->route('admin.posts.edit', ['post' => $p]);
     }
 
-    public function vehiculos(Request $request)
-    {
-        
-    }
+  
 }

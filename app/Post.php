@@ -19,7 +19,8 @@ class Post extends Model
         'time',
         'tag_id',
         'address_id',
-        'oficio'
+        'oficio',
+        'vehiculo_id'
     ];
 
     protected $dates = ['published_at'];
@@ -32,6 +33,11 @@ class Post extends Model
     public function address()
     {
         return $this->belongsTo('App\Address');
+    }
+
+    public function vehiculo()
+    {
+        return $this->belongsTo('App\Vehiculo', 'vehiculo_id');
     }
 
     public function proceden()
