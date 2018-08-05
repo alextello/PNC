@@ -143,6 +143,15 @@ class PostsTableSeeder extends Seeder
         $user->save();
         $user->assignRole($escritorRole);
 
+        $user = new User();
+        $user->name = 'Wilkier Menchu';
+        $user->email = 'wilkier@hotmail.com';
+        $user->codigo = 'ADDDD';
+        $user->telefono = '11111';
+        $user->password = 'admin';
+        $user->save();
+        $user->assignRole($escritorRole);
+
         $category = new Category();
         $category->name = 'Categoria 1';
         $category->save();

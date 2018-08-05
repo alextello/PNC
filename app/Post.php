@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use App\Involucrado;
+use Jenssegers\Date\Date;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
@@ -80,6 +81,10 @@ class Post extends Model
         return $this->belongsTo('App\Delito');
     }
 
+    public function getCreatedAtAttribute($date)
+    {
+        return new Date($date);
+    }
     public static function create(array $attributes = [])
     {
         $post = static::query()->create($attributes);

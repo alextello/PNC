@@ -1,6 +1,6 @@
 <header class="container-flex space-between">
         <div class="date">
-        <span class="c-gris">{{ optional($post->published_at)->format('M d') }} / {{ $post->owner->name }}</span>
+        <span class="c-gris">{{ optional($post->created_at)->format('M d') }} / {{ $post->owner->name }}</span>
         <hr>
         <span class="c-gris">{{'Oficio: '.$post->oficio }}</span>
         <hr>
