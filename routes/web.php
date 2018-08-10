@@ -45,6 +45,7 @@ Route::group([
         Route::delete('photos/{photo}', 'PhotosController@destroy')->name('admin.photos.destroy');
         Route::resource('plantillas', 'PlantillasController', ['as' => 'admin']);
         Route::post('/plantilla', 'PlantillaSelectController@index');
+        Route::get('/subcategoria/{id}', 'SubcategoryController@subDinamicos')->name('subcategorias.dinamicas');
 
         Route::get('/estadisticas/tag', 'EstadisticasController@tag')->name('admin.estadisticas.tag');
         Route::get('/estadisticas/total', 'EstadisticasController@total')->name('admin.estadisticas.total');
@@ -58,7 +59,6 @@ Route::group([
         Route::get('/estadisticas/totalpersonas', 'EstadisticasController@totalpersonas')->name('admin.estadisticas.totalpersonas');
 
 
-        
         Route::get('/estadisticas/personas', 'EstadisticasController@personas')->name('admin.estadisticas.personas');
         Route::get('/estadisticas/tabla', 'EstadisticasController@tabla')->name('admin.estadisticas.tabla');
         Route::post('/estadisticas/fecha', 'EstadisticasController@fecha')->name('admin.estadisticas.fecha');
@@ -73,6 +73,9 @@ Route::group([
         Route::post('/vehiculo/delete/{id}', 'VehiculoController@delete')->name('admin.vehiculo.delete');
         Route::post('/vehiculo/update/{id}', 'VehiculoController@update')->name('admin.vehiculo.update');
         Route::post('/vehiculo/store', 'VehiculoController@store')->name('admin.vehiculo.store');
+
+        Route::get('/estadisticas/Hechos-negativos', 'TablasEstadisticasController@hechosNegativos')->name('hechosnegativos');
+        Route::post('/estadisticas/Hechos-negativos', 'TablasEstadisticasController@hechosNegativos')->name('hechosnegativos.post');
 
 });
 

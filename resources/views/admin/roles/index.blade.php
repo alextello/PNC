@@ -58,13 +58,16 @@
   </div>
 @endsection
 
+
+
+
+
 @push('styles')
-<link rel="stylesheet" href="/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{asset("/DataTables/datatables.min.css")}}"/>
 @endpush
 
 @push('scripts')
-<script src="/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="{{asset("/DataTables/datatables.min.js")}}"></script>
 
 <script>
     $(function () {

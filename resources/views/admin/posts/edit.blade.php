@@ -373,23 +373,22 @@
                         <!-- /.form group -->
                     </div>
 
+                    <div class="form-group {{$errors->has('category') ? 'has-error' : ''}}">
+                        <label for="">Categoria</label>
+                        <select name="category" id="category" class="form-control select2" data-placeholder="Elija la categoria" style="width: 100%;">
+                            <option value="">Seleccione una opcion</option>
+                            <option value="1">Hecho negativo</option>
+                            <option value="2">Hecho positivo</option>
+                        </select>
+                    </div>
+
                     <div class="form-group {{$errors->has('tag_id') ? 'has-error' : ''}}">
                         <label for="">Etiqueta</label>
-                        <select name="tag_id" class="form-control select2" data-placeholder="Elija la etiqueta" style="width: 100%;">
-                            @foreach ($tags as $tag)
-                            <option {{ collect(old( 'tag_id', optional($post->tags)->id))->contains($tag->id) ? 'selected' : '' }} value="{{ $tag->id }}">{{ $tag->name }}</option>
-                            @endforeach
+                        <select name="tag_id" id="tag_id" class="form-control select2" data-placeholder="Elija la etiqueta" style="width: 100%;">
+                            <option value="{{ old('tag_id', optional($post)->tag_id) }}">{{optional($post->tags)->name}}</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="">Delito o falta</label>
-                        <select name="delito_id" class="form-control select2" id="delito_id">
-                            <option value="">Seleccione una opcion</option>
-                            @foreach($delitos as $del)
-                                <option {{ collect(old( 'delito_id', optional($post->delito)->id))->contains($del->id) ? 'selected' : '' }} value="{{ $del->name }}">{{ $del->name }}</option> 
-                            @endforeach
-                        </select>
-                    </div>
+        
                     
                     <div class="form-group">
                             <label for="">Unidades que proceden</label>
@@ -662,16 +661,16 @@
             </div>
 
     @endsection @push('styles')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/dropzone.css">
-    <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" href="/adminlte/bower_components/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="/adminlte/plugins/timepicker/bootstrap-timepicker.min.css"> @endpush 
+    <link rel="stylesheet" href={{asset("/css/dropzone.css")}}>
+    <link rel="stylesheet" href={{asset("/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")}}>
+    <link rel="stylesheet" href={{asset("/adminlte/bower_components/select2/dist/css/select2.min.css")}}>
+    <link rel="stylesheet" href={{asset("/adminlte/plugins/timepicker/bootstrap-timepicker.min.css")}}> @endpush 
     @push('scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.4.0/min/dropzone.min.js"></script>
-    <script src="/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-    <script src="/adminlte/bower_components/ckeditor/ckeditor.js"></script>
-    <script src="/adminlte/plugins/timepicker/bootstrap-timepicker.min.js"></script>
-    <script src="/adminlte/bower_components/select2/dist/js/select2.full.min.js"></script>
+    <script src={{asset("/js/dropzone.min.js")}}></script>
+    <script src={{asset("/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}></script>
+    <script src={{asset("/adminlte/bower_components/ckeditor/ckeditor.js")}}></script>
+    <script src={{asset("/adminlte/plugins/timepicker/bootstrap-timepicker.min.js")}}></script>
+    <script src={{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}></script>
     <script>
         function cambio(selectObject) {
             var value = selectObject.value;
@@ -689,9 +688,13 @@
                 }
             })
         };
+
+      
+
         $('#datepicker').datepicker({
             autoclose: true
         });
+
         CKEDITOR.replace('editor');
         $('.select2').select2({
             tags: true,
@@ -699,13 +702,10 @@
                 return undefined;
             }
         });
+
         $('.tags').select2({
             tags: true,
             width: 200
-        })
-
-        $('#delito_id').select2({
-            tags: true
         })
 
         $('#gang').select2({
@@ -758,6 +758,7 @@
             $('.dz-error-message:last > span').text(msg);
         });
     </script>
+
     <script>
         $(document).ready(function () {
             var i = 1;
@@ -772,6 +773,21 @@
                 var button_id = $(this).attr('id');
                 $('#conjunto' + button_id).remove();
             });
+
+        $('#category').change( function() {
+        var id = $('#category').val();
+        $('#tag_id').empty()
+        $.ajax({
+            url: `/admin/subcategoria/${id}`,
+            type: "GET",
+            dataType: "json",
+            success: data => {
+                data.tags.forEach(tag =>
+                    $('#tag_id').append(`<option value="${tag.id}">${tag.name}</option>`)
+                )
+            }
+        })
+    })
         });
     </script>
     <script>

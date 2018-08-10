@@ -12,7 +12,6 @@ class Post extends Model
     protected $fillable = [
         'title',
         'body',
-        'delito_id',
         'published_at',
         'category_id',
         'user_id',
@@ -76,10 +75,6 @@ class Post extends Model
         return $this->belongsToMany('App\Involucrado');
     }
 
-    public function delito()
-    {
-        return $this->belongsTo('App\Delito');
-    }
 
     public function getCreatedAtAttribute($date)
     {
@@ -188,12 +183,6 @@ class Post extends Model
         return $gangsID;
     }
 
-    public function syncDelitos($delito)
-    {
-        $query = Delito::where('name', $delito)->first();
-        $delito =  $query ? $query->id : Delito::create(['name' => $delito ])->id;
-        return $delito;
-    }
 
     public function syncAbordo($abordo)
     {

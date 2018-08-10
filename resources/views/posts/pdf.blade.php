@@ -8,7 +8,7 @@
 <body>
   <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
   <header>
-      <img src="http://pnc.test/storage/banner/banner.jpg" style="width: 18cm; height: 2.5cm" alt="">
+  <img src="http://pnc.test/storage/banner/banner.jpg" style="width: 18cm; height: 2.5cm" alt="">
   </header>
   <main style="padding-top: 3cm; text-align: justify; width:16cm">
   <p style="text-align: right">Oficio: {{$post->oficio}}</p>

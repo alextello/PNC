@@ -15,7 +15,6 @@ use App\Movil;
 use App\Vehiculo;
 use App\Plantilla;
 use App\Involucrado;
-use App\Delito;
 use Carbon\Carbon;
 use App\Subcategory;
 use Illuminate\Http\Request;
@@ -62,7 +61,7 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-    $post = Post::where('url', $id)->with(['address', 'tags', 'photos', 'delito'])->with(['involucrados' => function($q){
+    $post = Post::where('url', $id)->with(['address', 'tags', 'photos'])->with(['involucrados' => function($q){
         $q->with(['mara', 'movil']);
         }])->with(['vehiculo' => function ($v){
             $v->with(['brand', 'tipo']);
@@ -70,7 +69,6 @@ class PostsController extends Controller
         if($post && $post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
         {
             $aldeas = Aldea::all();
-            $delitos = Delito::all();
             $movil = Movil::all();
             $marca = Marca::all();
             $users = User::with('procesos')->get();
@@ -79,7 +77,7 @@ class PostsController extends Controller
             $tags = Tag::all();
             $gangs = Gang::all();
             $plantillas = Plantilla::all();
-            return view('admin.posts.edit', compact('post', 'users', 'unidades', 'categories', 'tags', 'marca', 'plantillas', 'aldeas', 'gangs', 'movil', 'delitos'));
+            return view('admin.posts.edit', compact('post', 'users', 'unidades', 'categories', 'tags', 'marca', 'plantillas', 'aldeas', 'gangs', 'movil'));
         }
        
         else{
@@ -99,8 +97,6 @@ class PostsController extends Controller
         // dd($request->all());
         $request->merge(['time' => date("H:i", strtotime($request->time))]);
         $request->merge(['address_id' => Address::create(['name' => $request->address_id, 'aldea_id' => $request->aldea])->id]);
-        if($request->delito_id)
-        $request->merge(['delito_id' => $post->syncDelitos($request->delito_id)]);
         $post->update($request->all());
         $post->syncInvolucrados(request()->get('involucrados'),request()->get('dpi'),request()->get('genero'), $request);
         if(isset($request->unidades))

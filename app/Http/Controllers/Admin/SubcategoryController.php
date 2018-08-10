@@ -13,4 +13,13 @@ class SubcategoryController extends Controller
         $category = Category::find($id);
        return $category->subcategories()->get();
     }
+
+    public function subDinamicos($val)
+    {
+        $category = Category::find($val);
+        $tags = $category->tags()->get();
+        return response()->json([
+            'tags' => $tags
+        ]);
+    }
 }

@@ -17,7 +17,6 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('url')->unique()->nullable();
-            $table->unsignedInteger('delito_id')->nullable();
             $table->text('body')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->time('time')->nullable();

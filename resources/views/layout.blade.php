@@ -56,8 +56,8 @@
 	</section>
 	
 </body>
-<script src="/adminlte/bower_components/moment/min/moment.min.js"></script>
-<script src="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src={{asset("/adminlte/bower_components/moment/min/moment.min.js")}}></script>
+<script src={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}></script>
 <script>
 	$('#reservation').daterangepicker({
 	  'startDate': '01/01/2019',

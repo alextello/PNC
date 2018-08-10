@@ -26,7 +26,6 @@
           <th>ID</th>
           <th>Fecha</th>
           <th>Titulo</th>
-          <th>Preview</th>
           <th>Etiqueta</th>
           <th>Autor</th>
           <th>Acciones</th>
@@ -38,7 +37,6 @@
               <td>{{ $post->id }}</td>
               <td> {{ optional($post->published_at)->format('d M y') }} </td>
                 <td>{{ $post->title }}</td>
-                <td>{{ $post->delito_id }}</td>
                 <td>{{ optional($post->tags)->name }}</td>
                 <td>{{ $post->owner->email  }}</td>
                 <td>
@@ -61,25 +59,11 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href="/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="{{asset("/DataTables/datatables.min.css")}}"/>
 @endpush
 
 @push('scripts')
-<script src="/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.colVis.min.js"></script>
+<script type="text/javascript" src="{{asset("/DataTables/datatables.min.js")}}"></script>
 
 <script>
     $(function () {
@@ -103,6 +87,16 @@
                 extend: 'print',
                 exportOptions: {
                     columns: ':visible'
+                },
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            "<h1>Listado de novideades: </h1>"
+                        );
+                    $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
                 }
             },
             'colvis', 'excel', 'pdf', 'csv', 'copy'

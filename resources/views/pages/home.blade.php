@@ -15,7 +15,6 @@
 				@include('posts.header')
 				<h1>{{$post->title}}</h1>
 				<div class="divider"></div>
-				<p>{{ optional($post->delito)->name}}</p>
 				@if($post->photos->count()===1)	
 					<figure><img src="/storage/{{ $post->photos->first()->url }}" alt="" class="img-responsive"></figure>
 					@elseif($post->photos->count()>1)
@@ -41,21 +40,18 @@
 @endsection
 
 @push('styles')
-  <link rel="stylesheet" type="text/css" href="/css/twitter-bootstrap.css">
-  <link rel="stylesheet" href="/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/adminlte/bower_components/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <link rel="stylesheet" type="text/css" href={{asset("/css/twitter-bootstrap.css")}}>
+  <link rel="stylesheet" href={{asset("/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css")}}>
+  <link rel="stylesheet" href={{asset("/css/style.css")}}>
+  <link rel="stylesheet" href={{asset("/adminlte/bower_components/font-awesome/css/font-awesome.min.css")}}>
+  <link rel="stylesheet" href={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css")}}>
 @endpush
 
 @push('scripts')
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-<script src="/js/twitter-bootstrap.js"></script>
-<script src="/adminlte/bower_components/moment/min/moment.min.js"></script>
-<script src="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src={{asset("/adminlte/bower_components/jquery/dist/jquery.min.js")}}></script>
+<script src={{asset("/js/twitter-bootstrap.js")}}></script>
+<script src={{asset("/adminlte/bower_components/moment/min/moment.min.js")}}></script>
+<script src={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}></script>
 <script>
     $('#reservation').daterangepicker({
         'startDate': '01/01/2019',
