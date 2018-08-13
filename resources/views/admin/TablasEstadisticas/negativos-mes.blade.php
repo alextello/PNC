@@ -11,7 +11,7 @@
 
   <div class="box box-primary">
       <div class="box-header">
-      <h3 class="box-title">LISTADO DE HECHOS NEGATIVOS AÑO {{ $t = $year ? $year : now()->year }}</h3>
+      <h3 class="box-title">LISTADO DE HECHOS NEGATIVOS DEL MES {{ $t = $date ? $date : now()->format('m-Y') }}</h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body">
@@ -20,18 +20,9 @@
     <thead>
     <tr>
       <th>Nombre</th>
-      <th>Enero</th>
-      <th>Febrero</th>
-      <th>Marzo</th>
-      <th>Abril</th>
-      <th>Mayo</th>
-      <th>Junio</th>
-      <th>Julio</th>
-      <th>Agosto</th>
-      <th>Septiembre</th>
-      <th>Octubre</th>
-      <th>Noviembre</th>
-      <th>Diciembre</th>
+      @for($i=1; $i<=$days; $i++)
+        <th>{{$i}}</th>
+      @endfor
       <th>Total</th>
     </tr>
     </thead>
@@ -40,9 +31,9 @@
       <tr>
         @php $i = 0; @endphp
         <td>{{$tag['name']}}</td>
-        @foreach($tag['meses'] as $mes)
-        <td>{{$mes}}</td>
-        @php $i = $i+$mes @endphp
+        @foreach($tag['dias'] as $dia)
+        <td>{{$dia}}</td>
+        @php $i = $i+$dia @endphp
         @endforeach
         <td>{{$i}}</td>
       </tr>
@@ -72,9 +63,9 @@
     myInput.value = currentTime.getFullYear();
     }
     $("#Buscar").datepicker( {
-    format: " yyyy", // Notice the Extra space at the beginning
-    viewMode: "years", 
-    minViewMode: "years"
+    format: " mm-yyyy", // Notice the Extra space at the beginning
+    viewMode: "months", 
+    minViewMode: "months"
 });
 });
 </script>
@@ -100,7 +91,7 @@
       buttons: [
           {
               extend: 'print',
-              title: "Listado de hechos negativos año: "+$("#year").val(),
+              title: "Listado de hechos negativos del mes: {{ $date }}",
               text: "Imprimir"
           },
           'excel', 'copy', 'csv',
@@ -109,7 +100,7 @@
                 orientation: 'landscape',
                 pageSize: 'LEGAL',
                 text: 'Exportar PDF',
-                title: "Listado de hechos negativos año: "+$("#year").val()
+                title: "Listado de hechos negativos del mes: {{ $date }}",
           }
       ],
       columnDefs: [ {

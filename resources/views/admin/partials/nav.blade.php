@@ -62,47 +62,29 @@
               </ul>
             </li>
 
-          {{-- <li class="treeview {{ request()->is('admin/estadisticas*') ? 'active' : ''}}" >
-            <a href="#"><i class="fa fa-pie-chart"></i> <span>Estadisticas</span>
-              <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-            </a>
-            <ul class="treeview-menu">
-              <li {{ request()->is('admin/estadisticas/tag') ? 'class=active' : ''}}>
-                <a href="{{ route('admin.estadisticas.tag') }}"><i class="fa fa-tags"></i>Ver por etiquetas</a>
-              </li>
-              <li {{ request()->is('admin/estadisticas/categoria') ? 'class=active' : ''}}>
-                 <a href="{{ route('admin.estadisticas.categoria') }}" ><i class="fa fa-tag"></i>Ver por categorias</a>
-              </li>
-              <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
-                 <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-venus-mars"></i> Ver por género</a>
-              </li>
-             <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
-                <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-map-signs"></i>Ver por aldeas</a>
-             </li>
-            </ul>
-          </li> --}}
 
-          <li class="treeview {{ request()->is('estadisticas/*') ? 'active' : ''}}" >
+          <li class="treeview {{ request()->is('admin/estadisticas*') ? 'active' : ''}}" >
             <a href="#"><i class="fa fa-fw fa-table"></i> <span>Tablas estadisticas</span>
               <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
             </a>
             <ul class="treeview-menu">
-              <li {{ request()->is('/estadisticas/hechosnegativos') ? 'class=active' : ''}}>
-                <a href="{{ route('hechosnegativos') }}"><i class="fa fa-fw fa-minus-square"></i>Hechos Negativos</a>
+              <li {{ request()->is('admin/estadisticas/Hechos-negativos') ? 'class=active' : ''}}>
+                <a href="{{ route('hechosnegativos') }}"><i class="fa fa-fw fa-minus-square"></i>Hechos Negativos -por año-</a>
               </li>
-              <li {{ request()->is('admin/estadisticas/categoria') ? 'class=active' : ''}}>
-                 <a href="{{ route('admin.estadisticas.categoria') }}" ><i class="fa fa-tag"></i>Ver por categorias</a>
+              <li {{ request()->is('admin/estadisticas/Hechos-negativos-mes') ? 'class=active' : ''}}>
+                <a href="{{ route('hechosnegativos.mes') }}"><i class="fa fa-fw fa-minus-square"></i>Hechos Negativos -por mes-</a>
               </li>
-              <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
-                 <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-venus-mars"></i> Ver por género</a>
+              <li {{ request()->is('admin/estadisticas/Hechos-positivos') ? 'class=active' : ''}}>
+                <a href="{{ route('hechospositivos') }}"><i class="fa fa-fw fa-plus-square"></i>Hechos Positivos -por año-</a>
               </li>
-             <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
+              <li {{ request()->is('admin/estadisticas/Hechos-positivos-mes') ? 'class=active' : ''}}>
+                <a href="{{ route('hechospositivos.mes') }}"><i class="fa fa-fw fa-plus-square"></i>Hechos Positivos -por mes-</a>
+              </li>
+             {{-- <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
                 <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-map-signs"></i>Ver por aldeas</a>
-             </li>
+             </li> --}}
             </ul>
           </li>
  </ul>

@@ -3,7 +3,7 @@
 @section('content')
 
 
-  <form action="{{route('hechosnegativos.post')}}" class="form-inline" method="POST">
+  <form action="{{route('hechospositivos.post')}}" class="form-inline" method="POST">
     @csrf
       <input type="text" id="Buscar" name="Buscar" class="form-control" placeholder="Ingrese el año que desea" required>
       <button class="btn btn-info form-control">Buscar</button>
@@ -11,7 +11,7 @@
 
   <div class="box box-primary">
       <div class="box-header">
-      <h3 class="box-title">LISTADO DE HECHOS NEGATIVOS AÑO {{ $t = $year ? $year : now()->year }}</h3>
+      <h3 class="box-title">LISTADO DE HECHOS POSITIVOS AÑO {{ $t = $year ? $year : now()->year }}</h3>
       </div>
       <!-- /.box-header -->
       <div class="box-body">

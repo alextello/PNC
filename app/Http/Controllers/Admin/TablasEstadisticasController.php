@@ -12,20 +12,153 @@ use App\Http\Controllers\Controller;
 
 class TablasEstadisticasController extends Controller
 {
+
     public function hechosNegativos(Request $request)
-    {
-  
+    {   
+        $category = '2';
+
         if($request->method() == 'POST')
-            $year = $request->Buscar;
+        $year = $request->Buscar;
         else
-            $year = Carbon::now()->year;
+        $year = Carbon::now()->year;
+
+        $tags = $this->consulta($year, $category);
+        return view('admin.TablasEstadisticas.negativos', compact('tags', 'year'));
+    }
+
+    public function hechosPositivos(Request $request)
+    {
+        $category = '1';
+        
+        if($request->method() == 'POST')
+        $year = $request->Buscar;
+        else
+        $year = Carbon::now()->year;
+        
+        $tags = $this->consulta($year, $category);
+        return view('admin.TablasEstadisticas.positivos', compact('tags', 'year'));
+    }
+    public function hechosNegativosMes(Request $request)
+    {
+        $category = '2';
+        $title = 'NEGATIVOS';
+        if($request->method() == 'POST')
+        {
+            $date = Carbon::createFromFormat('m-Y', $request->Buscar);
+            $days = $date->daysInMonth;
+            $year = $date->year;
+            $month = $date->month;
+        }
+        else
+        {
+            $date = Carbon::now();
+            $days = $date->daysInMonth;
+            $year = $date->year;
+            $month = $date->month;
+        }
+
+        $tags = $this->consultaMes($days, $year, $month, $category);
+        $date = $date->format('m-Y');
+        return view('admin.TablasEstadisticas.negativos-mes', compact('days', 'tags', 'date'));   
+    }
+
+    public function hechosPositivosMes(Request $request)
+    {
+        $category = '1';
+        $title = 'POSITIVOS';
+        if($request->method() == 'POST')
+        {
+            $date = Carbon::createFromFormat('m-Y', $request->Buscar);
+            $days = $date->daysInMonth;
+            $year = $date->year;
+            $month = $date->month;
+        }
+        else
+        {
+            $date = Carbon::now();
+            $days = $date->daysInMonth;
+            $year = $date->year;
+            $month = $date->month;
+        }
+
+        $tags = $this->consultaMes($days, $year, $month, $category);
+        $date = $date->format('m-Y');
+        return view('admin.TablasEstadisticas.positivos-mes', compact('days', 'tags', 'date'));   
+    }
+
+    public function consultaMes($days, $year, $month, $category)
+    {
+        $query =  DB::table('posts')
+        ->join('tags', 'tags.id', '=', 'posts.tag_id')
+        ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
+        ->select('tags.name', DB::raw('DAY(published_at) as dia'), DB::raw('count(posts.tag_id) as cantidad'))
+        ->whereYear('published_at', '=', $year)
+        ->whereMonth('published_at', '=', $month)
+        ->where('subcategories.category_id', '=', $category)
+        ->groupBy('tags.name', 'dia')
+        ->orderBy('dia', 'asc')
+        ->get();
+        
+        $tags = collect();
+        $vacios = collect();
+
+        foreach($query as $q)
+        {
+            $tags[$q->name] = collect(['name' => $q->name]);
+            $tags[$q->name]['dias'] = collect();
+        }
+        $tags = $tags->unique();
+
+        foreach($query as $q)
+    {
+        foreach($tags as $tag)
+        {
+            if($tag->contains($q->name))
+            {
+               $tag['dias']->put($q->dia, $q->cantidad);
+            }
+        }
+       
+    }
+        $dias = collect();
+        for($i = 1; $i<=$days; $i++)
+        {
+            $dias->put($i,0);
+        }
+    
+        foreach($tags as $tag)
+        {
+            $names[] = $tag['name'];
+            $tag['dias'] = $tag['dias']->union($dias);
+            $tag['dias'] = $tag['dias']->sortKeys();
+        }
+        
+        $nullTags = DB::table('tags')
+        ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
+        ->where('subcategories.category_id', $category)
+        ->select('tags.name')
+        ->get();
+    
+        foreach($nullTags as $null)
+        {
+            $vacios[$null->name] = collect(['name' => $null->name]);
+            $vacios[$null->name]['dias'] = $dias;
+        }
+    
+        $tags = $tags->union($vacios);
+
+        return $tags;
+    }
+
+    public function consulta($year, $category)
+    {
         
         $query =  DB::table('posts')
                 ->join('tags', 'tags.id', '=', 'posts.tag_id')
                 ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
                 ->select('tags.name', DB::raw('MONTH(published_at) as mes'), DB::raw('count(posts.tag_id) as cantidad'))
                 ->whereYear('published_at', '=', $year)
-                ->where('subcategories.category_id', '=', '2')
+                ->where('subcategories.category_id', '=', $category)
                 ->groupBy('tags.name', 'mes')
                 ->orderBy('mes', 'asc')
                 ->get();
@@ -72,9 +205,10 @@ class TablasEstadisticasController extends Controller
             $vacios[$null->name] = collect(['name' => $null->name]);
             $vacios[$null->name]['meses'] = $meses;
         }
-        
+
         $tags = $tags->union($vacios);
-        return view('admin.TablasEstadisticas.negativos', compact('tags', 'year'));
+        return $tags;
 
     }
+
 }
