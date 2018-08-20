@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Offense;
+use App\Typology;
 use Carbon\Carbon;
 use App\Involucrado;
 use Jenssegers\Date\Date;
@@ -20,7 +22,13 @@ class Post extends Model
         'tag_id',
         'address_id',
         'oficio',
-        'vehiculo_id'
+        'vehiculo_id',
+        'jefe_de_turno_id',
+        'modus_operandi_id',
+        'typology_id',
+        'juzgado',
+        'guardia',
+        'denunciante'
     ];
 
     protected $dates = ['published_at'];
@@ -33,6 +41,16 @@ class Post extends Model
     public function address()
     {
         return $this->belongsTo('App\Address');
+    }
+
+    public function typology()
+    {
+        return $this->belongsTo('App\Typology', 'typology_id');
+    }
+
+    public function modusoperandi()
+    {
+        return $this->belongsTo('App\ModusOperandi', 'modus_operandi_id');
     }
 
     public function vehiculo()
@@ -80,6 +98,12 @@ class Post extends Model
     {
         return new Date($date);
     }
+
+    public function getPublishedAtAttribute($date)
+    {
+        return new Date($date);
+    }
+    
     public static function create(array $attributes = [])
     {
         $post = static::query()->create($attributes);
@@ -112,6 +136,21 @@ class Post extends Model
         $this->attributes['published_at'] = Carbon::parse($published_at)->hour(0);
     }
 
+    public function syncTypology($typology)
+    {
+        // dd($typology);
+        $off = Typology::find($typology);
+        $val = $off ? $off->id : Typology::create(['name' => $typology, 'url' => str_slug($typology)])->id;
+        return $val;
+    }
+
+    public function syncModusOperandi($id)
+    {
+        $modus = ModusOperandi::find($id);
+        $val = $modus ? $modus->id : ModusOperandi::create(['name' => $id, 'url' => str_slug($id)])->id;
+        return $val;
+    }
+
     // public function syncTags($tag)
     // {
     //     $tagIds = collect($tag)->map(function($tag){
@@ -133,12 +172,23 @@ class Post extends Model
             $gangs[]=0;
         }
 
+        if(isset($request->offense_id))
+        {
+            $offenses = $this->syncOffenses($request->offense_id);
+        }
+        else
+        {
+            $offenses[]=0;
+        }
+
+
         $coleccion = collect();
         $i = 0;
         $involucrado = collect($involucrado);
+
         foreach($involucrado as $in)
         {
-            $coleccion->push(['name' => $involucrado[$i], 'dpi' => $dpi[$i], 'gender' => $genero[$i], 'gang_id' => $gangs[$i], 'alias' => $request->alias[$i], 'tattoos' => $request->tattoos[$i], 'age'=>$request->age[$i] ]);
+            $coleccion->push(['name' => $involucrado[$i], 'dpi' => $dpi[$i], 'gender' => $genero[$i], 'gang_id' => $gangs[$i], 'alias' => $request->alias[$i], 'tattoos' => $request->tattoos[$i], 'age'=>$request->age[$i], 'offense_id' =>$offenses[$i] ]);
             $i++;
         }
         $i = 0;
@@ -153,6 +203,7 @@ class Post extends Model
         }
         
         $in = [];
+        // dd($coleccion);
         foreach($coleccion as $col)
         {
             if(isset($col['dpi']))
@@ -164,6 +215,23 @@ class Post extends Model
 
         return $this->involucrados()->attach($in);
 
+    }
+
+    public function syncOffenses($offenses)
+    {
+        $offensesID = collect();
+        foreach($offenses as $offense)
+        {
+             if($item = Offense::where('name', $offense)->first())
+            {
+                $offensesID->push($item->id); 
+            }
+            else
+            {
+                $offensesID->push( offense::create(['name' => $offense])->id );
+            }
+        }
+        return $offensesID;
     }
 
     public function syncGangs($gangs)

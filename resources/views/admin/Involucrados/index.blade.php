@@ -44,13 +44,21 @@
                             <input type="text" name="alias" class="form-control" value="{{$involucrado->alias}}" placeholder="Alias">
                         </div>
                         <div class="form-group">
-                                <label for="password">Mara: </label>
-                                <select name="gang_id" id="gang" class="form-control select2">
-                                     @foreach($gangs as $gang)
-                                     <option {{ collect($gang)->contains($involucrado->gang_id) ? 'selected' : '' }} value="{{ $gang->name }}">{{ $gang->name }}</option>
-                                     @endforeach
-                                </select>
-                            </div>
+                            <label for="password">Mara: </label>
+                            <select name="gangherido" id="gangherido" class="form-control select2">
+                                 @foreach($gangs as $gang)
+                                 <option {{ collect($gang)->contains($involucrado->gang_id) ? 'selected' : '' }} value="{{ $gang->name }}">{{ $gang->name }}</option>
+                                 @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Delito: </label>
+                            <select name="offense" id="offense" class="form-control select2">
+                                 @foreach($delitos as $del)
+                                 <option {{ collect($del)->contains($involucrado->offense_id) ? 'selected' : '' }} value="{{ $del->name }}">{{ $del->name }}</option>
+                                 @endforeach
+                            </select>
+                        </div>
                         <button class="btn btn-primary btn-block">Actualizar</button>
                     </form>
                 </div>

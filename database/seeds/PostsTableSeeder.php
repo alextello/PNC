@@ -190,6 +190,11 @@ class PostsTableSeeder extends Seeder
         $subcategory->save();
 
         $subcategory = new Subcategory();
+        $subcategory->name = 'Armas de fuego';
+        $subcategory->category_id = '1';
+        $subcategory->save();
+
+        $subcategory = new Subcategory();
         $subcategory->name = 'Delitos contra la libertad, seguridad y sexuales a la persona';
         $subcategory->category_id = '1';
         $subcategory->save();

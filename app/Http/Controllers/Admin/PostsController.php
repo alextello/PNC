@@ -3,20 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Tag;
-use App\Post;
-use App\Address;
-use App\Category;
 use App\Gang;
-use App\Municipio;
-use App\Aldea;
+use App\Post;
 use App\User;
+use App\Aldea;
 use App\Marca;
 use App\Movil;
+use App\Address;
+use App\Offense;
+use App\Category;
+use App\Typology;
 use App\Vehiculo;
+use App\Municipio;
 use App\Plantilla;
-use App\Involucrado;
 use Carbon\Carbon;
+use App\Involucrado;
 use App\Subcategory;
+use App\ModusOperandi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
@@ -61,23 +64,27 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-    $post = Post::where('url', $id)->with(['address', 'tags', 'photos'])->with(['involucrados' => function($q){
-        $q->with(['mara', 'movil']);
+    $post = Post::where('url', $id)->with(['address', 'tags', 'photos', 'modusoperandi', 'typology'])->with(['involucrados' => function($q){
+        $q->with(['mara', 'movil', 'delito']);
         }])->with(['vehiculo' => function ($v){
             $v->with(['brand', 'tipo']);
         }])->first();
+        
         if($post && $post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
         {
             $aldeas = Aldea::all();
             $movil = Movil::all();
             $marca = Marca::all();
+            $modus = ModusOperandi::all();
+            $typology = Typology::all();
             $users = User::with('procesos')->get();
             $unidades = Vehiculo::with('procesos')->where('tipo_id', '1')->get();
             $categories = Category::with('subcategories')->get();
             $tags = Tag::all();
+            $offense = Offense::all();
             $gangs = Gang::all();
             $plantillas = Plantilla::all();
-            return view('admin.posts.edit', compact('post', 'users', 'unidades', 'categories', 'tags', 'marca', 'plantillas', 'aldeas', 'gangs', 'movil'));
+            return view('admin.posts.edit', compact('post', 'users', 'unidades', 'categories', 'tags', 'marca', 'plantillas', 'aldeas', 'gangs', 'movil', 'modus', 'typology', 'offense'));
         }
        
         else{
@@ -97,6 +104,8 @@ class PostsController extends Controller
         // dd($request->all());
         $request->merge(['time' => date("H:i", strtotime($request->time))]);
         $request->merge(['address_id' => Address::create(['name' => $request->address_id, 'aldea_id' => $request->aldea])->id]);
+        $request->merge(['typology_id' => $post->syncTypology($request->typology_id)]);
+        $request->merge(['modus_operandi_id' => $post->syncModusOperandi($request->modus_operandi_id)]);
         $post->update($request->all());
         $post->syncInvolucrados(request()->get('involucrados'),request()->get('dpi'),request()->get('genero'), $request);
         if(isset($request->unidades))
@@ -128,9 +137,10 @@ class PostsController extends Controller
     {   
         $gangs = Gang::all();
         $movil = Movil::all();
+        $delitos = Offense::all();
         $involucrado = Involucrado::find($id);
         if($involucrado->aprehendido == '1')
-        return view('admin.involucrados.index', compact('involucrado', 'gangs', 'post', 'movil'));
+        return view('admin.involucrados.index', compact('involucrado', 'gangs', 'post', 'movil', 'delitos'));
         else
         return view('admin.involucrados.fallecido', compact('involucrado', 'gangs', 'post', 'movil'));
     }
@@ -140,7 +150,8 @@ class PostsController extends Controller
          
         $involucrado = Involucrado::find($id)->first();
         $p = Post::find($post);
-        $gangID = (Int) $p->syncGangs([$request->gang_id])[0];
+        $gangID = (Int) $p->syncGangs([$request->gangherido])[0];
+        $offense = $p->syncOffenses([$request->offense])[0];
 
         if($involucrado->aprehendido == '0')
         {
@@ -154,6 +165,7 @@ class PostsController extends Controller
             $involucrado->age = $request->ageherido;
             $involucrado->tattoos = $request->tattoosherido;
             $involucrado->alias = $request->aliasherido;
+            $involucrado->fallecido = $request->herofall;
             $involucrado->gang_id = $gangID;
             $involucrado->movil_id = $abordo;
             $involucrado->heridas = $request->heridas;
@@ -171,6 +183,7 @@ class PostsController extends Controller
             $involucrado->dpi = $request->dpi;
             $involucrado->gender = $request->gender;
             $involucrado->age = $request->age;
+            $involucrado->offense_id = $offense;
             $involucrado->tattoos = $request->tattoos;
             $involucrado->alias = $request->alias;
             $involucrado->gang_id = $gangID;

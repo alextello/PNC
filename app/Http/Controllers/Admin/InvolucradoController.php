@@ -41,6 +41,7 @@ class InvolucradoController extends Controller
             $involucrado->gang_id = $gangID;
             $involucrado->movil_id = $abordo;
             $involucrado->aprehendido = '0';
+            $involucrado->fallecido = $request->herofall;
             $involucrado->heridas = $request->heridas;
             $involucrado->motivo = $request->motivo;
             $involucrado->diagnostico = $request->diagnostico;

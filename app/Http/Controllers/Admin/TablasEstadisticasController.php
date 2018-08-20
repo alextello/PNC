@@ -6,6 +6,7 @@ use App\Tag;
 use App\Post;
 use App\Category;
 use Carbon\Carbon;
+use App\Involucrado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -84,6 +85,44 @@ class TablasEstadisticasController extends Controller
         $tags = $this->consultaMes($days, $year, $month, $category);
         $date = $date->format('m-Y');
         return view('admin.TablasEstadisticas.positivos-mes', compact('days', 'tags', 'date'));   
+    }
+
+    public function negativosTag()
+    {
+        $tags = DB::table('tags')
+            ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
+            ->where('subcategories.category_id', '=', '2')
+            ->select('tags.name', 'tags.id')
+            ->get();
+        return view('admin.TablasEstadisticas.tags-index', compact('tags'));
+    }
+
+    public function positivoTag()
+    {
+        $tags = DB::table('tags')
+            ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
+            ->where('subcategories.category_id', '=', '1')
+            ->select('tags.name', 'tags.id')
+            ->get();
+        return view('admin.TablasEstadisticas.tags-index', compact('tags'));
+    }
+
+    public function buscarTag(Request $request)
+    {
+        $posts = Post::where('tag_id', $request->tag)->with(['tags'])->with(['involucrados' => function($q){
+         $q->with(['mara', 'movil']);
+         }])->with(['address' => function($q){
+             $q->with(['aldea']);
+         }])
+         ->get();
+
+        //  $personas = Involucrado::with(['posts' => function($a){
+        //      $a->with(['tags', 'involucrados'])->with(['address' => function($q){
+        //          $q->with('aldea');
+        //      }]);
+        //  }])->get();
+
+        return view('admin.TablasEstadisticas.tabla-tag', compact('posts'));
     }
 
     public function consultaMes($days, $year, $month, $category)

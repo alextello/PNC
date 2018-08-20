@@ -11,12 +11,12 @@
                     <form action="{{ route('admin.involucrado.update', [$involucrado->id, $post]) }}" method="POST">
                         @csrf
                         <div class="row">
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                                 <label for="">Nombre</label>
                                 <input type="text" class="form-control" placeholder="Nombre completo" value="{{$involucrado->name}}" name="herido">
 
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label for="">DPI (opcional)</label>
                                 <input type="number" class="form-control" placeholder="" id="dpiherido" value="{{$involucrado->dpi}}" name="dpiherido">
 
@@ -31,6 +31,13 @@
                             <div class="form-group col-md-2">
                                 <label for="">Edad</label>
                                 <input name="ageherido" type="number" value="{{$involucrado->age}}" class="form-control">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="">Herido/Fallecido</label>
+                                <select name="herofall" id="herofall" class="form-control" >
+                                        <option {{ collect(old( 'herofall', optional($involucrado->fallecido)))->contains('1') ? 'selected' : '' }} value="1">Fallecido</option>
+                                        <option {{ collect(old( 'herofall', optional($involucrado->fallecido)))->contains('2') ? 'selected' : '' }} value="0">Herido</option>
+                                </select>
                             </div>
                         </div>
                     </div>

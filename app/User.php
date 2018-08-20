@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'telefono', 'codigo'
+        'name', 'email', 'password', 'telefono', 'codigo', 'reference'
     ];
 
     /**
@@ -42,6 +42,7 @@ class User extends Authenticatable
     {
         $this->attributes['password'] = bcrypt($password);
     }
+
 
     public function scopeAllowed($query)
     {

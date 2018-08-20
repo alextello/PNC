@@ -24,9 +24,11 @@ class CreateInvolucradosTable extends Migration
             $table->string('alias')->nullable();
             $table->Integer('age')->default('1')->nullable();
             $table->boolean('aprehendido')->default('1');
+            $table->boolean('fallecido')->default('0');
             $table->string('heridas')->nullable();
             $table->string('motivo')->nullable();
             $table->unsignedInteger('movil_id')->nullable();
+            $table->unsignedInteger('offense_id')->nullable();
             $table->unsignedinteger('abordo')->nullable();
             $table->string('diagnostico')->nullable();
             $table->string('observaciones')->nullable();

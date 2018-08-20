@@ -14,6 +14,7 @@ class Involucrado extends Model
         'gang_id',
         'dpi',
         'age',
+        'offense_id'
     ];
 
     public function getRouteKeyName()
@@ -23,6 +24,11 @@ class Involucrado extends Model
     public function posts()
     {
         return $this->belongsToMany('App\Post');
+    }
+
+    public function delito()
+    {
+        return $this->belongsTo('App\Offense', 'offense_id');
     }
 
     public function mara()

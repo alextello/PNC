@@ -82,6 +82,12 @@
               <li {{ request()->is('admin/estadisticas/Hechos-positivos-mes') ? 'class=active' : ''}}>
                 <a href="{{ route('hechospositivos.mes') }}"><i class="fa fa-fw fa-plus-square"></i>Hechos Positivos -por mes-</a>
               </li>
+              <li {{ request()->is('admin/estadisticas/Hechos-negativos/tag') ? 'class=active' : ''}}>
+                <a href="{{ route('hechosnegativos.tag') }}"><i class="fa fa-fw fa-tag"></i> Hechos Negativos -por etiqueta-</a>
+              </li>
+              <li {{ request()->is('admin/estadisticas/Hechos-positivos/tag') ? 'class=active' : ''}}>
+                <a href="{{ route('hechospositivos.tag') }}"><i class="fa fa-fw fa-tag"></i> Hechos Negativos -por etiqueta-</a>
+              </li>
              {{-- <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
                 <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-map-signs"></i>Ver por aldeas</a>
              </li> --}}

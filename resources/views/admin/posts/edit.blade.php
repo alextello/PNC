@@ -105,12 +105,12 @@
                 @foreach ($post->involucrados as $inv)
                 @if($inv->aprehendido == '1')
                 <div class="row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label for="">Nombre</label>
                     <input type="text" disabled class="form-control" value="{{$inv->name}}">
 
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label for="">DPI (opcional)</label>
                         <input type="number" disabled class="form-control" value="{{$inv->dpi}}">
 
@@ -119,9 +119,15 @@
                         <label for="">Género</label>
                         <input type="text" class="form-control" disabled value="{{$inv->gender}}">
                     </div>
+
                     <div class="form-group col-md-2">
                         <label for="">Edad</label>
                         <input disabled type="number" value="{{ $inv->age }}"class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="">Delito</label>
+                        <input disabled type="text" value="{{ optional($inv->delito)->name }}"class="form-control">
                     </div>
                 </div>
                 <div class="row">
@@ -182,11 +188,11 @@
                     @foreach ($post->involucrados as $inv)
                     @if($inv->aprehendido == '0')
                     <div class="row">
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label for="">Nombre</label>
                                 <input type="text" class="form-control" disabled value="{{$inv->name}}">
                             </div>
-                            <div class="form-group col-md-4">
+                            <div class="form-group col-md-3">
                                 <label for="">DPI</label>
                                 <input type="number" class="form-control" disabled value="{{$inv->dpi}}">
                             </div>
@@ -197,6 +203,14 @@
                             <div class="form-group col-md-2">
                                 <label for="">Edad</label>
                                 <input type="number" class="form-control" disabled value="{{$inv->age}}">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="">Fallecido/Herido</label>
+                                @if($inv->fallecido == 1)
+                                <input type="text" class="form-control" disabled value="Fallecido">
+                                @else
+                                <input type="text" class="form-control" disabled value="Herido">
+                                @endif
                             </div>
                         </div>
                         <div class="row">
@@ -325,6 +339,15 @@
                         <input name="oficio" type="number" class="form-control" id="oficio" value="{{ old('oficio', $post->oficio ? $post->oficio : '') }}">
                         <!-- /.input group -->
                     </div>
+
+                    <div class="form-group {{$errors->has('guardia') ? 'has-error' : ''}}">
+                        <label>Guardia:</label>
+                        <select name="guardia"  class="form-control multiple" id="guardia">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                        </select>
+                    </div>
+
                     <div class="form-group {{$errors->has('aldea') ? 'has-error' : ''}}">
                         <label for="">Seleccione el aldea</label>
                         <select name="aldea" id="aldea" class="form-control select2">
@@ -385,10 +408,39 @@
                     <div class="form-group {{$errors->has('tag_id') ? 'has-error' : ''}}">
                         <label for="">Etiqueta</label>
                         <select name="tag_id" id="tag_id" class="form-control select2" data-placeholder="Elija la etiqueta" style="width: 100%;">
-                            <option value="{{ old('tag_id', optional($post)->tag_id) }}">{{optional($post->tags)->name}}</option>
+                            @foreach($tags as $tag)
+                            <option {{ collect(old( 'tag_id', optional($post->tag_id)))->contains($tag->id) ? 'selected' : '' }} value="{{ $tag->id }}">{{ $tag->name }}</option> 
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group {{$errors->has('modus_operandi_id') ? 'has-error' : ''}}">
+                        <label for="">Modus operandi: </label>
+                        <select name="modus_operandi_id" id="modus_operandi_id" class="form-control tags" data-placeholder="Elija una opcion" style="width: 100%;">
+                            <option value="">Seleccione una opcion</option>
+                            @foreach($modus as $mod)
+                            <option {{ collect(old( 'modus_operandi_id', optional($post->modus_operandi_id)))->contains($mod->id) ? 'selected' : '' }} value="{{ $mod->id }}">{{ $mod->name }}</option> 
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group {{$errors->has('typology_id') ? 'has-error' : ''}}">
+                        <label for="">Tipologia: </label>
+                        <select name="typology_id" id="typology_id" class="form-control tags" data-placeholder="Elija una opcion" style="width: 100%;">
+                            <option value="">Seleccione una opcion</option>
+                            @foreach($typology as $typo)
+                            <option {{ collect(old( 'typology_id', optional($post->typology_id)))->contains($typo->id) ? 'selected' : '' }} value="{{ $typo->id }}">{{ $typo->name }}</option> 
+                            @endforeach
                         </select>
                     </div>
         
+                    <div class="form-group">
+                        <div class="form-group {{$errors->has('denunciante') ? 'has-error' : ''}}">
+                            <label>Denunciante:</label>
+                            <input name="denunciante" placeholder="Nombre del denunciante o afectado" type="text" class="form-control" id="denunciante" value="{{ old('denunciante', $post->denunciante ? $post->denunciante : '') }}">
+                            <!-- /.input group -->
+                        </div>
+                    </div>
                     
                     <div class="form-group">
                             <label for="">Unidades que proceden</label>
@@ -401,6 +453,16 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="">Jefe de turno</label>
+                        <select name="jefe_de_turno_id" class="form-control select2" id="jefe_de_turno_id">
+                            <option value="">Seleccione una opcion</option>
+                            @foreach($users as $user)
+                                <option {{ collect(old( 'jefe_de_turno_id', optional($post->jefe_de_turno_id)))->contains($user->id) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->codigo }} / {{$user->name}}</option> 
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                             <label for="">Agentes que proceden</label>
                             <select name="agentes[]" class="form-control select2" id="agentes" multiple="multiple">
                                 <option value="">Seleccione una opcion</option>
@@ -408,6 +470,16 @@
                                     <option {{ collect(old( 'agentes', optional($user->procesos)->pluck('id')))->contains($post->id) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->codigo }} / {{$user->name}}</option> 
                                 @endforeach
                             </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Juzgado </label>
+                        <select name="juzgado" class="form-control select2" id="juzgado">
+                            <option value="">Seleccione una opcion</option>
+                            <option {{ collect(old( 'juzgado', optional($post->juzgado)))->contains('Juzgado de paz') ? 'selected' : '' }} value="Juzgado de paz">Juzgado de paz</option>
+                            <option {{ collect(old( 'juzgado', optional($post->juzgado)))->contains('Juzgado de primera instancia') ? 'selected' : '' }} value="Juzgado de primera instancia">Juzgado de Primera instancia</option>
+                            <option {{ collect(old( 'juzgado', optional($post->juzgado)))->contains('MP') ? 'selected' : '' }} value="Juzgado de MP">MP</option>
+                        </select>
                     </div>
 
                     <div class="form-group">
@@ -436,12 +508,12 @@
                         <div class="box-body pad" style="" id='dinamico'>
                             <div id="conjunto">
                                 <div class="row">
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label for="">Nombre</label>
                                         <input type="text" class="form-control" placeholder="Nombre completo" name="involucrados[]">
 
                                     </div>
-                                    <div class="form-group col-md-4">
+                                    <div class="form-group col-md-3">
                                         <label for="">DPI (opcional)</label>
                                         <input type="number" class="form-control" placeholder="" id="dpi" name="dpi[]">
 
@@ -456,6 +528,16 @@
                                     <div class="form-group col-md-2">
                                         <label for="">Edad</label>
                                         <input name="age[]" type="number" class="form-control">
+                                    </div>
+
+                                    <div class="form-group col-md-2">
+                                        <label for="">Delito/Falta menor: </label>
+                                        <select name="offense_id[]" id="offense_id" class="form-control tags" style="width:100%;">
+                                            <option value="Seleccione una opcion"></option>
+                                            @foreach($offense as $off)
+                                                <option value="{{$off->name}}">{{$off->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -514,15 +596,14 @@
                                         <form action="{{route('admin.involucrados.fallecidos')}}" method="POST" id="heridoform">
                                             @csrf
                                             <input type="hidden" value="{{$post->id}}" name="post">
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-3">
                                                 <label for="">Nombre</label>
                                                 <input type="text" class="form-control" placeholder="Nombre completo" name="herido">
         
                                             </div>
-                                            <div class="form-group col-md-4">
+                                            <div class="form-group col-md-3">
                                                 <label for="">DPI (opcional)</label>
                                                 <input type="number" class="form-control" placeholder="" id="dpiherido" name="dpiherido">
-        
                                             </div>
                                             <div class="form-group col-md-2">
                                                 <label for="">Género</label>
@@ -535,6 +616,13 @@
                                                 <label for="">Edad</label>
                                                 <input name="ageherido" type="number" class="form-control">
                                             </div>
+                                            <div class="form-group col-md-2">
+                                                    <label for="">Herido o Fallecido:</label>
+                                                    <select class="form-control" id="herofall" name="herofall">
+                                                        <option value="0" selected>Herido</option>
+                                                        <option value="1">Fallecido</option>
+                                                    </select>
+                                                </div>
                                         </div>
                                         <div class="row">
         
@@ -705,7 +793,7 @@
 
         $('.tags').select2({
             tags: true,
-            width: 200
+            // width: 200
         })
 
         $('#gang').select2({

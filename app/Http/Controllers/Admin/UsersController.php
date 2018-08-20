@@ -57,6 +57,16 @@ class UsersController extends Controller
             'roles' => 'required'
         ]);
 
+        $names = explode(" ", $data['name']);
+        $iniciales = [];
+
+        foreach($names as $name)
+        {
+            $iniciales[] = $name[0];
+        }
+
+        $data['reference'] = implode($iniciales);
+
         $user =  User::create($data);
         $user->assignRole($request->roles);
         if($request->filled('permissions'))
@@ -103,7 +113,21 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update($request->validated());
+
+        $iniciales = [];
+        $data = $request->validated();
+
+        $names = explode(" ", $data['name']);
+        $iniciales = [];
+
+        foreach($names as $name)
+        {
+            $iniciales[] = $name[0];
+        }
+
+        $data['reference'] = implode($iniciales);
+
+        $user->update($data);
         return back()->withFlash('Usuario actualizado correctamente');
     }
 

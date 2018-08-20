@@ -22,7 +22,13 @@ class CreatePostsTable extends Migration
             $table->time('time')->nullable();
             $table->Integer('oficio')->nullable();
             $table->unsignedInteger('user_id');
+            $table->string('denunciante', 50)->nullable();
+            $table->unsignedInteger('jefe_de_turno_id')->nullable();
+            $table->string('juzgado')->nullable();
+            $table->string('guardia', 2)->nullable();
             $table->unsignedInteger('tag_id')->nullable();
+            $table->unsignedInteger('modus_operandi_id')->nullable();
+            $table->unsignedInteger('typology_id')->nullable();
             $table->unsignedInteger('address_id')->nullable();
             $table->unsignedInteger('vehiculo_id')->nullable();
             $table->timestamps();

@@ -84,6 +84,11 @@ Route::group([
         Route::get('/estadisticas/Hechos-positivos-mes', 'TablasEstadisticasController@hechosPositivosMes')->name('hechospositivos.mes');
         Route::post('/estadisticas/Hechos-positivos-mes', 'TablasEstadisticasController@hechosPositivosMes')->name('hechospositivos.mes.post');
 
+        Route::get('/estadisticas/Hechos-negativos/tag', 'TablasEstadisticasController@negativosTag')->name('hechosnegativos.tag');
+        Route::get('/estadisticas/Hechos-positivos/tag', 'TablasEstadisticasController@positivosTag')->name('hechospositivos.tag');
+
+        Route::post('/estadisticas/Hechos', 'TablasEstadisticasController@buscarTag')->name('buscar.tag');
+
 });
 
 Route::get('reportes/{post}', 'PostsController@show')->name('posts.show');
