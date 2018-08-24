@@ -58,6 +58,11 @@ class Post extends Model
         return $this->belongsTo('App\Vehiculo', 'vehiculo_id');
     }
 
+    public function jefeDeTurno()
+    {
+        return $this->belongsTo('App\User', 'jefe_de_turno_id');
+    }
+
     public function proceden()
     {
         return $this->belongsToMany('App\User');
@@ -101,7 +106,8 @@ class Post extends Model
 
     public function getPublishedAtAttribute($date)
     {
-        return new Date($date);
+        $dat = new Date($date);
+        return new Date($dat->format('d-m-Y'));
     }
     
     public static function create(array $attributes = [])

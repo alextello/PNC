@@ -26,7 +26,7 @@
                             <button class="btn btn-danger btn-xs" onclick="return confirm('¿Está seguro de querer eliminar la imagen?')" style="position: absolute">
                                 <i class="fa fa-remove"></i>
                             </button>
-                            <img src="/storage/{{ $photo->url }}" alt="" class="img-responsive">
+                            <img src="{{asset('/storage/'.$photo->url)}}" alt="" class="img-responsive">
                         </div>
                     </form>
                     @endforeach
@@ -76,6 +76,7 @@
                             <a target="_blank" href="{{route('admin.vehiculo.edit', $post->vehiculo->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
                             <form action="{{route('admin.vehiculo.delete', $post->vehiculo->id)}}" method="POST" style="display: inline">
                                 @csrf
+                                <input type="hidden" value="{{$post->id}}" name="post">
                                 <button class="btn btn-danger"><i class="fa fa-remove" onclick="return confirm('¿Está seguro de querer eliminar el vehiculo registrado?')"></i></button>
                             </form>
                         </div>
@@ -324,7 +325,7 @@
                     </div>
                 </div>
                 <div class="btn-group col-md-offset-3">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Añadir involucrados</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Añadir aprehendidos</button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vehiculoModal" {{ optional($post->vehiculo)->count() ? 'disabled' : '' }}>Registrar vehiculo</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#heridosModal">Registrar heridos/fallecidos</button>
                 </div>
@@ -335,9 +336,14 @@
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group {{$errors->has('oficio') ? 'has-error' : ''}}">
-                        <label>Oficio:</label>
-                        <input name="oficio" type="number" class="form-control" id="oficio" value="{{ old('oficio', $post->oficio ? $post->oficio : '') }}">
-                        <!-- /.input group -->
+                        <label>Oficio: </label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                            <i class="fa fa-laptop"></i>
+                            </div>
+                            <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;9999-9999&quot;" data-mask="" name="oficio" value="{{ old('oficio', $post->oficio ? $post->oficio : '') }}">
+                        </div>
+                      <!-- /.input group -->
                     </div>
 
                     <div class="form-group {{$errors->has('guardia') ? 'has-error' : ''}}">
@@ -375,7 +381,8 @@
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input name="published_at" type="text" class="form-control pull-right" id="datepicker" value="{{ old('published_at', $post->published_at ? $post->published_at->format('m/d/Y') : '') }}">
+                            {{-- {{dd($post->published_at->format('d-m-Y'))}} --}}
+                            <input name="published_at" type="text" class="form-control pull-right" id="datepicker" value="{{ old('published_at', $post->published_at ? $post->published_at->format('d-m-Y') : '') }}">
                         </div>
                         <!-- /.input group -->
                     </div>
@@ -759,6 +766,10 @@
     <script src={{asset("/adminlte/bower_components/ckeditor/ckeditor.js")}}></script>
     <script src={{asset("/adminlte/plugins/timepicker/bootstrap-timepicker.min.js")}}></script>
     <script src={{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}></script>
+    <script src="/adminlte/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="/adminlte/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="/adminlte/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    
     <script>
         function cambio(selectObject) {
             var value = selectObject.value;
@@ -780,6 +791,7 @@
       
 
         $('#datepicker').datepicker({
+            format: 'dd-mm-yyyy',
             autoclose: true
         });
 
@@ -811,7 +823,8 @@
             tags: true
         })
        
-      
+        $('[data-mask]').inputmask()
+
 
         CKEDITOR.config.height = 315;
 

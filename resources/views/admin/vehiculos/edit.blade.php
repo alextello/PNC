@@ -13,19 +13,19 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="">Tipo:</label>
-                                        <select name="tipo" class="form-control select2" id="tipo">
+                                        <select name="tipo_id" class="form-control select2" id="tipo_id">
                                             <option value="">Seleccione una opcion</option>
                                             @foreach($tipos as $tipo)
-                                            <option {{ collect(old( 'tipo', optional($vehiculo->tipo_id)))->contains($tipo->id) ? 'selected' : '' }} value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
+                                            <option {{ collect(old( 'tipo_id', optional($vehiculo->tipo_id)))->contains($tipo->id) ? 'selected' : '' }} value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="">Marca:</label>
-                                        <select name="marca" id="marca" class="form-control select2">
+                                        <select name="marca_id" id="marca_id" class="form-control select2">
                                             <option value="">Seleccione una opcion</option>
                                             @foreach($marcas as $marca)
-                                            <option {{ collect(old( 'tipo', optional($vehiculo->marca_id)))->contains($marca->id) ? 'selected' : '' }} value="{{ $marca->id }}">{{ $marca->name }}</option>
+                                            <option {{ collect(old( 'marca_id', optional($vehiculo->marca_id)))->contains($marca->id) ? 'selected' : '' }} value="{{ $marca->id }}">{{ $marca->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

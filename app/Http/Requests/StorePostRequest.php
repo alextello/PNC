@@ -28,9 +28,9 @@ class StorePostRequest extends FormRequest
             'title' => 'required',
             'body' => 'required',
             'tag_id' => 'required',
-            'published_at' => 'required|before_or_equal:'.Carbon::now()->toDateTimeString(),
+            'published_at' => 'required|before_or_equal:'.Carbon::now()->format('d-m-Y'),
             'aldea' => 'required',
-            'oficio' => 'required|integer',
+            'oficio' => 'required|regex:/^([0-9]{4})-([0-9]{4})$/',
             'address_id' => 'required',
             'time' => 'required',
         ];

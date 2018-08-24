@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Vehiculo;
-use App\Movil;
-use App\Marca;
 use App\Post;
+use App\Marca;
+use App\Movil;
+use App\Vehiculo;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class VehiculoController extends Controller
 {
@@ -21,6 +22,7 @@ class VehiculoController extends Controller
 
     public function update($id, Request $request)
     {
+        // dd($request->all());
         $vehiculo = Vehiculo::find($id);
         $tipo = $vehiculo->syncTipo($request->tipo_id);  
         $marca = $vehiculo->syncMarca($request->marca_id);      
@@ -35,7 +37,11 @@ class VehiculoController extends Controller
 
     public function delete($id)
     {
+
         $vehiculo =  Vehiculo::find($id);
+        $post = Post::find(request()->post);
+        $post->vehiculo_id = null;
+        $post->save();
         $vehiculo->delete();
         return redirect()->back()->withFlash('Eliminado exitosamente');
     }

@@ -96,15 +96,17 @@ class PostsController extends Controller
 
     public function update(Post $post, StorePostRequest $request)
     {
+        // dd($request->published_at);
         // if(Carbon::parse($request->published_at) > today()){
         //     return redirect()->route('admin.posts.edit', $post)->with('error', 'La fecha no debe ser futura');
         // }
         // $post->involucrados()->detach();
         // dd($request->all());
-        // dd($request->all());
         $request->merge(['time' => date("H:i", strtotime($request->time))]);
         $request->merge(['address_id' => Address::create(['name' => $request->address_id, 'aldea_id' => $request->aldea])->id]);
+        if($request->typology_id)
         $request->merge(['typology_id' => $post->syncTypology($request->typology_id)]);
+        if($request->modus_operandi_id)
         $request->merge(['modus_operandi_id' => $post->syncModusOperandi($request->modus_operandi_id)]);
         $post->update($request->all());
         $post->syncInvolucrados(request()->get('involucrados'),request()->get('dpi'),request()->get('genero'), $request);
@@ -147,10 +149,14 @@ class PostsController extends Controller
 
     public function involucradoUpdate($id, $post, Request $request)
     {   
-         
-        $involucrado = Involucrado::find($id)->first();
+        //  dd($request->gangherido);
+        $involucrado = Involucrado::where('id', $id)->first();
+        // dd($involucrado);
         $p = Post::find($post);
+        // dd($p);
+        if(isset($request->gangherido))
         $gangID = (Int) $p->syncGangs([$request->gangherido])[0];
+        if($request->offense)
         $offense = $p->syncOffenses([$request->offense])[0];
 
         if($involucrado->aprehendido == '0')

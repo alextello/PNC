@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->text('body')->nullable();
             $table->timestamp('published_at')->nullable();
             $table->time('time')->nullable();
-            $table->Integer('oficio')->nullable();
+            $table->string('oficio', 10)->nullable();
             $table->unsignedInteger('user_id');
             $table->string('denunciante', 50)->nullable();
             $table->unsignedInteger('jefe_de_turno_id')->nullable();

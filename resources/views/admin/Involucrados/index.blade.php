@@ -55,7 +55,7 @@
                             <label for="password">Delito: </label>
                             <select name="offense" id="offense" class="form-control select2">
                                  @foreach($delitos as $del)
-                                 <option {{ collect($del)->contains($involucrado->offense_id) ? 'selected' : '' }} value="{{ $del->name }}">{{ $del->name }}</option>
+                                 <option {{ collect(optional($involucrado->offense_id))->contains($del->id) ? 'selected' : '' }} value="{{ $del->name }}">{{ $del->name }}</option>
                                  @endforeach
                             </select>
                         </div>
