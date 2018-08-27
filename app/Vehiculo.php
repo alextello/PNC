@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vehiculo extends Model
 {
-    protected $fillable = ['tipo_id', 'marca_id', 'color', 'modelo', 'placa'];
+    protected $fillable = ['type_id', 'marca_id', 'color', 'modelo', 'placa', 'linea'];
 
     public function tipo()
     {
-        return $this->belongsTo('App\Movil', 'tipo_id');
+        return $this->belongsTo('App\Type', 'type_id');
     }
 
     public function brand()
@@ -25,15 +25,15 @@ class Vehiculo extends Model
 
     public function syncTipo($request)
     {
-        $query = Movil::where('id', $request)->first();
-        $tipo =  $query ? $query->id : Movil::create(['tipo' => $request ])->id;
+        $query = Type::where('id', $request)->first();
+        $tipo =  $query ? $query->id : Type::create(['tipo' => $request, 'modelo' => 'App\Vehiculo'])->id;
         return $tipo;
     }
 
     public function syncMarca($request)
     {
         $query = Marca::where('id', $request)->first();
-        $marca =  $query ? $query->id : Movil::create(['tipo' => $request ])->id;
+        $marca =  $query ? $query->id : Marca::create(['name' => $request ])->id;
         return $marca;
     }
 }

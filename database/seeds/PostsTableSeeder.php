@@ -12,7 +12,7 @@ use App\Municipio;
 use App\Involucrado;
 use App\Gang;
 use App\Marca;
-use App\Movil;
+use App\Type;
 use App\Vehiculo;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -38,7 +38,7 @@ class PostsTableSeeder extends Seeder
         Aldea::truncate();
         Municipio::truncate();
         Marca::truncate();
-        Movil::truncate();
+        Type::truncate();
         Vehiculo::truncate();
         Storage::disk('public')->deleteDirectory('posts');
 
@@ -879,10 +879,10 @@ class PostsTableSeeder extends Seeder
         $post->address_id = Address::create(['name' => '4ta. calle 6-32 zona 2', 'aldea_id' => '3'])->id;
         $post->save();
 
-        Movil::create(['tipo' => 'Patrulla']);
-        Movil::create(['tipo' => 'Vehiculo']);
-        Movil::create(['tipo' => 'Moto']);
-        Movil::create(['tipo' => 'A pie']);
+        Type::create(['tipo' => 'Patrulla', 'modelo' => 'App\Vehiculo']);
+        Type::create(['tipo' => 'Vehiculo', 'modelo' => 'App\Vehiculo']);
+        Type::create(['tipo' => 'Moto', 'modelo' => 'App\Vehiculo']);
+        Type::create(['tipo' => 'A pie', 'modelo' => 'App\Vehiculo']);
 
         Marca::create(['name' => 'Toyota']);
         Marca::create(['name' => 'Nissan']);

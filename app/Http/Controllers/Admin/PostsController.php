@@ -8,7 +8,7 @@ use App\Post;
 use App\User;
 use App\Aldea;
 use App\Marca;
-use App\Movil;
+use App\Type;
 use App\Address;
 use App\Offense;
 use App\Category;
@@ -73,18 +73,19 @@ class PostsController extends Controller
         if($post && $post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
         {
             $aldeas = Aldea::all();
-            $movil = Movil::all();
+            $typeA = Type::where('modelo', 'App\Gun')->get();
+            $typeV = Type::where('modelo', 'App\Vehiculo')->get();
             $marca = Marca::all();
             $modus = ModusOperandi::all();
             $typology = Typology::all();
             $users = User::with('procesos')->get();
-            $unidades = Vehiculo::with('procesos')->where('tipo_id', '1')->get();
+            $unidades = Vehiculo::with('procesos')->where('type_id', '1')->get();
             $categories = Category::with('subcategories')->get();
             $tags = Tag::all();
             $offense = Offense::all();
             $gangs = Gang::all();
             $plantillas = Plantilla::all();
-            return view('admin.posts.edit', compact('post', 'users', 'unidades', 'categories', 'tags', 'marca', 'plantillas', 'aldeas', 'gangs', 'movil', 'modus', 'typology', 'offense'));
+            return view('admin.posts.edit', compact('post', 'users', 'unidades', 'categories', 'tags', 'marca', 'plantillas', 'aldeas', 'gangs', 'typeA', 'typeV', 'modus', 'typology', 'offense'));
         }
        
         else{
@@ -138,13 +139,13 @@ class PostsController extends Controller
     public function involucrado($id, $post)
     {   
         $gangs = Gang::all();
-        $movil = Movil::all();
+        $typeV = Type::where('modelo', 'App\Vehiculo')->get();
         $delitos = Offense::all();
         $involucrado = Involucrado::find($id);
         if($involucrado->aprehendido == '1')
-        return view('admin.involucrados.index', compact('involucrado', 'gangs', 'post', 'movil', 'delitos'));
+        return view('admin.involucrados.index', compact('involucrado', 'gangs', 'post', 'typeV', 'delitos'));
         else
-        return view('admin.involucrados.fallecido', compact('involucrado', 'gangs', 'post', 'movil'));
+        return view('admin.involucrados.fallecido', compact('involucrado', 'gangs', 'post', 'typeV'));
     }
 
     public function involucradoUpdate($id, $post, Request $request)

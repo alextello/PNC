@@ -13,10 +13,10 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="">Tipo:</label>
-                                        <select name="tipo_id" class="form-control select2" id="tipo_id">
+                                        <select name="type_id" class="form-control select2" id="type_id">
                                             <option value="">Seleccione una opcion</option>
                                             @foreach($tipos as $tipo)
-                                            <option {{ collect(old( 'tipo_id', optional($vehiculo->tipo_id)))->contains($tipo->id) ? 'selected' : '' }} value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
+                                            <option {{ collect(old( 'type_id', optional($vehiculo->type_id)))->contains($tipo->id) ? 'selected' : '' }} value="{{ $tipo->id }}">{{ $tipo->tipo }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -36,6 +36,10 @@
                                     <div class="form-group">
                                         <label for="">Color:</label>
                                         <input type="text" name="color" value="{{ old('color', $vehiculo->color)}}" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Linea:</label>
+                                        <input type="text" name="linea" value="{{ old('linea', $vehiculo->linea)}}" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label for="">Placa:</label>

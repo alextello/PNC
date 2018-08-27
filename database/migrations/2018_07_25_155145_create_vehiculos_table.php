@@ -20,7 +20,7 @@ class CreateVehiculosTable extends Migration
             $table->year('modelo')->nullable(); 
             $table->string('color')->default('IGN');
             $table->unsignedInteger('marca_id')->nullable();
-            $table->unsignedInteger('tipo_id')->nullable();
+            $table->unsignedInteger('type_id')->nullable();
             $table->timestamps();
         });
     }

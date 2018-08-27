@@ -38,7 +38,7 @@ class Involucrado extends Model
 
     public function movil()
     {
-        return $this->belongsTo('App\Movil', 'movil_id');
+        return $this->belongsTo('App\Type', 'type_id');
     }
     
     public function setGenderAttribute($genero)
