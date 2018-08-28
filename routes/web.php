@@ -74,6 +74,11 @@ Route::group([
         Route::post('/vehiculo/update/{id}', 'VehiculoController@update')->name('admin.vehiculo.update');
         Route::post('/vehiculo/store', 'VehiculoController@store')->name('admin.vehiculo.store');
 
+        Route::get('/arma/edit/{id}', 'GunController@edit')->name('admin.arma.edit');
+        Route::post('/arma/delete/{id}', 'GunController@delete')->name('admin.arma.delete');
+        Route::post('/arma/update/{id}', 'GunController@update')->name('admin.arma.update');
+        Route::post('/arma/store', 'GunController@store')->name('admin.arma.store');
+
         Route::get('/estadisticas/Hechos-negativos', 'TablasEstadisticasController@hechosNegativos')->name('hechosnegativos');
         Route::post('/estadisticas/Hechos-negativos', 'TablasEstadisticasController@hechosNegativos')->name('hechosnegativos.post');
         Route::get('/estadisticas/Hechos-positivos', 'TablasEstadisticasController@hechosPositivos')->name('hechospositivos');

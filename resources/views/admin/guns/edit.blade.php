@@ -9,14 +9,14 @@
                                 <h3>Datos</h3>
                             </div>
                             <div class="box-body">
-                                <form action="{{ route('admin.vehiculo.update', $vehiculo) }}" method="POST">
+                                <form action="{{ route('admin.arma.update', $gun) }}" method="POST">
                                     @csrf
                                     <div class="form-group">
                                         <label for="">Tipo:</label>
                                         <select name="type_id" class="form-control select2" id="type_id">
                                             <option value="">Seleccione una opcion</option>
                                             @foreach($tipos as $tipo)
-                                            <option {{ collect(old( 'type_id', optional($vehiculo->type_id)))->contains($tipo->id) ? 'selected' : '' }} value="{{ $tipo->tipo }}">{{ $tipo->tipo }}</option>
+                                            <option {{ collect(old( 'type_id', optional($gun->type_id)))->contains($tipo->id) ? 'selected' : '' }} value="{{ $tipo->tipo }}">{{ $tipo->tipo }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -25,27 +25,22 @@
                                         <select name="marca_id" id="marca_id" class="form-control select2">
                                             <option value="">Seleccione una opcion</option>
                                             @foreach($marcas as $marca)
-                                            <option {{ collect(old( 'marca_id', optional($vehiculo->marca_id)))->contains($marca->id) ? 'selected' : '' }} value="{{ $marca->name }}">{{ $marca->name }}</option>
+                                            <option {{ collect(old( 'marca_id', optional($gun->marca_id)))->contains($marca->id) ? 'selected' : '' }} value="{{ $marca->name }}">{{ $marca->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Modelo:</label>
-                                        <input type="number" name="modelo" value="{{ old('modelo', $vehiculo->modelo)}}" class="form-control">
+                                        <label for="">Calibre:</label>
+                                        <input type="text" name="calibre" value="{{ old('calibre', $gun->calibre)}}" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Color:</label>
-                                        <input type="text" name="color" value="{{ old('color', $vehiculo->color)}}" class="form-control">
+                                        <label for="">Registro:</label>
+                                        <input type="text" name="registro" value="{{ old('registro', $gun->registro)}}" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label for="">Linea:</label>
-                                        <input type="text" name="linea" value="{{ old('linea', $vehiculo->linea)}}" class="form-control">
+                                        <label for="">Licencia:</label>
+                                        <input type="text" name="licencia" value="{{ old('licencia', $gun->licencia)}}" class="form-control">
                                     </div>
-                                    <div class="form-group">
-                                        <label for="">Placa:</label>
-                                        <input type="text" name="placa" value="{{ old('placa', $vehiculo->placa)}}" class="form-control">
-                                    </div>
-                                   
                                     <button class="btn btn-primary btn-block">Actualizar</button>
                                 </form>
                             </div>

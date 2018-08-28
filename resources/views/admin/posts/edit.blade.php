@@ -36,6 +36,56 @@
     </div>
     @endif 
 
+    @if(optional($post->arma)->count())
+    <div class="col-md-12">
+        <div class="box box-primary collapsed-box">
+            <div class="box-header">
+                <h3 class="box-title">
+                    Arma
+                </h3>
+                <div class="pull-right box-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body pad">
+                <div class="row">
+                    <div class="col-md-2 form-group">
+                        <label for="">Tipo</label>
+                        <input type="text" class="form-control" value="{{$post->arma->tipo->tipo}}" disabled>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="">Marca:</label>
+                        <input type="text" class="form-control" value="{{$post->arma->brand->name}}" disabled>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="">Calibre:</label>
+                        <input type="text" class="form-control" value="{{$post->arma->calibre}}" disabled>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="">Registro:</label>
+                        <input type="text" class="form-control" value="{{$post->arma->registro}}" disabled>
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label for="">Licencia:</label>
+                        <input type="text" class="form-control" value="{{$post->arma->licencia}}" disabled>
+                    </div>
+                    <div class="col-md-2 btn-group">  
+                        <br>                          
+                        <a target="_blank" href="{{route('admin.arma.edit', $post->arma->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                        <form action="{{route('admin.arma.delete', $post->arma->id)}}" method="POST" style="display: inline">
+                            @csrf
+                            <input type="hidden" value="{{$post->id}}" name="post">
+                            <button class="btn btn-danger"><i class="fa fa-remove" onclick="return confirm('¿Está seguro de querer eliminar el arma registrada?')"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     @if(optional($post->vehiculo)->count())
         <div class="col-md-12">
             <div class="box box-primary collapsed-box">
@@ -328,9 +378,10 @@
                         <span class="help-block">:message</span>') !!}
                     </div>
                 </div>
-                <div class="btn-group col-md-offset-3">
+                <div class="btn-group col-md-offset-1">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Añadir aprehendidos</button>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vehiculoModal" {{ optional($post->vehiculo)->count() ? 'disabled' : '' }}>Registrar vehiculo</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#armaModal" {{ optional($post->arma)->count() ? 'disabled' : '' }}>Registrar arma</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#heridosModal">Registrar heridos/fallecidos</button>
                 </div>
             </div>
@@ -724,13 +775,13 @@
                                                 <option value="{{$mov->id}}">{{$mov->tipo}}</option>
                                             @endforeach
                                         </select>
-                                    </div>
+                                    </div> 
                                     <div class="col-md-2 form-group">
                                         <label for="">Marca:</label>
                                         <br>
                                         <select name="marca_id" id="marca_id" class="tags form-control" required>
                                             <option value="">Seleccione marca</option>
-                                            @foreach($marca as $mar)
+                                            @foreach($marcaV as $mar)
                                              <option value="{{$mar->id}}">{{$mar->name}}</option>   
                                             @endforeach
                                         </select>
@@ -738,20 +789,81 @@
                                     <div class="col-md-2 form-group">
                                         <label for="">Linea:</label>
                                         <br>
-                                        <input type="text" name="linea" class="form-control" placeholder="Ingrese linea">
+                                        <input type="text" name="linea" class="form-control" placeholder="Ingrese linea" value="IGN">
                                     </div>
                                     <div class="col-md-2 form-group">
                                         <label for="">Color:</label>
                                         <br>
-                                        <input type="text" name="color" class="form-control" placeholder="Ingrese color">
+                                        <input type="text" name="color" class="form-control" value="IGN" placeholder="Ingrese color">
                                     </div>
                                     <div class="col-md-2 form-group">
                                         <label for="">Placa:</label>
-                                        <input type="text" name="placa" class="form-control" placeholder="Placa">
+                                        <input type="text" name="placa" class="form-control" value="IGN" placeholder="Placa">
                                     </div>
                                     <div class="col-md-2 form-group">
                                     <label for="">Modelo</label>
                                     <input type="number" name="modelo" class="form-control" placeholder="1998">
+                                    </div>                                    
+                                </div>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div id="armaModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+    
+                    <!-- Modal content-->
+                    <div class="modal-content">
+    
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Arma</h4>
+                        </div>
+                        <div class="modal-body" style="overflow:hidden;">
+                            <div class="box-body pad">
+                                <div class="row">
+                                    <form action="{{route('admin.arma.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="post" value="{{$post->id}}">
+                                    <div class="col-md-3 form-group">
+                                        <label for="">Tipo:</label>
+                                        <br>
+                                        <select name="type_id" id="type_id" class="form-cotrol tags" required>
+                                            <option value="">Seleccione el tipo de arma</option>
+                                            @foreach($typeA as $mov)
+                                                <option value="{{$mov->name}}">{{$mov->tipo}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label for="">Marca:</label>
+                                        <br>
+                                        <select name="marca_id" id="marca_id" class="tags form-control" required>
+                                            <option value="">Seleccione marca</option>
+                                            @foreach($marcaA as $mar)
+                                             <option value="{{$mar->name}}">{{$mar->name}}</option>   
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <label for="">Calibre:</label>
+                                        <br>
+                                        <input type="text" name="calibre" class="form-control" placeholder="Ingrese calibre">
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <label for="">Registro:</label>
+                                        <input type="text" name="registro" class="form-control" placeholder="Registro">
+                                    </div>
+                                    <div class="col-md-2 form-group">
+                                        <label for="">Licencia</label>
+                                        <input type="text" name="licencia" class="form-control" placeholder="Licencia">
                                     </div>                                    
                                 </div>
                             </div>

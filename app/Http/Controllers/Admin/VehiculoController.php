@@ -16,7 +16,7 @@ class VehiculoController extends Controller
     {
         $vehiculo = Vehiculo::with(['brand', 'tipo'])->find($id);
         $tipos = Type::where('modelo', 'App\Vehiculo')->get();
-        $marcas = Marca::all();
+        $marcas = Marca::where('modelo', 'App\Vehiculo')->get();
         return view('admin.vehiculos.edit', compact('vehiculo', 'tipos', 'marcas'));
     }
 
@@ -53,6 +53,8 @@ class VehiculoController extends Controller
         $vehiculo = new vehiculo();
         $request->merge(['type_id' => $vehiculo->syncTipo($request->type_id)]);
         $request->merge(['marca_id' => $vehiculo->syncMarca($request->marca_id)]);
+        if(!$request->linea)
+        $request->merge(['linea' => 'IGN']);
         $post->vehiculo_id = Vehiculo::create($request->all())->id;
         $post->save();
         return back()->withFlash('Vehiculo registrado');

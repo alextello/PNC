@@ -884,9 +884,9 @@ class PostsTableSeeder extends Seeder
         Type::create(['tipo' => 'Moto', 'modelo' => 'App\Vehiculo']);
         Type::create(['tipo' => 'A pie', 'modelo' => 'App\Vehiculo']);
 
-        Marca::create(['name' => 'Toyota']);
-        Marca::create(['name' => 'Nissan']);
-        Marca::create(['name' => 'Honda']);
+        Marca::create(['name' => 'Toyota', 'modelo' => 'App\Vehiculo']);
+        Marca::create(['name' => 'Nissan', 'modelo' => 'App\Vehiculo']);
+        Marca::create(['name' => 'Honda', 'modelo' => 'App\Vehiculo']);
 
        
     }

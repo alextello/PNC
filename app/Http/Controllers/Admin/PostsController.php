@@ -68,6 +68,8 @@ class PostsController extends Controller
         $q->with(['mara', 'movil', 'delito']);
         }])->with(['vehiculo' => function ($v){
             $v->with(['brand', 'tipo']);
+        }])->with(['arma' => function($f){
+            $f->with(['brand', 'tipo']);
         }])->first();
         
         if($post && $post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
@@ -75,7 +77,8 @@ class PostsController extends Controller
             $aldeas = Aldea::all();
             $typeA = Type::where('modelo', 'App\Gun')->get();
             $typeV = Type::where('modelo', 'App\Vehiculo')->get();
-            $marca = Marca::all();
+            $marcaV = Marca::where('modelo', 'App\Vehiculo')->get();
+            $marcaA = Marca::where('modelo', 'App\Gun')->get();
             $modus = ModusOperandi::all();
             $typology = Typology::all();
             $users = User::with('procesos')->get();
@@ -85,7 +88,7 @@ class PostsController extends Controller
             $offense = Offense::all();
             $gangs = Gang::all();
             $plantillas = Plantilla::all();
-            return view('admin.posts.edit', compact('post', 'users', 'unidades', 'categories', 'tags', 'marca', 'plantillas', 'aldeas', 'gangs', 'typeA', 'typeV', 'modus', 'typology', 'offense'));
+            return view('admin.posts.edit', compact('post', 'users', 'unidades', 'categories', 'tags', 'marcaV', 'marcaA', 'plantillas', 'aldeas', 'gangs', 'typeA', 'typeV', 'modus', 'typology', 'offense'));
         }
        
         else{

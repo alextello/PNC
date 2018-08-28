@@ -98,6 +98,11 @@ class Post extends Model
         return $this->belongsToMany('App\Involucrado');
     }
 
+    public function arma()
+    {
+        return $this->belongsTo('App\Gun', 'gun_id');
+    }
+
 
     public function getCreatedAtAttribute($date)
     {
@@ -283,7 +288,7 @@ class Post extends Model
         foreach($unidades as $unidad)
         {
             $query = Vehiculo::where('placa', $unidad)->first();
-            $ids[] = $query ? $query->id : Vehiculo::create(['placa' => $unidad, 'tipo_id' => '1'])->id;
+            $ids[] = $query ? $query->id : Vehiculo::create(['placa' => $unidad, 'type_id' => '1'])->id;
         }
         $this->unidades()->sync($ids);
     }
