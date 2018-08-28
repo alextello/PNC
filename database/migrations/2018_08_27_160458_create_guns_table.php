@@ -15,8 +15,8 @@ class CreateGunsTable extends Migration
     {
         Schema::create('guns', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('type_id')->nullable();
-            $table->unsignedInteger('marca_id')->nullable();
+            $table->unsignedInteger('type_id')->nullable();//TIPO DE ARMA
+            $table->unsignedInteger('marca_id')->nullable();//MARCA DEL ARMA
             $table->string('registro')->default('IGN')->nullable();
             $table->string('calibre')->default('IGN')->nullable();
             $table->string('licencia')->default('IGN')->nullable();

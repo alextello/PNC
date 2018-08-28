@@ -58,7 +58,7 @@
                                 <select name="gangherido" id="gangherido" class="form-control select2">
                                     <option value="0">Seleccione</option>
                                     @foreach ($gangs as $gang)
-                                    <option value="{{ $gang->name}}" {{ old( 'gangherido', $involucrado->mara->id) == $gang->id ? 'selected' : '' }} >{{ $gang->name }}</option>
+                                    <option value="{{ $gang->name}}" {{ old( 'gangherido', optional($involucrado->mara)->id) == $gang->id ? 'selected' : '' }} >{{ $gang->name }}</option>
                                     @endforeach 
                                 </select>
                             </div>
@@ -68,8 +68,8 @@
                                 <select name="abordo" id="abordo" class="form-control select2">
                                     <br>
                                     <option value="">Seleccione una opcion</option>
-                                    @foreach ($movil as $mov)
-                                    <option value="{{ $mov->id}}" {{ old( 'abordo', $involucrado->movil->id) == $mov->id ? 'selected' : '' }} >{{ $mov->tipo }}</option>
+                                    @foreach ($typeV as $mov)
+                                    <option value="{{ $mov->id}}" {{ old( 'abordo', optional($involucrado->movil)->id) == $mov->id ? 'selected' : '' }} >{{ $mov->tipo }}</option>
                                     @endforeach 
                                 </select>
                             </div>

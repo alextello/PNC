@@ -17,9 +17,9 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('codigo')->unique();
+            $table->string('codigo')->unique();//CODIGO DE AGENTE
             $table->string('telefono')->unique();
-            $table->string('reference')->nullable();
+            $table->string('reference')->nullable();//SON LAS INICIALES DEL AGENTE, ES LA REFERENCIA PARA GENERAR UN OFICIO
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

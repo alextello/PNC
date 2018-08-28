@@ -12,7 +12,7 @@ class InvolucradoPostTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {//TABLA QUE RELACIONA DE MUCHOS A MUCHOS LOS INVOLUCRADOS CON LAS NOVEDADES
           Schema::create('involucrado_post', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('post_id');

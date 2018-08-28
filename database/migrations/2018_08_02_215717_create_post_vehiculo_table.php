@@ -12,7 +12,7 @@ class CreatePostVehiculoTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {//RELACIONA LAS UNIDADES QUE PROCEDEN CON NOVEDADES
         Schema::create('post_vehiculo', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('post_id');

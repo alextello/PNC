@@ -17,12 +17,12 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('display_name')->nullable();
-            $table->string('guard_name');
+            $table->string('name');//NOMBRE ESTABLECIDO QUE JAMAS CAMBIA
+            $table->string('display_name')->nullable();//NOMBRE QUE SE MUESTRA POR SI QUIEREN CAMBIARLE EL NOMBRE
+            $table->string('guard_name');//ESTE CAMPO ESTA PREVEENDO QUE SE NECESITE CONSUMIR UNA API, SI SE LLEGA A REPLICAR EL PROYECTO, DE MOMENTO NO SE USA
             $table->timestamps();
         });
-
+        //TABLA DE ROLES, SUS CAMPOS TIENEN LA MISMA LOGICA QUE LA TABLA ANTERIOR
         Schema::create($tableNames['roles'], function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -30,7 +30,7 @@ class CreatePermissionTables extends Migration
             $table->string('guard_name');
             $table->timestamps();
         });
-
+        //TABLA QUE RELACIONA AL MODELO USUARIO CON LOS PERMISOS, CUANDO SE QUIERE ASIGNAR UN PERMISO EXTRA
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames) {
             $table->unsignedInteger('permission_id');
             $table->morphs('model');
@@ -42,7 +42,7 @@ class CreatePermissionTables extends Migration
 
             $table->primary(['permission_id', 'model_id', 'model_type']);
         });
-
+        //TABLA QUE RELACIONA LOS ROLES CON EL MODELO USUARIO
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames) {
             $table->unsignedInteger('role_id');
             $table->morphs('model');
@@ -54,7 +54,7 @@ class CreatePermissionTables extends Migration
 
             $table->primary(['role_id', 'model_id', 'model_type']);
         });
-
+        //TABLA QUE INDICA QUE PERMISOS TIENE EL ROL
         Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
             $table->unsignedInteger('permission_id');
             $table->unsignedInteger('role_id');

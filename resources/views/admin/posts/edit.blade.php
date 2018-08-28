@@ -199,7 +199,7 @@
 
                     <div class="form-group col-md-2">
                         <label for="gang">Mara</label>
-                        <input type="text" class="form-control" disabled value="{{$inv->mara->name}}">
+                        <input type="text" class="form-control" disabled value="{{optional($inv->mara)->name}}">
                     </div>
                 <div class="form-group col-md-2">
                     <br>
@@ -282,7 +282,7 @@
 
                             <div class="form-group col-md-2">
                                 <label for="gang">Mara</label>
-                                <input type="text" class="form-control" disabled value="{{$inv->mara->name}}">
+                                <input type="text" class="form-control" disabled value="{{optional($inv->mara)->name}}">
                             </div>
 
                             <div class="col-md-3 form-group">

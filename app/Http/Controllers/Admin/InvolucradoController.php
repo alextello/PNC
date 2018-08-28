@@ -26,11 +26,17 @@ class InvolucradoController extends Controller
         else
         {
             $p = Post::find($request->post);
+            if($request->gangherido)
             $gangID = (Int) $p->syncGangs([$request->gangherido])[0];
-            if(!isset($request->abordo))
-            $abordo = 3;
             else
+            $gangID = 0;
+            // if(!isset($request->abordo))
+            // $abordo = 3;
+            // else
+            if($request->abordo)
             $abordo = (Int) $p->syncAbordo($request->abordo);
+            else
+            $abordo = null;
             $involucrado = new Involucrado();
             $involucrado->name = $request->herido;
             $involucrado->dpi = $request->dpiherido;
@@ -39,7 +45,7 @@ class InvolucradoController extends Controller
             $involucrado->tattoos = $request->tattoosherido;
             $involucrado->alias = $request->aliasherido;
             $involucrado->gang_id = $gangID;
-            $involucrado->movil_id = $abordo;
+            $involucrado->type_id = $abordo;
             $involucrado->aprehendido = '0';
             $involucrado->fallecido = $request->herofall;
             $involucrado->heridas = $request->heridas;

@@ -17,19 +17,19 @@ class CreateInvolucradosTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->bigInteger('dpi')->nullable();
-            $table->char('gender', 1);
-            $table->string('genero');
-            $table->unsignedInteger('gang_id')->defult('0');
+            $table->char('gender', 1);//PARA ALMACENAR LA LETRA DEL GENERO M MASCULINO Y F FEMENINO
+            $table->string('genero');//GUARDA EL GENERO DE LA PERSONA
+            $table->unsignedInteger('gang_id')->defult('0');//INDICA A QUE MARA PERTENECE, DE NO PERTENECER A NINGUNA EL VALOR ES 0
             $table->string('tattoos')->nullable();
             $table->string('alias')->nullable();
-            $table->Integer('age')->default('1')->nullable();
-            $table->boolean('aprehendido')->default('1');
-            $table->boolean('fallecido')->default('0');
+            $table->Integer('age')->default('1')->nullable();//EDAD DEL APREHENDIDO
+            $table->boolean('aprehendido')->default('1');//1 PARA SABER SI ES APREHENDIDO Y 0 PARA SABER SI ES UN FALLECIDO O HERIDO
+            $table->boolean('fallecido')->default('0');//1 PARA SABER SI ES FALLECIDO Y 0 PARA SABER SI ES HERIDO
             $table->string('heridas')->nullable();
-            $table->string('motivo')->nullable();
-            $table->unsignedInteger('movil_id')->nullable();
-            $table->unsignedInteger('offense_id')->nullable();
-            $table->unsignedinteger('abordo')->nullable();
+            $table->string('motivo')->nullable();//MOTIVO DEL ATAQUE
+            $table->unsignedInteger('type_id')->nullable();//INDICA A BORDO DE QUE IBA.. CARRO, A PIE, ETC..
+            $table->unsignedInteger('offense_id')->nullable();//INDICA UNA FALTA MENOR
+            // $table->unsignedinteger('abordo')->nullable();//INDICA A BORDO DE QUE IBAN LOS ATACANTES
             $table->string('diagnostico')->nullable();
             $table->string('observaciones')->nullable();
             $table->timestamps();

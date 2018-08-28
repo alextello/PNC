@@ -12,7 +12,7 @@ class CreateTypesTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {//TABLA QUE ALMACENA LOS TIPOS DE AUTOS Y ARMAS
         Schema::create('types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tipo');

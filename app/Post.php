@@ -4,6 +4,7 @@ namespace App;
 
 use App\Offense;
 use App\Typology;
+use App\Type;
 use Carbon\Carbon;
 use App\Involucrado;
 use Jenssegers\Date\Date;
@@ -265,8 +266,8 @@ class Post extends Model
 
     public function syncAbordo($abordo)
     {
-        $query = Movil::where('id', $abordo)->first();
-        $abordo =  $query ? $query->id : Movil::create(['tipo' => $abordo ])->id;
+        $query = Type::where('id', $abordo)->first();
+        $abordo =  $query ? $query->id : Type::create(['tipo' => $abordo ])->id;
         return $abordo;
     }
     

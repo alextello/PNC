@@ -12,7 +12,7 @@ class CreateMarcasTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {//TABLA QUE ALMACENA LAS MARCAS DE AUTOS Y ARMAS
         Schema::create('marcas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');

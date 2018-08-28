@@ -12,7 +12,7 @@ class CreatePostUserTable extends Migration
      * @return void
      */
     public function up()
-    {
+    {//RELACIONA A LOS AGENTES QUE PROCEDEN CON LAS NOVEDADES
         Schema::create('post_user', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');

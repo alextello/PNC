@@ -16,11 +16,11 @@ class CreateVehiculosTable extends Migration
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('placa')->nullable()->default('IGN');
-            $table->string('linea')->nullable()->default('IGN');
+            $table->string('linea')->nullable()->default('IGN');//EJ. RAV4, TACOMA, ETC..
             $table->year('modelo')->nullable(); 
             $table->string('color')->nullable()->default('IGN');
             $table->unsignedInteger('marca_id')->nullable();
-            $table->unsignedInteger('type_id')->nullable();
+            $table->unsignedInteger('type_id')->nullable();//TIPO DEL MOVIL, EJ. PICKUP, CAMION, ETC.
             $table->timestamps();
         });
     }

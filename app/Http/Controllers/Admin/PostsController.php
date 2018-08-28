@@ -177,7 +177,7 @@ class PostsController extends Controller
             $involucrado->alias = $request->aliasherido;
             $involucrado->fallecido = $request->herofall;
             $involucrado->gang_id = $gangID;
-            $involucrado->movil_id = $abordo;
+            $involucrado->type_id = $abordo;
             $involucrado->heridas = $request->heridas;
             $involucrado->motivo = $request->motivo;
             $involucrado->diagnostico = $request->diagnostico;
