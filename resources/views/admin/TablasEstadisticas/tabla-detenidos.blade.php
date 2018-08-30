@@ -1,7 +1,6 @@
 @extends('admin.layout')
 
 @section('content')
-
 <div class="box box-primary">
         <div class="box-body">
             <div class="box-header with-border">
@@ -20,15 +19,15 @@
                               <th>Detenidos</th>
                               <th>Edad</th>
                               <th>Direccion</th>
-                              <th>Municipio</th>
+                              <th>Aldea</th>
                               <th>Motivo</th>
                               <th>Delito</th>
+                              <th>Juzgado o fiscalia</th>
                             </tr>
                             </thead>
                             <tbody id="miTabla">
                                 @php $i=1; @endphp
                                 @foreach ($posts as $post)
-                                    @if($post->involucrados->count() > 1)
                                         @foreach($post->involucrados as $involucrado)
                                 <tr>
                                     <td>{{ $i }}</td>
@@ -43,26 +42,10 @@
                                     <td>{{ $post->address->aldea->name }}</td>
                                     <td>{{ $post->tags->name }}</td>
                                     <td>{{ $post->tags->name }}</td>
+                                    <td>{{ $post->juzgado }}</td>
                                 </tr>
                                     @php $i++ @endphp
                                         @endforeach
-                                @else
-                                    <tr>
-                                        <td>{{ $i }}</td>
-                                        <td> {{ $post->published_at->format('Y') }} </td>
-                                        <td>{{  $post->published_at->format('M') }}</td>
-                                        <td>{{  $post->published_at->format('l') }} </td>
-                                        <td>{{  $post->published_at->format('d-m-Y') }} </td>
-                                        <td>{{ $post->time }}</td>
-                                        <td>{{ optional($post->involucrado)->name }}</td>
-                                        <td>{{ optional($post->involucrado)->age }}</td>
-                                        <td>{{ $post->address->name }}</td>
-                                        <td>{{ $post->address->aldea->name }}</td>
-                                        <td>{{ $post->tags->name }}</td>
-                                        <td>{{ $post->tags->name }}</td>
-                                    </tr>   
-                                    @php $i++ @endphp
-                                    @endif
                                 @endforeach
                             </tbody>
                            
@@ -78,4 +61,48 @@
 
 @push('scripts')
 <script type="text/javascript" src="{{asset("/DataTables/datatables.min.js")}}"></script>
+<script>
+    $(function () {
+      $('#posts-table').DataTable({
+        'paging'      : true,
+        'lengthChange': false,
+        'searching'   : true,
+        'ordering'    : true,
+        'info'        : true,
+        'autoWidth'   : true,
+        'scrollX'     : true,
+        "language": {
+            "lengthMenu": "Display _MENU_ records per page",
+            "zeroRecords": "Cero coincidencias",
+            "info": "Mostrando la pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "Sin registros",
+            "infoFiltered": "(filtrado de _MAX_ registros)"
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                exportOptions: {
+                    columns: ':visible'
+                },
+                customize: function ( win ) {
+                    $(win.document.body)
+                        .css( 'font-size', '10pt' )
+                        .prepend(
+                            "<h1>Listado de novideades: </h1>"
+                        );
+                    $(win.document.body).find( 'table' )
+                        .addClass( 'compact' )
+                        .css( 'font-size', 'inherit' );
+                }
+            },
+            'excel', 'pdf', 'csv', 'copy'
+        ],
+        columnDefs: [ {
+            visible: false
+        } ],
+        
+      });
+    });
+  </script>
 @endpush

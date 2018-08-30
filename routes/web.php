@@ -79,6 +79,13 @@ Route::group([
         Route::post('/arma/update/{id}', 'GunController@update')->name('admin.arma.update');
         Route::post('/arma/store', 'GunController@store')->name('admin.arma.store');
 
+        Route::get('/incautado/edit/{id}', 'IncautacionController@edit')->name('admin.incautado.edit');
+        Route::post('/incautado/delete/{id}', 'IncautacionController@delete')->name('admin.incautado.delete');
+        Route::post('/incautado/update/{id}', 'IncautacionController@update')->name('admin.incautado.update');
+        Route::post('/incautado/store', 'IncautacionController@store')->name('admin.incautado.store');
+
+        
+
         Route::get('/estadisticas/Hechos-negativos', 'TablasEstadisticasController@hechosNegativos')->name('hechosnegativos');
         Route::post('/estadisticas/Hechos-negativos', 'TablasEstadisticasController@hechosNegativos')->name('hechosnegativos.post');
         Route::get('/estadisticas/Hechos-positivos', 'TablasEstadisticasController@hechosPositivos')->name('hechospositivos');

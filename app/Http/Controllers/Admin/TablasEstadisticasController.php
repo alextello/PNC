@@ -92,29 +92,86 @@ class TablasEstadisticasController extends Controller
         $tags = DB::table('tags')
             ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
             ->where('subcategories.category_id', '=', '2')
-            ->select('tags.name', 'tags.id')
+            ->select('tags.name', 'tags.id', 'subcategories.name as subcategory')
             ->get();
         return view('admin.TablasEstadisticas.tags-index', compact('tags'));
     }
 
-    public function positivoTag()
+    public function positivosTag()
     {
         $tags = DB::table('tags')
             ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
             ->where('subcategories.category_id', '=', '1')
-            ->select('tags.name', 'tags.id')
+            ->select('tags.name', 'tags.id', 'subcategories.name as subcategory')
             ->get();
         return view('admin.TablasEstadisticas.tags-index', compact('tags'));
     }
 
     public function buscarTag(Request $request)
     {
-        $posts = Post::where('tag_id', $request->tag)->with(['tags'])->with(['involucrados' => function($q){
-         $q->with(['mara', 'movil']);
-         }])->with(['address' => function($q){
-             $q->with(['aldea']);
-         }])
-         ->get();
+        $tag = Tag::where('id', $request->tag)->with('subcategory')->first();
+
+        switch($tag->subcategory->name)
+        {
+            case 'Detenido por':
+
+            $posts = Post::where('tag_id', $request->tag)->with(['tags'])->with(['involucrados' => function($q){
+                $q->with(['mara', 'movil']);
+                }])->with(['address' => function($q){
+                    $q->with(['aldea']);
+                }])
+                ->get();
+            break;
+
+            case 'Recuperado o incautado':
+
+
+            break;
+
+            case 'Fallecidos por':
+            $posts = Post::where('tag_id', $request->tag)->with(['tags'])->with(['involucrados' => function($q){
+                $q->where('involucrados.fallecido', '1')->with(['mara', 'movil']);
+            }])->with(['address' => function($q){
+                $q->with(['aldea']);
+            }])
+            ->get();
+
+            $tag = Tag::where('id', $request->tag)->select('name')->first();
+            
+            return view('admin.TablasEstadisticas.tabla-fallecidos', compact('posts', 'tag'));
+
+            break;
+
+            case 'Heridos por':
+
+            $posts = Post::where('tag_id', $request->tag)->with(['tags'])->with(['involucrados' => function($q){
+                $q->where('involucrados.fallecido', '0')->where('aprehendido', '0')->with(['mara', 'movil']);
+            }])->with(['address' => function($q){
+                $q->with(['aldea']);
+            }])
+            ->get();
+
+            $tag = Tag::where('id', $request->tag)->select('name')->first();
+            
+            return view('admin.TablasEstadisticas.tabla-heridos', compact('posts', 'tag'));
+
+            break;
+
+            case 'Delitos contra la libertad, seguridad y sexuales a la persona':
+
+            break;
+
+            case 'Hechos contra la propiedad':
+
+            break;
+
+            case 'Robo de vehiculos y armas':
+
+            break;
+
+        }
+
+        
 
         //  $personas = Involucrado::with(['posts' => function($a){
         //      $a->with(['tags', 'involucrados'])->with(['address' => function($q){
@@ -122,7 +179,7 @@ class TablasEstadisticasController extends Controller
         //      }]);
         //  }])->get();
 
-        return view('admin.TablasEstadisticas.tabla-tag', compact('posts'));
+        return view('admin.TablasEstadisticas.tabla-detenidos', compact('posts'));
     }
 
     public function consultaMes($days, $year, $month, $category)

@@ -32,6 +32,7 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('address_id')->nullable();//DIRECCION DEL SUCESO
             $table->unsignedInteger('vehiculo_id')->nullable();//ID DEL VEHICULO SI ES QUE HAY ALGUNO INVOLUCRADO
             $table->unsignedInteger('gun_id')->nullable();//ID DEL ARMA DE HABER ALGUNA INVOLUCRADA
+            $table->unsignedInteger('incautacion_id')->nullable();//ID DEL ARMA DE HABER ALGUNA INVOLUCRADA
             $table->timestamps();
         });
     }

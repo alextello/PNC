@@ -20,7 +20,7 @@ class Tag extends Model
 
     public function subcategory()
     {
-        return $this->belongsTo('App\Subcategory');
+        return $this->belongsTo('App\Subcategory', 'subcategory_id');
     }
     public function setNameAttribute($name)
     {

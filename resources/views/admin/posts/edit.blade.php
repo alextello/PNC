@@ -36,7 +36,41 @@
     </div>
     @endif 
 
-    @if(optional($post->arma)->count())
+    @if(isset($post->incautacion_id))
+    <div class="col-md-12">
+        <div class="box box-primary collapsed-box">
+            <div class="box-header">
+                <h3 class="box-title">
+                    Incautacion
+                </h3>
+                <div class="pull-right box-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body pad">
+                <div class="row">
+                    <div class="col-md-10 form-group">
+                        <label for="">Descripcion:</label>
+                        <textarea name="descripcion" id="descripcion" cols="30" rows="5" class="form-control" disabled>{{$post->incautacion->descripcion}}</textarea>
+                    </div>
+                    <div class="col-md-2 btn-group">  
+                        <br>                          
+                        <a target="_blank" href="{{route('admin.incautado.edit', $post->incautacion->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                        <form action="{{route('admin.incautado.delete', $post->incautacion->id)}}" method="POST" style="display: inline">
+                            @csrf
+                            <input type="hidden" value="{{$post->id}}" name="post">
+                            <button class="btn btn-danger"><i class="fa fa-remove" onclick="return confirm('¿Está seguro de querer eliminar el arma registrada?')"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+    @if(isset($post->gun_id))
     <div class="col-md-12">
         <div class="box box-primary collapsed-box">
             <div class="box-header">
@@ -86,7 +120,7 @@
     </div>
     @endif
 
-    @if(optional($post->vehiculo)->count())
+    @if(isset($post->vehiculo_id))
         <div class="col-md-12">
             <div class="box box-primary collapsed-box">
                 <div class="box-header">
@@ -124,6 +158,10 @@
                         <div class="col-md-2 form-group">
                             <label for="">Placa:</label>
                             <input type="text" class="form-control" value="{{$post->vehiculo->placa}}" disabled>
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label for="">Recuperado por:</label>
+                            <input type="text" class="form-control" value="{{$post->vehiculo->recuperado_por}}" disabled>
                         </div>
                         <div class="col-md-2 btn-group">  
                             <br>                          
@@ -378,10 +416,11 @@
                         <span class="help-block">:message</span>') !!}
                     </div>
                 </div>
-                <div class="btn-group col-md-offset-1">
+                <div class="btn-group">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Añadir aprehendidos</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vehiculoModal" {{ optional($post->vehiculo)->count() ? 'disabled' : '' }}>Registrar vehiculo</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#armaModal" {{ optional($post->arma)->count() ? 'disabled' : '' }}>Registrar arma</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vehiculoModal" {{ isset($post->vehiculo_id) ? 'disabled' : '' }}>Registrar vehiculo</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#armaModal" {{ isset($post->gun_id) ? 'disabled' : '' }}>Registrar arma</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#incautadoModal" {{ isset($post->incautacion_id) ? 'disabled' : '' }}>Registrar incautacion</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#heridosModal">Registrar heridos/fallecidos</button>
                 </div>
             </div>
@@ -462,8 +501,8 @@
                         <label for="">Categoria</label>
                         <select name="category" id="category" class="form-control select2" data-placeholder="Elija la categoria" style="width: 100%;">
                             <option value="">Seleccione una opcion</option>
-                            <option value="1">Hecho negativo</option>
-                            <option value="2">Hecho positivo</option>
+                            <option value="1">Hecho positivo</option>
+                            <option value="2">Hecho negativo</option>
                         </select>
                     </div>
 
@@ -471,7 +510,7 @@
                         <label for="">Etiqueta</label>
                         <select name="tag_id" id="tag_id" class="form-control select2" data-placeholder="Elija la etiqueta" style="width: 100%;">
                             @foreach($tags as $tag)
-                            <option {{ collect(old( 'tag_id', optional($post->tag_id)))->contains($tag->id) ? 'selected' : '' }} value="{{ $tag->id }}">{{ $tag->name }}</option> 
+                            <option {{ collect(old( 'tag_id', optional($post->tag_id)))->contains($tag->id) ? 'selected' : '' }} value="{{ $tag->id }}">{{$tag->subcategory->name}} / {{ $tag->name }}</option> 
                             @endforeach
                         </select>
                     </div>
@@ -770,7 +809,7 @@
                                         <label for="">Tipo:</label>
                                         <br>
                                         <select name="type_id" id="type_id" class="form-cotrol tags" required>
-                                            <option value="">Seleccione el tipo de vehiculo</option>
+                                            <option value="">Seleccione una op.</option>
                                             @foreach($typeV as $mov)
                                                 <option value="{{$mov->id}}">{{$mov->tipo}}</option>
                                             @endforeach
@@ -803,6 +842,44 @@
                                     <div class="col-md-2 form-group">
                                     <label for="">Modelo</label>
                                     <input type="number" name="modelo" class="form-control" placeholder="1998">
+                                    </div>      
+
+                                    <div class="col-md-12 form-group">
+                                    <label for="">Recuperado por:</label><span class="help-block">Llenar este campo solo si es una recuperacion, de lo contrario, dejar en blanco</span>
+                                    <input type="text" name="recuperado_por" class="form-control" placeholder="PNC">
+                                    </div>                                    
+                                </div>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div id="incautadoModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+    
+                    <!-- Modal content-->
+                    <div class="modal-content">
+    
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Incautacion</h4>
+                        </div>
+                        <div class="modal-body" style="overflow:hidden;">
+                            <div class="box-body pad">
+                                <div class="row">
+                                    <form action="{{route('admin.incautado.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="post" value="{{$post->id}}">
+                                    <div class="col-md-12 form-group">
+                                    <label for="">Describa lo incautado:</label><span class="help-block">Llenar este campo solo si es droga u otro que no sea vehiculo o arma</span>
+                                    {{-- <input type="text" name="descripcion" class="form-control" placeholder="Describa lo incautado"> --}}
+                                    <textarea name="descripcion" id="descripcion" cols="30" rows="10" class="form-control"></textarea>
                                     </div>                                    
                                 </div>
                             </div>
@@ -1006,7 +1083,7 @@
             dataType: "json",
             success: data => {
                 data.tags.forEach(tag =>
-                    $('#tag_id').append(`<option value="${tag.id}">${tag.name}</option>`)
+                    $('#tag_id').append(`<option value="${tag.id}">${tag.subcategory.name + ' / ' + tag.name}</option>`)
                 )
             }
         })

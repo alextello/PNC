@@ -29,7 +29,8 @@ class Post extends Model
         'typology_id',
         'juzgado',
         'guardia',
-        'denunciante'
+        'denunciante',
+        'incautacion_id'
     ];
 
     protected $dates = ['published_at'];
@@ -102,6 +103,11 @@ class Post extends Model
     public function arma()
     {
         return $this->belongsTo('App\Gun', 'gun_id');
+    }
+
+    public function incautacion()
+    {
+        return $this->belongsTo('App\Incautacion', 'incautacion_id');
     }
 
 

@@ -64,7 +64,8 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-    $post = Post::where('url', $id)->with(['address', 'tags', 'photos', 'modusoperandi', 'typology'])->with(['involucrados' => function($q){
+
+        $post = Post::where('url', $id)->with(['address', 'tags', 'photos', 'modusoperandi', 'typology', 'incautacion'])->with(['involucrados' => function($q){
         $q->with(['mara', 'movil', 'delito']);
         }])->with(['vehiculo' => function ($v){
             $v->with(['brand', 'tipo']);
@@ -72,7 +73,7 @@ class PostsController extends Controller
             $f->with(['brand', 'tipo']);
         }])->first();
         
-        if($post && $post->user_id == auth()->user()->id || auth()->user()->hasPermissionTo('Editar reportes'))
+        if($post && ($post->user_id == auth()->user()->id) || auth()->user()->hasPermissionTo('Editar reportes'))
         {
             $aldeas = Aldea::all();
             $typeA = Type::where('modelo', 'App\Gun')->get();
@@ -84,7 +85,7 @@ class PostsController extends Controller
             $users = User::with('procesos')->get();
             $unidades = Vehiculo::with('procesos')->where('type_id', '1')->get();
             $categories = Category::with('subcategories')->get();
-            $tags = Tag::all();
+            $tags = Tag::with('subcategory')->get();
             $offense = Offense::all();
             $gangs = Gang::all();
             $plantillas = Plantilla::all();

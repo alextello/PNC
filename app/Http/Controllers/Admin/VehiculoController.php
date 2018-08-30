@@ -29,6 +29,7 @@ class VehiculoController extends Controller
         $vehiculo->placa = $request->placa;
         $vehiculo->linea = $request->linea ? $request->linea : 'IGN';
         $vehiculo->modelo = $request->modelo;
+        $vehiculo->recuperado_por = $request->recuperado_por ? $request->recuperado_por : 'IGN';
         $vehiculo->color = $request->color;
         $vehiculo->type_id = $tipo;
         $vehiculo->marca_id = $marca;

@@ -45,6 +45,11 @@
                                         <label for="">Placa:</label>
                                         <input type="text" name="placa" value="{{ old('placa', $vehiculo->placa)}}" class="form-control">
                                     </div>
+
+                                    <div class="form-group">
+                                        <label for="">Recuperado por:</label><span class="help-block">Llenar este campo solo si es una recuperacion, de lo contrario, dejar en blanco</span>
+                                        <input type="text" name="recuperado_por" value="{{ old('recuperado_por', $vehiculo->recuperado_por)}}" class="form-control" placeholder="PNC">
+                                    </div>
                                    
                                     <button class="btn btn-primary btn-block">Actualizar</button>
                                 </form>

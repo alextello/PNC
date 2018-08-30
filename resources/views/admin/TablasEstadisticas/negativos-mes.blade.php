@@ -3,7 +3,7 @@
 @section('content')
 
 
-  <form action="{{route('hechosnegativos.post')}}" class="form-inline" method="POST">
+  <form action="{{route('hechosnegativos.mes.post')}}" class="form-inline" method="POST">
     @csrf
       <input type="text" id="Buscar" name="Buscar" class="form-control" placeholder="Ingrese el año que desea" required>
       <button class="btn btn-info form-control">Buscar</button>

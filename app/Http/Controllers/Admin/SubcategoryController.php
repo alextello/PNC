@@ -17,7 +17,7 @@ class SubcategoryController extends Controller
     public function subDinamicos($val)
     {
         $category = Category::find($val);
-        $tags = $category->tags()->get();
+        $tags = $category->tags()->with('subcategory')->get();
         return response()->json([
             'tags' => $tags
         ]);

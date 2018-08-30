@@ -14,7 +14,7 @@
                         <select name="tag" id="tag" class="form-control select2">
                             <option value="">Seleccione una etiqueta</option>
                             @foreach($tags as $tag)
-                            <option value="{{$tag->id}}">{{$tag->name}}</option>
+                            <option value="{{$tag->id}}">{{$tag->subcategory}} / {{$tag->name}}</option>
                             @endforeach
                         </select>
                     </div>

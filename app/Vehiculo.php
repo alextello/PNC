@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vehiculo extends Model
 {
-    protected $fillable = ['type_id', 'marca_id', 'color', 'modelo', 'placa', 'linea'];
+    protected $fillable = ['type_id', 'marca_id', 'color', 'modelo', 'placa', 'linea', 'recuperado_por'];
 
     public function tipo()
     {
