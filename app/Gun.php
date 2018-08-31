@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Gun extends Model
 {
-    protected $fillable = ['type_id','marca_id','registrio','licencia','calibre'];
+    protected $fillable = ['type_id','marca_id','registro','licencia','calibre', 'recuperada_por'];
 
     public function post()
     {

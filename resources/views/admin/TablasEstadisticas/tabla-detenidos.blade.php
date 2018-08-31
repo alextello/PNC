@@ -16,12 +16,20 @@
                               <th>Día</th>
                               <th>Fecha</th>
                               <th>Hora</th>
-                              <th>Detenidos</th>
+                              <th>Detenido</th>
                               <th>Edad</th>
                               <th>Direccion</th>
                               <th>Aldea</th>
                               <th>Motivo</th>
                               <th>Delito</th>
+                              <th>Tatuajes</th>
+                              <th>Alias</th>
+                              <th>Mara</th>
+                              <th>Juzgado o fiscalia</th>
+                              <th>Modus operandi</th>
+                              <th>Tipologia</th>
+                              <th>Agenets que proceden</th>
+                              <th>Unidades que proceden</th>
                               <th>Juzgado o fiscalia</th>
                             </tr>
                             </thead>
@@ -40,8 +48,16 @@
                                     <td>{{ $involucrado->age }}</td>
                                     <td>{{ $post->address->name }}</td>
                                     <td>{{ $post->address->aldea->name }}</td>
+                                    <td>{{ optional($involucrado->delito)->name }}</td>
                                     <td>{{ $post->tags->name }}</td>
-                                    <td>{{ $post->tags->name }}</td>
+                                    <td>{{ $involucrado->tattoos}}</td>
+                                    <td>{{ $involucrado->alias }}</td>
+                                    <td>{{ optional($involucrado->mara)->name }}</td>
+                                    <td>{{ $post->juzgado }}</td>
+                                    <td>{{ optional($post->modusoperandi)->name }}</td>
+                                    <td>{{ optional($post->typology)->name }}</td>
+                                    <td>{{ optional($post->proceden)->pluck('name')->implode(', ') }}</td>
+                                    <td>{{ optional($post->unidades)->pluck('placa')->implode(', ')}}</td>
                                     <td>{{ $post->juzgado }}</td>
                                 </tr>
                                     @php $i++ @endphp

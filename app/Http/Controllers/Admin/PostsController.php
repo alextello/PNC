@@ -65,7 +65,7 @@ class PostsController extends Controller
     public function edit($id)
     {
 
-        $post = Post::where('url', $id)->with(['address', 'tags', 'photos', 'modusoperandi', 'typology', 'incautacion'])->with(['involucrados' => function($q){
+        $post = Post::where('url', $id)->with(['address', 'tags', 'photos', 'modusoperandi', 'typology', 'incautacion', 'robo'])->with(['involucrados' => function($q){
         $q->with(['mara', 'movil', 'delito']);
         }])->with(['vehiculo' => function ($v){
             $v->with(['brand', 'tipo']);
@@ -161,15 +161,22 @@ class PostsController extends Controller
         // dd($p);
         if(isset($request->gangherido))
         $gangID = (Int) $p->syncGangs([$request->gangherido])[0];
-        if($request->offense)
+        else
+        $gangID = null;
+        if(isset($request->offense))
         $offense = $p->syncOffenses([$request->offense])[0];
+        else
+        $offense = null;
 
         if($involucrado->aprehendido == '0')
         {
             $this->validate($request, [
                 'herido' => 'required'
             ]);
+            if(isset($request->abordo))
             $abordo = (Int) $p->syncAbordo($request->abordo);
+            else
+            $abordo = null;
             $involucrado->name = $request->herido;
             $involucrado->dpi = $request->dpiherido;
             $involucrado->gender = $request->generoherido;

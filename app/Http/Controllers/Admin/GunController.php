@@ -30,6 +30,7 @@ class GunController extends Controller
         $gun->registro = $request->registro ? $request->registro : 'IGN';
         $gun->licencia = $request->licencia ? $request->licencia : 'IGN';
         $gun->calibre = $request->calibre ? $request->calibre : 'IGN';
+        $gun->recuperada_por = $request->recuperada_por;
         $gun->save();
         return redirect()->back()->withFlash('Editado exitosamente');        
     }

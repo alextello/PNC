@@ -70,6 +70,40 @@
     </div>
     @endif
 
+    @if(isset($post->robo_id))
+    <div class="col-md-12">
+        <div class="box box-primary collapsed-box">
+            <div class="box-header">
+                <h3 class="box-title">
+                    Robo
+                </h3>
+                <div class="pull-right box-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body pad">
+                <div class="row">
+                    <div class="col-md-10 form-group">
+                        <label for="">Descripcion:</label>
+                        <textarea name="descripcion" id="descripcion" cols="30" rows="5" class="form-control" disabled>{{$post->robo->descripcion}}</textarea>
+                    </div>
+                    <div class="col-md-2 btn-group">  
+                        <br>                          
+                        <a target="_blank" href="{{route('admin.robo.edit', $post->robo->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                        <form action="{{route('admin.robo.delete', $post->robo->id)}}" method="POST" style="display: inline">
+                            @csrf
+                            <input type="hidden" value="{{$post->id}}" name="post">
+                            <button class="btn btn-danger"><i class="fa fa-remove" onclick="return confirm('¿Está seguro de querer eliminar el robo registrado?')"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
     @if(isset($post->gun_id))
     <div class="col-md-12">
         <div class="box box-primary collapsed-box">
@@ -105,6 +139,10 @@
                         <label for="">Licencia:</label>
                         <input type="text" class="form-control" value="{{$post->arma->licencia}}" disabled>
                     </div>
+                    <div class="col-md-12 form-group">
+                        <label for="">Recuperada/consignada por:</label><span class="help-block">Llenar este campo solo si es una recuperacion o consignacion, de lo contrario, dejar en blanco</span>
+                        <input type="text" name="recuperado_por" class="form-control" value="{{$post->arma->recuperada_por}}" disabled>
+                    </div>     
                     <div class="col-md-2 btn-group">  
                         <br>                          
                         <a target="_blank" href="{{route('admin.arma.edit', $post->arma->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
@@ -160,7 +198,7 @@
                             <input type="text" class="form-control" value="{{$post->vehiculo->placa}}" disabled>
                         </div>
                         <div class="col-md-2 form-group">
-                            <label for="">Recuperado por:</label>
+                            <label for="">Recuperado/consignado por:</label>
                             <input type="text" class="form-control" value="{{$post->vehiculo->recuperado_por}}" disabled>
                         </div>
                         <div class="col-md-2 btn-group">  
@@ -415,14 +453,17 @@
                         {!! $errors->first('body', '
                         <span class="help-block">:message</span>') !!}
                     </div>
+                    <p><strong>Añadir registro de:</strong></p>
+                    <div class="btn-group col-md-12">
+                        <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#myModal">Aprehendidos</button>
+                    <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#vehiculoModal" {{ isset($post->vehiculo_id) ? 'disabled' : '' }}>Vehiculo</button>
+                    <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#armaModal" {{ isset($post->gun_id) ? 'disabled' : '' }}>Arma</button>
+                    <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#incautadoModal" {{ isset($post->incautacion_id) ? 'disabled' : '' }}>Incautacion</button>
+                        <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#heridosModal">Heridos/fallecidos</button>
+                        <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#roboModal">Robo/hurto</button>
+                    </div>
                 </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Añadir aprehendidos</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#vehiculoModal" {{ isset($post->vehiculo_id) ? 'disabled' : '' }}>Registrar vehiculo</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#armaModal" {{ isset($post->gun_id) ? 'disabled' : '' }}>Registrar arma</button>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#incautadoModal" {{ isset($post->incautacion_id) ? 'disabled' : '' }}>Registrar incautacion</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#heridosModal">Registrar heridos/fallecidos</button>
-                </div>
+               
             </div>
 
         </div>
@@ -811,7 +852,7 @@
                                         <select name="type_id" id="type_id" class="form-cotrol tags" required>
                                             <option value="">Seleccione una op.</option>
                                             @foreach($typeV as $mov)
-                                                <option value="{{$mov->id}}">{{$mov->tipo}}</option>
+                                                <option value="{{$mov->tipo}}">{{$mov->tipo}}</option>
                                             @endforeach
                                         </select>
                                     </div> 
@@ -821,7 +862,7 @@
                                         <select name="marca_id" id="marca_id" class="tags form-control" required>
                                             <option value="">Seleccione marca</option>
                                             @foreach($marcaV as $mar)
-                                             <option value="{{$mar->id}}">{{$mar->name}}</option>   
+                                             <option value="{{$mar->name}}">{{$mar->name}}</option>   
                                             @endforeach
                                         </select>
                                     </div>
@@ -845,7 +886,7 @@
                                     </div>      
 
                                     <div class="col-md-12 form-group">
-                                    <label for="">Recuperado por:</label><span class="help-block">Llenar este campo solo si es una recuperacion, de lo contrario, dejar en blanco</span>
+                                    <label for="">Recuperado/consignado por:</label><span class="help-block">Llenar este campo solo si es una recuperacion o consignacion, de lo contrario, dejar en blanco</span>
                                     <input type="text" name="recuperado_por" class="form-control" placeholder="PNC">
                                     </div>                                    
                                 </div>
@@ -892,6 +933,38 @@
                 </div>
             </div>
             </div>
+            <div id="roboModal" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg">
+    
+                    <!-- Modal content-->
+                    <div class="modal-content">
+    
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Robo/Hurto</h4>
+                        </div>
+                        <div class="modal-body" style="overflow:hidden;">
+                            <div class="box-body pad">
+                                <div class="row">
+                                    <form action="{{route('admin.robo.store') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="post" value="{{$post->id}}">
+                                    <div class="col-md-12 form-group">
+                                    <label for="">Describa lo robado/hurtado:</label>
+                                    {{-- <input type="text" name="descripcion" class="form-control" placeholder="Describa lo incautado"> --}}
+                                    <textarea name="descripcion" id="descripcion" cols="30" rows="10" class="form-control"></textarea>
+                                    </div>                                    
+                                </div>
+                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
 
             <div id="armaModal" class="modal fade" role="dialog">
                 <div class="modal-dialog modal-lg">
@@ -915,7 +988,7 @@
                                         <select name="type_id" id="type_id" class="form-cotrol tags" required>
                                             <option value="">Seleccione el tipo de arma</option>
                                             @foreach($typeA as $mov)
-                                                <option value="{{$mov->name}}">{{$mov->tipo}}</option>
+                                                <option value="{{$mov->tipo}}">{{$mov->tipo}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -941,6 +1014,10 @@
                                     <div class="col-md-2 form-group">
                                         <label for="">Licencia</label>
                                         <input type="text" name="licencia" class="form-control" placeholder="Licencia">
+                                    </div>  
+                                    <div class="col-md-12 form-group">
+                                        <label for="">Recuperada/consignada por:</label><span class="help-block">Llenar este campo solo si es una recuperacion o consignacion, de lo contrario, dejar en blanco</span>
+                                        <input type="text" name="recuperada_por" class="form-control" placeholder="PNC">
                                     </div>                                    
                                 </div>
                             </div>

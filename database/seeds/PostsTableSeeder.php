@@ -166,7 +166,17 @@ class PostsTableSeeder extends Seeder
         $subcategory->save();
 
         $subcategory = new Subcategory();
-        $subcategory->name = 'Recuperado o incautado';
+        $subcategory->name = 'Vehiculos recuperados o consignados';
+        $subcategory->category_id = '1';
+        $subcategory->save();
+
+        $subcategory = new Subcategory();
+        $subcategory->name = 'Armas recuperadas o consignadas';
+        $subcategory->category_id = '1';
+        $subcategory->save();
+
+        $subcategory = new Subcategory();
+        $subcategory->name = 'Otras incautaciones';
         $subcategory->category_id = '1';
         $subcategory->save();
 
@@ -194,7 +204,12 @@ class PostsTableSeeder extends Seeder
         $subcategory->save();
 
         $subcategory = new Subcategory();
-        $subcategory->name = 'Robo de vehiculos y armas';
+        $subcategory->name = 'Robo de vehiculos';
+        $subcategory->category_id = '2';
+        $subcategory->save();
+
+        $subcategory = new Subcategory();
+        $subcategory->name = 'Robo de armas';
         $subcategory->category_id = '2';
         $subcategory->save();
 
@@ -517,6 +532,21 @@ class PostsTableSeeder extends Seeder
         $tag->save();
 
         $tag = new Tag();
+        $tag->name = 'Vehiculos consignados';
+        $tag->subcategory_id = 2;
+        $tag->save();
+
+        $tag = new Tag();
+        $tag->name = 'Motos consignadas';
+        $tag->subcategory_id = 2;
+        $tag->save();
+        
+        $tag = new Tag();
+        $tag->name = 'Motos abandonadas';
+        $tag->subcategory_id = 2;
+        $tag->save();
+
+        $tag = new Tag();
         $tag->name = 'Motos recuperadas por PNC';
         $tag->subcategory_id = 2;
         $tag->save();
@@ -526,154 +556,142 @@ class PostsTableSeeder extends Seeder
         $tag->subcategory_id = 2;
         $tag->save();
 
-        $tag = new Tag();
-        $tag->name = 'Motos abandonadas';
-        $tag->subcategory_id = 2;
-        $tag->save();
+       
 
         $tag = new Tag();
         $tag->name = 'Armas de fuego de fabrica';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 3;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Armas de accion por gases comprimidos';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 3;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Armas de fuego hechizas';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 3;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Armas de juguete';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 3;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Arma blanca';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 3;
         $tag->save();
+
 
         $tag = new Tag();
         $tag->name = 'Artefacto artesanal';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 3;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Granadas';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 3;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Bomba de gas lacrimosa';
-        $tag->subcategory_id = 2;
-        $tag->save();
-
-        $tag = new Tag();
-        $tag->name = 'Vehiculos consignados';
-        $tag->subcategory_id = 2;
-        $tag->save();
-
-        $tag = new Tag();
-        $tag->name = 'Motos consignadas';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 3;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Bicicletas consignadas';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Allanamientos realizados positivos';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Allanamientos realizados negativos';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Reconocimiento y lanzamiento judicial';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Inspeccion de muebles';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Cumplimiento orden secuestro';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Rescate de menores';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Personas remitidas a migracion';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Personas aparecidas';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Menores loc. segun alerta Alba Kenet';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Menor remitido PGN o JDO';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Desalojo';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Traganiqueles incautados';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Marihuana';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Cocaina';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Crack';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Municiones';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Motosierra';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Requizas en centro preventivo';
-        $tag->subcategory_id = 2;
+        $tag->subcategory_id = 4;
         $tag->save();
 
         
@@ -682,219 +700,219 @@ class PostsTableSeeder extends Seeder
 
         $tag = new Tag();
         $tag->name = 'Arma de fuego';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Arma blanca';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Arma contundente';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Estrangulados';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Linchados';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Asfixia por suspencion';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Asfixia por sumersion';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Atropellado';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Accidente de transito';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Intoxicacion alcoholica';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Suicidio';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Osamenta humana';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Otras causas';
-        $tag->subcategory_id = 3;
+        $tag->subcategory_id = 5;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Arma de fuego';
-        $tag->subcategory_id = 4;
+        $tag->subcategory_id = 6;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Arma blanca';
-        $tag->subcategory_id = 4;
+        $tag->subcategory_id = 6;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Arma contundente';
-        $tag->subcategory_id = 4;
+        $tag->subcategory_id = 6;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Artefacto explosivo';
-        $tag->subcategory_id = 4;
+        $tag->subcategory_id = 6;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Linchado';
-        $tag->subcategory_id = 4;
+        $tag->subcategory_id = 6;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Atropellado';
-        $tag->subcategory_id = 4;
+        $tag->subcategory_id = 6;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Accidente de transito';
-        $tag->subcategory_id = 4;
+        $tag->subcategory_id = 6;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Intento de intoxicacion';
-        $tag->subcategory_id = 4;
+        $tag->subcategory_id = 6;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Otras causas';
-        $tag->subcategory_id = 4;
+        $tag->subcategory_id = 6;
         $tag->save();
 
         //CONTRA LA LIBERTAD, SEGURIDAD, SEXUALES
 
         $tag = new Tag();
         $tag->name = 'Violencia sexual';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Personas secuestradas';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Personas desaparecidas';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Personas raptadas';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Robo a mercaderia';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Accidente de transito (cuando hay heridos o fallecidos)';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Accidente acuatico y aereo';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Accidente de transito (cuando no hay heridos)';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Ataque o atentado a vehiculo y edificios por A/F';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Ataque a agentes y unidad policial';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Explosion de artefactos';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Denuncia de extorsion';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Violencia contra la mujer';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Violencia intrafamiliar';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Extravio arma de fuego';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Disturbios registrados';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Incendios';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Caminatas realizadas';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Manifestaciones';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Conflictividad electoral';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Conflictividad social';
-        $tag->subcategory_id = 5;
+        $tag->subcategory_id = 7;
         $tag->save();
 
         //HECHOS CONTRA LA PROPIEDAD
@@ -902,93 +920,93 @@ class PostsTableSeeder extends Seeder
 
         $tag = new Tag();
         $tag->name = 'Robo/hurto a residencia';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Robo a comercio';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Robo a iglesia';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Robo en centro educativo';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Asalto, robo y hurto a transeuntes';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Robo a bufete juridico';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Robo a banco/caja rural';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Robo en buses urbanos';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Robo en buses extraurbanos';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Robo a turista';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Robo a bus de turista';
-        $tag->subcategory_id = 6;
+        $tag->subcategory_id = 8;
         $tag->save();
 
         //ROBO DE VEHICULOS
         $tag = new Tag();
         $tag->name = 'Vehiculos robados';
-        $tag->subcategory_id = 7;
+        $tag->subcategory_id = 9;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Vehiculos hurtados';
-        $tag->subcategory_id = 7;
+        $tag->subcategory_id = 9;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Motos robadas';
-        $tag->subcategory_id = 7;
+        $tag->subcategory_id = 9;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Motos hurtadas';
-        $tag->subcategory_id = 7;
+        $tag->subcategory_id = 9;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Camion con mercaderia';
-        $tag->subcategory_id = 7;
+        $tag->subcategory_id = 9;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Armas de fuego robadas';
-        $tag->subcategory_id = 7;
+        $tag->subcategory_id = 10;
         $tag->save();
 
         $tag = new Tag();
         $tag->name = 'Armas de fuego hurtadas';
-        $tag->subcategory_id = 7;
+        $tag->subcategory_id = 10;
         $tag->save();
 
         $post = new Post();

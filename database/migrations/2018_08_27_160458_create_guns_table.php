@@ -20,6 +20,7 @@ class CreateGunsTable extends Migration
             $table->string('registro')->default('IGN')->nullable();
             $table->string('calibre')->default('IGN')->nullable();
             $table->string('licencia')->default('IGN')->nullable();
+            $table->string('recuperada_por')->nullable();
             $table->timestamps();
         });
     }

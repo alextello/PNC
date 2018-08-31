@@ -14,7 +14,17 @@ class Involucrado extends Model
         'gang_id',
         'dpi',
         'age',
-        'offense_id'
+        'offense_id',
+        'alias',
+        'aprehendido',
+        'fallecido',
+        'heridas',
+        'motivo',
+        'type_id',
+        'offense_id',
+        'diagnostico',
+        'observaciones'
+
     ];
 
     public function getRouteKeyName()

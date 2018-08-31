@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Tag;
 use App\Post;
@@ -116,15 +116,58 @@ class TablasEstadisticasController extends Controller
             case 'Detenido por':
 
             $posts = Post::where('tag_id', $request->tag)->with(['tags'])->with(['involucrados' => function($q){
-                $q->with(['mara', 'movil']);
+                $q->where('aprehendido', '1')->with(['mara', 'movil', 'delito']);
                 }])->with(['address' => function($q){
                     $q->with(['aldea']);
                 }])
                 ->get();
+            // dd($posts);
+            $tag = Tag::where('id', $request->tag)->select('name')->first();
+
+            return view('admin.TablasEstadisticas.tabla-detenidos', compact('posts', 'tag'));
+
             break;
 
-            case 'Recuperado o incautado':
+            case 'Vehiculos recuperados o consignados':
 
+            $posts = Post::where('tag_id', $request->tag)->with(['tags'])->with(['address' => function($q){
+                    $q->with(['aldea']);
+                }])->with(['vehiculo' => function($q){
+                    $q->with(['brand', 'tipo']);
+                }])
+                ->get();
+
+            $tag = Tag::where('id', $request->tag)->select('name')->first();
+
+            return view('admin.TablasEstadisticas.tabla-vehiculos-recuperados', compact('posts', 'tag'));
+                
+            break;
+
+            case 'Armas recuperadas o consignadas' :
+            
+            $posts = Post::where('tag_id', $request->tag)->whereNotNull('gun_id')->with(['tags'])->with(['address' => function($q){
+                    $q->with(['aldea']);
+                }])->with(['arma' => function($q){
+                    $q->whereNotNull('recuperada_por')->with(['brand', 'tipo']);
+                }])
+                ->get();
+            
+            $tag = Tag::where('id', $request->tag)->select('name')->first();
+            return view('admin.TablasEstadisticas.tabla-armas-recuperadas', compact('posts', 'tag'));
+            
+            break;
+
+            case 'Otras incautaciones':
+
+            $posts = Post::where('tag_id', $request->tag)->whereNotNull('incautacion_id')
+            ->with(['tags', 'incautacion'])->with(['address' => function($q){
+                    $q->with(['aldea']);
+                }])
+                ->get();
+            
+            $tag = Tag::where('id', $request->tag)->select('name')->first();
+            
+            return view('admin.TablasEstadisticas.tabla-otras-incautaciones', compact('posts', 'tag'));
 
             break;
 
@@ -159,15 +202,52 @@ class TablasEstadisticasController extends Controller
 
             case 'Delitos contra la libertad, seguridad y sexuales a la persona':
 
+            $posts = Post::where('tag_id', $request->tag)->with(['tags', 'robo'])->with(['address' => function($q){
+                $q->with(['aldea']);
+            }])
+            ->get();
+            // dd($posts);
+            $tag = Tag::where('id', $request->tag)->select('name')->first();
+            
+            return view('admin.TablasEstadisticas.tabla-libertad', compact('posts', 'tag'));
+
             break;
 
             case 'Hechos contra la propiedad':
 
+            $posts = Post::where('tag_id', $request->tag)->with(['tags'])->with(['address' => function($q){
+                $q->with(['aldea']);
+            }])
+            ->get();
+
+            $tag = Tag::where('id', $request->tag)->select('name')->first();
+            
+            return view('admin.TablasEstadisticas.tabla-propiedad', compact('posts', 'tag'));
             break;
 
-            case 'Robo de vehiculos y armas':
+            case 'Robo de vehiculos':
+
+            $posts = Post::where('tag_id', $request->tag)->with(['tags', 'vehiculo'])->with(['address' => function($q){
+                $q->with(['aldea']);
+            }])
+            ->get();
+
+            $tag = Tag::where('id', $request->tag)->select('name')->first();
+            return view('admin.TablasEstadisticas.tabla-robo-vehiculos', compact('posts', 'tag'));
 
             break;
+
+            case 'Robo de armas':
+
+            $posts = Post::where('tag_id', $request->tag)->with(['tags', 'arma'])->with(['address' => function($q){
+                $q->with(['aldea']);
+            }])
+            ->get();
+            $tag = Tag::where('id', $request->tag)->select('name')->first();
+            return view('admin.TablasEstadisticas.tabla-robo-armas', compact('posts', 'tag'));
+
+            break;
+
 
         }
 

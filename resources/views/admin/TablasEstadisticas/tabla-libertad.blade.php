@@ -12,6 +12,7 @@
                         <tr>
                           <th>No.</th>
                           <th>Oficio</th>
+                          <th>Evento</th>
                           <th>Año</th>
                           <th>Mes</th>
                           <th>Día</th>
@@ -19,26 +20,20 @@
                           <th>Hora</th>
                           <th>Direccion</th>
                           <th>Aldea</th>
-                          <th>Tipo</th>
-                          <th>Marca</th>
-                          <th>Linea</th>
-                          <th>Placa</th>
-                          <th>Modelo</th>
-                          <th>Color</th>
-                          <th>Arma tipo</th>
-                          <th>Marca</th>
-                          <th>Calibre</th>
-                          <th>Registro</th>
-                          <th>Licencia</th>
+                          <th>Denunciante o afectado</th>
+                          <th>Descripcion</th>
+                          <th>Modus operandi</th>
+                          <th>Tipologia</th>
+                          <th>Unidades que proceden</th>
+                          <th>Agenets que proceden</th>
+                          <th>Guardia</th>
                           <th>Juzgado o fiscalia</th>
-
-                          <th>Recuperado por</th>
                         </tr>
                         </thead>
                         <tbody id="miTabla">
                             @php $i=1; @endphp
                             @foreach ($posts as $post)
-                                    @foreach($post->involucrados as $involucrado)
+                                    {{-- @foreach($post->involucrados as $involucrado) --}}
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $post->oficio }}</td>
@@ -50,19 +45,17 @@
                                 <td>{{ $post->time }}</td>
                                 <td>{{ $post->address->name }}</td>
                                 <td>{{ $post->address->aldea->name }}</td>
-                                <td>{{ $involucrado->name }}</td>
-                                <td>{{ optional($involucrado)->alias }}</td>
-                                <td>{{ optional($involucrado)->dpi }}</td>
-                                <td>{{ optional($involucrado)->tattoos }}</td>
-                                <td>{{ optional($involucrado->mara)->name }}</td>
-                                <td>{{ optional($involucrado->movil)->tipo }}</td>
-                                <td>{{ optional($involucrado)->heridas }}</td>
-                                <td>{{ optional($involucrado)->motivo }}</td>
-                                <td>{{ optional($involucrado)->diagnostico }}</td>
-                                <td>{{ optional($involucrado)->observaciones }}</td>
+                                <td>{{ $post->denunciante }}</td>
+                                <td>{{ optional($post->robo)->descripcion }}</td>
+                                <td>{{ optional($post->modusoperandi)->name }}</td>
+                                <td>{{ optional($post->typology)->name }}</td>
+                                <td>{{ optional($post->proceden)->pluck('name')->implode(', ') }}</td>
+                                <td>{{ optional($post->unidades)->pluck('placa')->implode(', ')}}</td>
+                                <td>{{ $post->guardia }}</td>
+                                <td>{{ $post->juzgado }}</td>
                             </tr>
                                 @php $i++ @endphp
-                                    @endforeach
+                                    {{-- @endforeach --}}
                             @endforeach
                         </tbody>
                        

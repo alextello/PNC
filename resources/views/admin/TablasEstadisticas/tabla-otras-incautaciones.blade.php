@@ -12,7 +12,7 @@
                         <tr>
                           <th>No.</th>
                           <th>Oficio</th>
-                          <th>Fallecido por</th>
+                          <th>Evento</th>
                           <th>Año</th>
                           <th>Mes</th>
                           <th>Día</th>
@@ -20,16 +20,7 @@
                           <th>Hora</th>
                           <th>Direccion</th>
                           <th>Aldea</th>
-                          <th>Nombre</th>
-                          <th>Alias</th>
-                          <th>DPI</th>
-                          <th>Tatuajes</th>
-                          <th>Mara</th>
-                          <th>A bordo</th>
-                          <th>Heridas</th>
-                          <th>Motivo</th>
-                          <th>Diagnostico</th>
-                          <th>Observaciones</th>
+                          <th>Descripcion</th>
                           <th>Modus operandi</th>
                           <th>Tipologia</th>
                           <th>Agenets que proceden</th>
@@ -40,7 +31,6 @@
                         <tbody id="miTabla">
                             @php $i=1; @endphp
                             @foreach ($posts as $post)
-                                    @foreach($post->involucrados as $involucrado)
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $post->oficio }}</td>
@@ -52,16 +42,7 @@
                                 <td>{{ $post->time }}</td>
                                 <td>{{ $post->address->name }}</td>
                                 <td>{{ $post->address->aldea->name }}</td>
-                                <td>{{ $involucrado->name }}</td>
-                                <td>{{ optional($involucrado)->alias }}</td>
-                                <td>{{ optional($involucrado)->dpi }}</td>
-                                <td>{{ optional($involucrado)->tattoos }}</td>
-                                <td>{{ optional($involucrado->mara)->name }}</td>
-                                <td>{{ optional($involucrado->movil)->tipo }}</td>
-                                <td>{{ optional($involucrado)->heridas }}</td>
-                                <td>{{ optional($involucrado)->motivo }}</td>
-                                <td>{{ optional($involucrado)->diagnostico }}</td>
-                                <td>{{ optional($involucrado)->observaciones }}</td>
+                                <td>{{ $post->incautacion->descripcion}}</td>
                                 <td>{{ optional($post->modusoperandi)->name }}</td>
                                 <td>{{ optional($post->typology)->name }}</td>
                                 <td>{{ optional($post->proceden)->pluck('name')->implode(', ') }}</td>
@@ -69,7 +50,6 @@
                                 <td>{{ $post->juzgado }}</td>
                             </tr>
                                 @php $i++ @endphp
-                                    @endforeach
                             @endforeach
                         </tbody>
                        

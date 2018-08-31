@@ -110,6 +110,11 @@ class Post extends Model
         return $this->belongsTo('App\Incautacion', 'incautacion_id');
     }
 
+    public function robo()
+    {
+        return $this->belongsTo('App\Robo', 'robo_id');
+    }
+
 
     public function getCreatedAtAttribute($date)
     {

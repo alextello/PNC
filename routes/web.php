@@ -83,6 +83,11 @@ Route::group([
         Route::post('/incautado/delete/{id}', 'IncautacionController@delete')->name('admin.incautado.delete');
         Route::post('/incautado/update/{id}', 'IncautacionController@update')->name('admin.incautado.update');
         Route::post('/incautado/store', 'IncautacionController@store')->name('admin.incautado.store');
+        
+        Route::get('/robo/edit/{id}', 'RoboController@edit')->name('admin.robo.edit');
+        Route::post('/robo/delete/{id}', 'RoboController@delete')->name('admin.robo.delete');
+        Route::post('/robo/update/{id}', 'RoboController@update')->name('admin.robo.update');
+        Route::post('/robo/store', 'RoboController@store')->name('admin.robo.store');
 
         
 

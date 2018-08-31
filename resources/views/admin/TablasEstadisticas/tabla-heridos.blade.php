@@ -30,6 +30,11 @@
                           <th>Motivo</th>
                           <th>Diagnostico</th>
                           <th>Observaciones</th>
+                          <th>Modus operandi</th>
+                          <th>Tipologia</th>
+                          <th>Agenets que proceden</th>
+                          <th>Unidades que proceden</th>
+                          <th>Juzgado o fiscalia</th>
                         </tr>
                         </thead>
                         <tbody id="miTabla">
@@ -57,6 +62,11 @@
                                 <td>{{ optional($involucrado)->motivo }}</td>
                                 <td>{{ optional($involucrado)->diagnostico }}</td>
                                 <td>{{ optional($involucrado)->observaciones }}</td>
+                                <td>{{ optional($post->modusoperandi)->name }}</td>
+                                <td>{{ optional($post->typology)->name }}</td>
+                                <td>{{ optional($post->proceden)->pluck('name')->implode(', ') }}</td>
+                                <td>{{ optional($post->unidades)->pluck('placa')->implode(', ')}}</td>
+                                <td>{{ $post->juzgado }}</td>
                             </tr>
                                 @php $i++ @endphp
                                     @endforeach

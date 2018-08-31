@@ -41,6 +41,10 @@
                                         <label for="">Licencia:</label>
                                         <input type="text" name="licencia" value="{{ old('licencia', $gun->licencia)}}" class="form-control">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="">Recuperada/incautada por:</label><span class="help-block">Llenar este campo solo si es una recuperacion o incautacion, de lo contrario, dejar en blanco</span>
+                                        <input type="text" name="recuperada_por" value="{{ old('recuperada_por', $gun->recuperada_por)}}" class="form-control" placeholder="PNC">
+                                    </div>
                                     <button class="btn btn-primary btn-block">Actualizar</button>
                                 </form>
                             </div>
