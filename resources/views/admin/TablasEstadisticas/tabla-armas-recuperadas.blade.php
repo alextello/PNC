@@ -25,6 +25,7 @@
                           <th>Calibre</th>
                           <th>Registro</th>
                           <th>Licencia</th>
+                          <th>Guardia</th>
                           <th>Recuperada por</th>
                         </tr>
                         </thead>
@@ -47,6 +48,7 @@
                                 <td>{{ $post->arma->calibre }}</td>
                                 <td>{{ $post->arma->registro }}</td>
                                 <td>{{ $post->arma->licencia }}</td>
+                                <td>{{$post->guardia}}</td>
                                 <td>{{ $post->arma->recuperada_por }}</td>
                             </tr>
                                 @php $i++ @endphp

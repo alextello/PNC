@@ -27,6 +27,7 @@
                           <th>Modelo</th>
                           <th>Color</th>
                           <th>Recuperado por</th>
+                          <th>Guardia</th>
                           <th>Juzgado o fiscalia</th>
                         </tr>
                         </thead>
@@ -51,6 +52,7 @@
                                 <td>{{ $post->vehiculo->modelo }}</td>
                                 <td>{{ $post->vehiculo->color }}</td>
                                 <td>{{ $post->vehiculo->recuperado_por }}</td>
+                                <td>{{$post->guardia}}</td>
                                 <td>{{ $post->juzgado }}</td>
                             </tr>
                                 @php $i++ @endphp

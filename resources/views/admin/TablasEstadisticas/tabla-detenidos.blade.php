@@ -30,6 +30,7 @@
                               <th>Tipologia</th>
                               <th>Agenets que proceden</th>
                               <th>Unidades que proceden</th>
+                              <th>Guardia</th>
                               <th>Juzgado o fiscalia</th>
                             </tr>
                             </thead>
@@ -58,6 +59,7 @@
                                     <td>{{ optional($post->typology)->name }}</td>
                                     <td>{{ optional($post->proceden)->pluck('name')->implode(', ') }}</td>
                                     <td>{{ optional($post->unidades)->pluck('placa')->implode(', ')}}</td>
+                                    <td>{{$post->guardia}}</td>
                                     <td>{{ $post->juzgado }}</td>
                                 </tr>
                                     @php $i++ @endphp
