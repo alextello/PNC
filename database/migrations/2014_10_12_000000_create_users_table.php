@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('codigo', 50)->unique();//CODIGO DE AGENTE
             $table->string('telefono', 10)->unique();
             $table->string('reference', 8)->nullable();//SON LAS INICIALES DEL AGENTE, ES LA REFERENCIA PARA GENERAR UN OFICIO
-            $table->string('password', 20);
+            $table->string('password');
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

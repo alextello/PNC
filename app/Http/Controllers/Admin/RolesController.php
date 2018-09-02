@@ -50,10 +50,10 @@ class RolesController extends Controller
             ],
             [
 
-                'name.required' => 'El campo identificador es obligatorio',
-                'name.unique' => 'El campo identificador ya ha sido registrado',
-                'display_name.required' => 'El campo nombre es obligatorio',
-                'display_name.unique' => 'El campo nombre ya ha sido registrado',
+                'name.required' => 'El campo nombre es obligatorio',
+                'name.unique' => 'El campo nombre ya ha sido registrado',
+                'display_name.required' => 'El campo identificador es obligatorio',
+                'display_name.unique' => 'El campo identificador ya ha sido registrado',
 
             ]);
 

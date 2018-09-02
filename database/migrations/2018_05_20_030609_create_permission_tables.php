@@ -17,7 +17,7 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['permissions'], function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');//NOMBRE ESTABLECIDO QUE JAMAS CAMBIA
+            $table->string('name')->unique();//NOMBRE ESTABLECIDO QUE JAMAS CAMBIA
             $table->string('display_name')->nullable();//NOMBRE QUE SE MUESTRA POR SI QUIEREN CAMBIARLE EL NOMBRE
             $table->string('guard_name');//ESTE CAMPO ESTA PREVEENDO QUE SE NECESITE CONSUMIR UNA API, SI SE LLEGA A REPLICAR EL PROYECTO, DE MOMENTO NO SE USA
             $table->timestamps();
@@ -25,7 +25,7 @@ class CreatePermissionTables extends Migration
         //TABLA DE ROLES, SUS CAMPOS TIENEN LA MISMA LOGICA QUE LA TABLA ANTERIOR
         Schema::create($tableNames['roles'], function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('display_name')->nullable();
             $table->string('guard_name');
             $table->timestamps();

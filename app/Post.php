@@ -67,7 +67,7 @@ class Post extends Model
 
     public function proceden()
     {
-        return $this->belongsToMany('App\User')->withTrashed();;
+        return $this->belongsToMany('App\User')->withTrashed();
     }
 
     public function unidades()
@@ -92,7 +92,7 @@ class Post extends Model
 
     public function owner()
     {
-        return $this->belongsTo('App\User', 'user_id')->withTrashed();;
+        return $this->belongsTo('App\User', 'user_id')->withTrashed();
     }
 
     public function involucrados()

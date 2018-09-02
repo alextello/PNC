@@ -1,6 +1,6 @@
 @csrf
 <div class="form-group">
-    <label for="name">Identificador: </label>
+    <label for="name">Nombre: </label>
     @if($role->exists)
     <input value="{{ $role->name }}" class="form-control" disabled>
     @else
@@ -8,7 +8,7 @@
     @endif
 </div>
 <div class="form-group">
-    <label for="display_name">Nombre: </label>
+    <label for="display_name">Identificador: </label>
     <input name="display_name" value="{{ old('display_name', $role->display_name) }}" class="form-control">
 </div>
 <div class="form-group col-md-6">
