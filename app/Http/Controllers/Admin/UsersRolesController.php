@@ -31,6 +31,6 @@ class UsersRolesController extends Controller
      */
     public function destroy($id)
     {
-        //
+       
     }
 }

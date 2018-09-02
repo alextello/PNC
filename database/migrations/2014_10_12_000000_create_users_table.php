@@ -15,12 +15,13 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('codigo')->unique();//CODIGO DE AGENTE
-            $table->string('telefono')->unique();
-            $table->string('reference')->nullable();//SON LAS INICIALES DEL AGENTE, ES LA REFERENCIA PARA GENERAR UN OFICIO
-            $table->string('password');
+            $table->string('name', 50);
+            $table->string('email', 50)->unique();
+            $table->string('codigo', 50)->unique();//CODIGO DE AGENTE
+            $table->string('telefono', 10)->unique();
+            $table->string('reference', 8)->nullable();//SON LAS INICIALES DEL AGENTE, ES LA REFERENCIA PARA GENERAR UN OFICIO
+            $table->string('password', 20);
+            $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -18,7 +18,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::allowed()->latest('created_at')->get();
+        $users = User::allowed()->latest('created_at')->withTrashed()->get();
         return view('admin.users.index', compact('users'));
     }
 
@@ -137,8 +137,16 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->back()->withFlash('Usuario eliminado');
+    }
+
+    public function restore(Request $request)
+    {
+        $user = User::withTrashed()->where('id', $request->user)->first();
+        $user->restore();
+        return redirect()->back()->withFlash('Usuario dado de alta');
     }
 }

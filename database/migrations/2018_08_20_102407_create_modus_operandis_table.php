@@ -15,8 +15,8 @@ class CreateModusOperandisTable extends Migration
     {
         Schema::create('modus_operandis', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->string('url');
+            $table->string('name', 100)->unique();
+            $table->string('url', 100);
             $table->timestamps();
         });
     }

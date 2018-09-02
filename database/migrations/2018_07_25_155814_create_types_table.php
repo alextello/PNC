@@ -15,8 +15,8 @@ class CreateTypesTable extends Migration
     {//TABLA QUE ALMACENA LOS TIPOS DE AUTOS Y ARMAS
         Schema::create('types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('tipo');
-            $table->string('modelo',25);
+            $table->string('tipo', 100);
+            $table->string('modelo', 50);
             $table->timestamps();
         });
     }

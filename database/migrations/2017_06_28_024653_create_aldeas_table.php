@@ -15,8 +15,8 @@ class CreateAldeasTable extends Migration
     {
         Schema::create('aldeas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('url');
+            $table->string('name', 100);
+            $table->string('url', 100);
             $table->unsignedInteger('municipio_id');
             $table->timestamps();
         });

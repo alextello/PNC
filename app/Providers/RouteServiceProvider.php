@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-
+use App\User;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
@@ -23,9 +23,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
-
         parent::boot();
+        Route::bind('user', function ($value) {
+            return User::withTrashed()->where('id', $value)->first();
+        });
     }
 
     /**

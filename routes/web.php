@@ -37,6 +37,7 @@ Route::group([
         Route::get('/', 'AdminController@index')->name('dashboard');
         Route::resource('posts', 'PostsController', ['except' => 'show', 'as' => 'admin']);
         Route::resource('users', 'UsersController', ['as' => 'admin']);
+        Route::post('users/restore', 'UsersController@restore')->name('admin.users.restore');
         Route::resource('roles', 'RolesController', ['except' => 'show', 'as' => 'admin']);
         Route::resource('permissions', 'PermissionsController', ['only' => ['index', 'edit', 'update'], 'as' => 'admin']);
         Route::middleware('role:Administrador')->put('users/{user}/roles', 'UsersRolesController@update')->name('admin.users.roles.update');

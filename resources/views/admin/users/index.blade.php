@@ -40,15 +40,27 @@
                 <td>{{$user->codigo}}</td>
                 <td>{{$user->telefono}}</td>
                 <td>{{$user->roles->pluck('name')->implode(', ')}}</td>
+                @if(!$user->trashed())
                 <td>
                     <a href="{{ route('admin.users.show', $user)}}" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>
                     <a href="{{ route('admin.users.edit', $user)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
-                     <form action="{{ route('admin.users.destroy', $user) }}" method="user" style="display: inline">
+                     <form action="{{ route('admin.users.destroy', $user) }}" method="post" style="display: inline">
                        @csrf
                        @method('DELETE')
                        <button class="btn btn-xs btn-danger" onclick="return confirm('¿Está seguro de querer eliminar este usuario?')"><i class="fa fa-times"></i></button>
                      </form>
                 </td>
+                @else
+                <td>
+                  <a href="{{ route('admin.users.show', $user)}}" class="btn btn-xs btn-default"><i class="fa fa-eye"></i></a>
+                  <a href="{{ route('admin.users.edit', $user)}}" class="btn btn-xs btn-info"><i class="fa fa-pencil"></i></a>
+                   <form action="{{ route('admin.users.restore') }}" method="post" style="display: inline">
+                     @csrf
+                     <input type="hidden" name="user" value="{{$user->id}}">
+                     <button class="btn btn-xs btn-success" onclick="return confirm('¿Está seguro de querer dar de alta a este usuario?')"><i class="fa fa-check"></i></button>
+                   </form>
+              </td>
+                @endif
             </tr>
             @endforeach
         </tbody>

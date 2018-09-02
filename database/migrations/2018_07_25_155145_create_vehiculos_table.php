@@ -15,8 +15,8 @@ class CreateVehiculosTable extends Migration
     {
         Schema::create('vehiculos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('placa')->nullable()->default('IGN');
-            $table->string('linea')->nullable()->default('IGN');//EJ. RAV4, TACOMA, ETC..
+            $table->string('placa', 10)->nullable()->default('IGN');
+            $table->string('linea', 50)->nullable()->default('IGN');//EJ. RAV4, TACOMA, ETC..
             $table->year('modelo')->nullable(); 
             $table->string('recuperado_por')->nullable();
             $table->string('color')->nullable()->default('IGN');

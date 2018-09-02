@@ -15,8 +15,8 @@ class CreateMarcasTable extends Migration
     {//TABLA QUE ALMACENA LAS MARCAS DE AUTOS Y ARMAS
         Schema::create('marcas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('modelo');
+            $table->string('name', 100);
+            $table->string('modelo', 50);
             $table->timestamps();
         });
     }

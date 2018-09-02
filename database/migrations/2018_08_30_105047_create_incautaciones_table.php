@@ -15,7 +15,7 @@ class CreateIncautacionesTable extends Migration
     {
         Schema::create('incautaciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('descripcion')->nullable();
+            $table->text('descripcion')->nullable();
             $table->timestamps();
         });
     }

@@ -15,7 +15,7 @@ class CreateRobosTable extends Migration
     {
         Schema::create('robos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('descripcion')->nullable();
+            $table->text('descripcion')->nullable();
             $table->timestamps();
         });
     }

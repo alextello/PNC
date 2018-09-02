@@ -15,8 +15,8 @@ class CreateMunicipiosTable extends Migration
     {
         Schema::create('municipios', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('url');//EL CAMPO URL SE GENERA A PARTIR DEL CAMPO NOMBRE PERO OMITIENDO CARACTERES ESPECIALES Y REEMPLAZANDO ESPACIOS POR GUIONES ESTO PARA HACER MAS AMIGABLES LAS URLS
+            $table->string('name', 100);
+            $table->string('url', 100);//EL CAMPO URL SE GENERA A PARTIR DEL CAMPO NOMBRE PERO OMITIENDO CARACTERES ESPECIALES Y REEMPLAZANDO ESPACIOS POR GUIONES ESTO PARA HACER MAS AMIGABLES LAS URLS
             $table->timestamps();
         });
     }

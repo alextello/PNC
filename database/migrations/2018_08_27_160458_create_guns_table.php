@@ -17,10 +17,10 @@ class CreateGunsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('type_id')->nullable();//TIPO DE ARMA
             $table->unsignedInteger('marca_id')->nullable();//MARCA DEL ARMA
-            $table->string('registro')->default('IGN')->nullable();
-            $table->string('calibre')->default('IGN')->nullable();
-            $table->string('licencia')->default('IGN')->nullable();
-            $table->string('recuperada_por')->nullable();
+            $table->string('registro', 100)->default('IGN')->nullable();
+            $table->string('calibre', 100)->default('IGN')->nullable();
+            $table->string('licencia', 100)->default('IGN')->nullable();
+            $table->string('recuperada_por', 100)->nullable();
             $table->timestamps();
         });
     }

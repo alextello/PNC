@@ -62,12 +62,12 @@ class Post extends Model
 
     public function jefeDeTurno()
     {
-        return $this->belongsTo('App\User', 'jefe_de_turno_id');
+        return $this->belongsTo('App\User', 'jefe_de_turno_id')->withTrashed();;
     }
 
     public function proceden()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User')->withTrashed();;
     }
 
     public function unidades()
@@ -92,7 +92,7 @@ class Post extends Model
 
     public function owner()
     {
-        return $this->belongsTo('App\User', 'user_id');
+        return $this->belongsTo('App\User', 'user_id')->withTrashed();;
     }
 
     public function involucrados()
@@ -284,7 +284,7 @@ class Post extends Model
     
     public function scopeAllowed($query)
     {
-        if(auth()->user()->hasPermissionTo('Ver reportes'))
+        if(auth()->user()->withTrashed()->hasPermissionTo('Ver reportes'))
         {
             return $query;
         }
