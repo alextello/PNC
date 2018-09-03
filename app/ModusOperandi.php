@@ -13,20 +13,20 @@ class ModusOperandi extends Model
         return $this->hasMany('App\Post');
     }
 
-    public function syncModusOperandi($gangs)
+    public function syncModusOperandi($modus)
     {
-        $gangsID = collect();
-        foreach($gangs as $gang)
+        $modusID = collect();
+        foreach($modus as $mod)
         {
-             if($item = Gang::where('name', $gang)->first())
+             if($item = ModusOperandi::where('name', $mod)->first())
             {
-                $gangsID->push($item->id); 
+                $modusID->push($item->id); 
             }
             else
             {
-                $gangsID->push( Gang::create(['name' => $gang])->id );
+                $modusID->push( ModusOperandi::create(['name' => $mod])->id );
             }
         }
-        return $gangsID;
+        return $modusID;
     }
 }

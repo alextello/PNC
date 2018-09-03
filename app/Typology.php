@@ -15,18 +15,18 @@ class Typology extends Model
 
     public function syncTypology($typology)
     {
-        $gangsID = collect();
-        foreach($gangs as $gang)
+        $typologyID = collect();
+        foreach($typology as $typo)
         {
-             if($item = Gang::where('name', $gang)->first())
+             if($item = Typology::where('name', $typo)->first())
             {
-                $gangsID->push($item->id); 
+                $typologyID->push($item->id); 
             }
             else
             {
-                $gangsID->push( Gang::create(['name' => $gang])->id );
+                $typologyID->push( Typology::create(['name' => $typo])->id );
             }
         }
-        return $gangsID;
+        return $typologyID;
     }
 }

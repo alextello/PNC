@@ -284,7 +284,7 @@ class Post extends Model
     
     public function scopeAllowed($query)
     {
-        if(auth()->user()->withTrashed()->hasPermissionTo('Ver reportes'))
+        if(auth()->user()->hasPermissionTo('Ver reportes'))
         {
             return $query;
         }
