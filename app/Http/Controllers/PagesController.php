@@ -11,6 +11,36 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
+
+    public function spa(Request $request)
+    {
+        if($request->filled('reservation'))
+        {
+            $fechas = explode(' ', $request->reservation);
+            $posts = Post::with(['tags' => function ($q){
+                $q->with(['subcategory' => function ($query){
+                    $query->with('category');
+                }]);
+            }])->with(['address' => function ($t){
+                $t->with('aldea');
+            }])->with('photos')->with('owner')
+            ->whereNotNull('published_at')
+            ->latest('published_at')
+            ->where('published_at', '<=', Carbon::createFromFormat('d/m/Y', $fechas[2]))
+            ->where('published_at', '>=', Carbon::createFromFormat('d/m/Y', $fechas[0])->subDays(1))
+            ->paginate();
+        }
+        else
+        {
+            $posts = $this->helper();
+        }
+
+        if( request()->wantsJson() )
+        return $posts;
+        else
+        return view('pages.home', compact('posts'));
+    }
+    
     public function home(Request $request)
     {
         if($request->filled('reservation'))
@@ -33,6 +63,9 @@ class PagesController extends Controller
         {
             $posts = $this->helper();
         }
+        if( request()->wantsJson() )
+        return $posts;
+        else
         return view('pages.home', compact('posts'));
     }
 

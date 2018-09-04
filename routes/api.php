@@ -13,6 +13,12 @@ use Illuminate\Http\Request;
 |
 */
 
+
+// Route::get('posts', 'PagesController@spa');
+// Route::get('reportes/{post}', 'PostsController@show');
+// Route::get('categorias/{category}', 'CategoriesController@show');
+// Route::get('etiquetas/{tag}', 'TagsController@show');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

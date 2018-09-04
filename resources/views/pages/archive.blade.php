@@ -1,5 +1,6 @@
 @extends('layout')
 @section('content')
+<router-view></router-view>
 <section class="pages container">
 		{{-- <div class="page page-archive"> --}}
 <div class="box box-widget widget-user-2">

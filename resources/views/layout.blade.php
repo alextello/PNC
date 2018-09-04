@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 	<title>@yield('title', 'Reportes PNC')</title>
+	<meta content="{{csrf_token()}}" name="csrf-token" >
 	<meta name="description" content="@yield('meta-content', 'Sistema de reporteria de la Policia Nacional Civil de Guatemala')">
 	<link rel="stylesheet" href="/css/normalize.css">
 	<link rel="stylesheet" href="/css/framework.css">
@@ -54,7 +55,6 @@
 			</div>
 		</footer>
 	</section>
-	
 </body>
 <script src={{asset("/adminlte/bower_components/moment/min/moment.min.js")}}></script>
 <script src={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}></script>

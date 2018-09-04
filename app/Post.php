@@ -35,6 +35,8 @@ class Post extends Model
 
     protected $dates = ['published_at'];
 
+    protected $appends = ['published_date'];
+
     public function getRouteKeyName()
     {
         return 'url';
@@ -42,7 +44,7 @@ class Post extends Model
 
     public function address()
     {
-        return $this->belongsTo('App\Address');
+        return $this->belongsTo('App\Address', 'address_id');
     }
 
     public function typology()
@@ -125,6 +127,11 @@ class Post extends Model
     {
         $dat = new Date($date);
         return new Date($dat->format('d-m-Y'));
+    }
+
+    public function getPublishedDateAttribute()
+    {
+        return optional($this->published_at)->format('M d');
     }
     
     public static function create(array $attributes = [])

@@ -3,7 +3,7 @@
 @section('content')
 
 <section class="posts container">
-	
+		<router-view></router-view>
 	@if(isset($title))
 		<h2>{{ $title}}</h2>
 	@endif

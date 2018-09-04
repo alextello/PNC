@@ -2,7 +2,7 @@
 
 @section('content')
 
-    	
+<router-view></router-view>
 	<section class="pages container">
             <div class="page page-archive">
                 <h1 class="text-capitalize">archive</h1>

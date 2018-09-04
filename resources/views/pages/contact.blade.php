@@ -1,6 +1,7 @@
 @extends('layout')
 @section('content')
 <section class="pages container">
+        <router-view></router-view>
 		<div class="page page-contact">
 			<h1 class="text-capitalize">Contacto</h1>
 			<p>Para reportar problemas o sugerencias puede comunicarse a los siguientes correos:</p>
