@@ -25,12 +25,14 @@ class FileController extends Controller
         );
         
         // Adding Text element to the Section having font styled by default...
-        $section->addText($post->title);
+        $section->addText('titulo: '. $post->title);
+        $section->addText('REF: '. $post->owner()->first()->reference.'/'.strtoupper($post->jefeDeTurno()->first()->reference));
+        $section->addText('Contenido:');
         \PhpOffice\PhpWord\Shared\Html::addHtml($section, $post->body);
         
         if($post->photos->count()>0){
             foreach($post->photos as $photo){
-                $section->addImage('http://pnc.test/storage/'.$photo->url);
+                $section->addImage(asset('/storage/'.$photo->url));
             }
         }
         // Saving the document as HTML file...
@@ -47,7 +49,7 @@ class FileController extends Controller
     {
         $post = Post::find($id);
         $post->load('photos');
-        $pdf = PDF::loadView('posts.pdf', ['post' => $post])->setPaper('legal');
+        $pdf = PDF::loadView('posts.pdf', ['post' => $post])->setPaper('letter');
         return $pdf->download($post->url.'.pdf');
     }
 }

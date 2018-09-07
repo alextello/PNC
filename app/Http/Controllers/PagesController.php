@@ -35,9 +35,9 @@ class PagesController extends Controller
             $posts = $this->helper();
         }
 
-        if( request()->wantsJson() )
-        return $posts;
-        else
+        // if( request()->wantsJson() )
+        // return $posts;
+        // else
         return view('pages.home', compact('posts'));
     }
     
@@ -63,9 +63,9 @@ class PagesController extends Controller
         {
             $posts = $this->helper();
         }
-        if( request()->wantsJson() )
-        return $posts;
-        else
+        // if( request()->wantsJson() )
+        // return $posts;
+        // else
         return view('pages.home', compact('posts'));
     }
 

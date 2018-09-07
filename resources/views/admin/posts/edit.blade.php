@@ -442,14 +442,14 @@
                 <div class="box-body pad" style="">
                     <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}">
                         <label for="">Titulo del reporte</label>
-                        <input type="text" class="form-control" placeholder="Ingrese aquí el titulo del reporte" id="title" name="title" value="{{ old('title', $post->title)}}"> {!! $errors->first('title', '
-                        <span class="help-block">:message</span>') !!}
+                        <input type="text" class="form-control" placeholder="Ingrese aquí el titulo del reporte" id="title" name="title" value="{{ old('title', $post->title)}}" required> 
+                        {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
 
                     </div>
 
                     <div class="form-group {{$errors->has('body') ? 'has-error' : ''}}">
                         <label for="">Contenido del reporte</label>
-                        <textarea name="body" id="editor" class="form-control" rows="10" placeholder="Detalle aquí el reporte">{{ old('body', $post->body ? $post->body : $post->plantilla )}}</textarea>
+                        <textarea required name="body" id="editor" class="form-control" rows="10" placeholder="Detalle aquí el reporte">{{ old('body', $post->body ? $post->body : $post->plantilla )}}</textarea>
                         {!! $errors->first('body', '
                         <span class="help-block">:message</span>') !!}
                     </div>
@@ -476,7 +476,7 @@
                             <div class="input-group-addon">
                             <i class="fa fa-laptop"></i>
                             </div>
-                            <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;9999-9999&quot;" data-mask="" name="oficio" value="{{ old('oficio', $post->oficio ? $post->oficio : '') }}">
+                            <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;9999-9999&quot;" data-mask="" name="oficio" value="{{ old('oficio', $post->oficio ? $post->oficio : '') }}" required>
                         </div>
                       <!-- /.input group -->
                     </div>
@@ -491,7 +491,7 @@
 
                     <div class="form-group {{$errors->has('aldea') ? 'has-error' : ''}}">
                         <label for="">Seleccione el aldea</label>
-                        <select name="aldea" id="aldea" class="form-control select2">
+                        <select name="aldea" id="aldea" class="form-control select2" required>
                             <option value="">Seleccione el aldea</option>
                             @if($post->address!=null) 
                             @foreach ($aldeas as $aldea)
@@ -507,7 +507,7 @@
 
                     <div class="form-group {{$errors->has('address_id') ? 'has-error' : ''}}">
                         <label>Dirección del suceso</label>
-                        <input name="address_id" type="text" class="form-control" id="address_id" value="{{ old('address_id', $post->address_id ? $post->address()->pluck('name')->implode('') : '') }}">
+                        <input required name="address_id" type="text" class="form-control" id="address_id" value="{{ old('address_id', $post->address_id ? $post->address()->pluck('name')->implode('') : '') }}">
                         <!-- /.input group -->
                     </div>
                     <div class="form-group {{$errors->has('published_at') ? 'has-error' : ''}}">
@@ -517,7 +517,7 @@
                                 <i class="fa fa-calendar"></i>
                             </div>
                             {{-- {{dd($post->published_at->format('d-m-Y'))}} --}}
-                            <input name="published_at" type="text" class="form-control pull-right" id="datepicker" value="{{ old('published_at', $post->published_at ? $post->published_at->format('d-m-Y') : '') }}">
+                            <input required name="published_at" type="text" class="form-control pull-right" id="datepicker" value="{{ old('published_at', $post->published_at ? $post->published_at->format('d-m-Y') : '') }}">
                         </div>
                         <!-- /.input group -->
                     </div>
@@ -526,9 +526,7 @@
                             <label>Hora del suceso:</label>
 
                             <div class="input-group">
-                                <input type="text" name="time" class="form-control timepicker" value="{{ old('time', $post->time ?  date(" g:i a
-                                    ", strtotime($post->time)): '') }}">
-
+                                <input required type="text" name="time" class="form-control timepicker" value="{{ old('time', $post->time ?  date(" g:i a", strtotime($post->time)): '') }}">
                                 <div class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
                                 </div>
@@ -549,7 +547,7 @@
 
                     <div class="form-group {{$errors->has('tag_id') ? 'has-error' : ''}}">
                         <label for="">Etiqueta</label>
-                        <select name="tag_id" id="tag_id" class="form-control select2" data-placeholder="Elija la etiqueta" style="width: 100%;">
+                        <select required name="tag_id" id="tag_id" class="form-control select2" data-placeholder="Elija la etiqueta" style="width: 100%;">
                             @foreach($tags as $tag)
                             <option {{ collect(old( 'tag_id', optional($post->tag_id)))->contains($tag->id) ? 'selected' : '' }} value="{{ $tag->id }}">{{$tag->subcategory->name}} / {{ $tag->name }}</option> 
                             @endforeach
@@ -594,9 +592,9 @@
                             </select>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group {{$errors->has('jefe_de_turno_id') ? 'has-error' : ''}}">
                         <label for="">Jefe de turno</label>
-                        <select name="jefe_de_turno_id" class="form-control select2" id="jefe_de_turno_id">
+                        <select name="jefe_de_turno_id" class="form-control select2" id="jefe_de_turno_id" required>
                             <option value="">Seleccione una opcion</option>
                             @foreach($users as $user)
                                 <option {{ collect(old( 'jefe_de_turno_id', optional($post->jefe_de_turno_id)))->contains($user->id) ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->codigo }} / {{$user->name}}</option> 

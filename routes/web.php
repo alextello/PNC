@@ -15,7 +15,7 @@
 // $s = Involucrado::find($a);
 // dd($s);
 Route::get('prueba', function(){
-    $post = App\Post::find(1);
+    $post = App\Post::first();
     return view('posts.pdf', ['post' => $post]);
 });
 

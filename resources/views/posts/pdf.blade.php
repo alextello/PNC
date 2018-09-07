@@ -8,7 +8,7 @@
 <body style="background: white;">
   <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
   <header>
-  <img src="http://pnc.test/storage/banner/banner.jpg" style="width: 18cm; height: 2.5cm" alt="">
+  <img src={{asset('/storage/'.'banner/banner.jpg')}} style="width: 18cm; height: 2.5cm" alt="">
   </header>
   <main style="padding-top: 3cm; text-align: justify; width:16cm">
   <p style="text-align: right">Oficio: {{$post->oficio}}</p>
@@ -48,7 +48,10 @@
   Sit, vel distinctio quos illo quisquam fugiat ut repudiandae non doloribus dolorem enim autem voluptate? Quo cupiditate nostrum nisi sunt sed facere quas voluptas hic quae expedita, blanditiis impedit ratione?
   Fugit iure nihil ex nulla incidunt dolorum possimus culpa. Corrupti architecto veritatis nihil voluptas fugiat autem non eius assumenda iste doloribus blanditiis consectetur commodi, neque ea ullam accusantium vel nostrum!
   Voluptates rerum tempore dolores aperiam distinctio facere? Corrupti, aut! Rerum sequi quaerat repudiandae cum quia, quas officiis cupiditate optio nisi quod dolore laboriosam, voluptatum eius vero, et in eligendi? Laudantium.
-  Magni maiores, eum perspiciatis id minima explicabo cum perferendis suscipit voluptatem at repellendus! Repellendus nemo id perferendis laborum eligendi est necessitatibus perspiciatis? Alias explicabo adipisci eos corrupti accusamus et rem?
+  Magni maiores, eum persp
+  
+  
+  iciatis id minima explicabo cum perferendis suscipit voluptatem at repellendus! Repellendus nemo id perferendis laborum eligendi est necessitatibus perspiciatis? Alias explicabo adipisci eos corrupti accusamus et rem?
   Delectus vero repudiandae molestias officia qui, repellendus reiciendis eos nam aliquid autem temporibus ad deleniti nemo nostrum veniam sequi error! Aut aspernatur veniam recusandae est cumque nostrum ipsa vitae dolorum!
   Aperiam, aspernatur ducimus? Enim quasi consequuntur tempora delectus! Ratione temporibus aut repellendus aliquid non eaque. Ratione consequatur neque eveniet rerum quibusdam esse corrupti, laudantium explicabo, eius maiores eum voluptatem soluta!
   Tempora fugiat nisi sint perferendis enim iusto. Fugiat cum dignissimos nam minima quasi in assumenda nihil recusandae architecto soluta eveniet quod reprehenderit tenetur laboriosam provident sed asperiores dolore, aliquam quam.
@@ -63,13 +66,18 @@
   @if($post->photos->count())
   <div class="text-center">
   @foreach($post->photos as $photo)
-     <img style="width: 5cm; height: 5cm" src="{{asset('/storage/'.$photo->url)}}" alt="">
+     <img style="width: 5cm; height: 5cm; padding-right: 10px; padding-bottom: 10px; padding-top:10px;" src="{{asset('/storage/'.$photo->url)}}" alt="">
      @endforeach
   </div>
   @endif
   <br><br><br><br>
-  <p style="text-align: center;">f._______________________________</p>
-  <p style="text-align: center;">{{$post->jefeDeTurno()->first()->name}}</p>
+  <p style="text-align: center; margin: 0;">f._______________________________</p>
+  <p style="text-align: center; margin: 0;">{{$post->jefeDeTurno()->first()->name}}</p>
+  <p style="text-align: center; margin: 0;">Jefe de turno</p>
+  <p style="text-align: center; margin: 0;">Subcomisaria 41-31 San Juan Ostuncalco</p>
   </main>
 </body>
 </html>
+{{-- <style>
+p { margin:0 }
+</style> --}}
