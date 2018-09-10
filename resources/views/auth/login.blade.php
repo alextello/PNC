@@ -61,7 +61,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+              {{-- <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me --}}
             </label>
           </div>
         </div>
@@ -82,7 +82,7 @@
     </div> --}}
     <!-- /.social-auth-links -->
 
-    <a href="{{ route('password.request') }}">I forgot my password</a><br>
+    {{-- <a href="{{ route('password.request') }}">I forgot my password</a><br> --}}
     {{-- <a href="register.html" class="text-center">Register a new membership</a> --}}
 
   </div>

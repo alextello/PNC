@@ -35,20 +35,27 @@ class FileController extends Controller
                 $section->addImage(asset('/storage/'.$photo->url));
             }
         }
-        // Saving the document as HTML file...
-        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        try{
-            $objWriter->save(storage_path($post->url.'.docx'));
-        }catch(Exception $e){
 
-        }
+        $section->addText('f._______________________________');
+        $section->addText($post->jefeDeTurno()->first()->name);
+        $section->addText('Jefe de turno');
+        $section->addText('Subcomisaria 41-31 San Juan Ostuncalco');
+
+
+        // $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        // try{
+        //     $objWriter->save(storage_path($post->url.'.docx'));
+        // }catch(Exception $e){
+
+        // }
         return response()->download(storage_path($post->url.'.docx'));
     }
 
     public function pdf($id)
     {
-        $post = Post::find($id);
-        $post->load('photos');
+        $post = Post::where('id',$id)->with(['owner', 'jefeDeTurno', 'photos'])->first();
+        // $post->load('photos');
+        // dd($post);
         $pdf = PDF::loadView('posts.pdf', ['post' => $post])->setPaper('letter');
         return $pdf->download($post->url.'.pdf');
     }

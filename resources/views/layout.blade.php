@@ -42,16 +42,16 @@
 						<li><a href=" {{ route('pages.contact') }}" class="text-uppercase c-white">Contacto</a></li>
 					</ul>
 				</nav>
-				<div class="divider-2"></div>
-				<p>Nunc placerat dolor at lectus hendrerit dignissim. Ut tortor sem, consectetur nec hendrerit ut, ullamcorper ac odio. Donec viverra ligula at quam tincidunt imperdiet. Nulla mattis tincidunt auctor.</p>
+				{{-- <div class="divider-2"></div> --}}
+				{{-- <p>Nunc placerat dolor at lectus hendrerit dignissim. Ut tortor sem, consectetur nec hendrerit ut, ullamcorper ac odio. Donec viverra ligula at quam tincidunt imperdiet. Nulla mattis tincidunt auctor.</p> --}}
 				<div class="divider-2" style="width: 80%;"></div>
-				<p>© 2017 - Zendero. All Rights Reserved. Designed & Developed by <span class="c-white">Agencia De La Web</span></p>
-				<ul class="social-media-footer list-unstyled">
+				<p>© 2019 - Derechos reservados. Diseñado y desarrollado por <span class="c-white">Edwin Tello</span></p>
+				{{-- <ul class="social-media-footer list-unstyled">
 					<li><a href="#" class="fb"></a></li>
 					<li><a href="#" class="tw"></a></li>
 					<li><a href="#" class="in"></a></li>
 					<li><a href="#" class="pn"></a></li>
-				</ul>
+				</ul> --}}
 			</div>
 		</footer>
 	</section>
@@ -60,8 +60,7 @@
 <script src={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}></script>
 <script>
 	$('#reservation').daterangepicker({
-	  'startDate': '01/01/2019',
-	  'endDate': '02/01/2019',
+	  maxDate: new Date(),
 	  locale: {
 	format: 'D/M/YYYY'
   }

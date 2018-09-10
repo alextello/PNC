@@ -14,7 +14,7 @@
 @section('content')
 <div class="box box-primary">
     <div class="box-header">
-      <h3 class="box-title">lISTADO DE USUARIOS</h3>
+      <h3 class="box-title">lISTADO DE PLANTILLAS</h3>
       <a href="{{ route('admin.plantillas.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Crear Plantilla </a>
     </div>
     <!-- /.box-header -->

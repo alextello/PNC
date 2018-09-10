@@ -15,7 +15,7 @@
 @section('content')
 <div class="box box-primary">
     <div class="box-header">
-      <h3 class="box-title">lISTADO DE USUARIOS</h3>
+      <h3 class="box-title">lISTADO DE PERMISOS</h3>
       {{-- <a href="{{ route('admin.permissions.create') }}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Crear Role </a> --}}
     </div>
     <!-- /.box-header -->

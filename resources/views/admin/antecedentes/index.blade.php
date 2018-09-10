@@ -5,7 +5,7 @@
 <div class="box">
     <div class="box box-primary">
         <div class="box-header">
-          <h3 class="box-title">lISTADO DE REPORTES</h3>
+          <h3 class="box-title">lISTADO DE ANTECEDENTES</h3>
           {{-- <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Crear publicacion</button> --}}
         </div>
         <!-- /.box-header -->

@@ -1066,6 +1066,7 @@
 
         $('#datepicker').datepicker({
             format: 'dd-mm-yyyy',
+            endDate: '+0d',
             autoclose: true
         });
 
