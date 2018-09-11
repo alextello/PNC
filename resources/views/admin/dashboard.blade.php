@@ -11,12 +11,14 @@
 
           <p>Usuarios registrados</p>
         </div>
-        <div class="icon">
-          <i class="fa fa-fw fa-group"></i>
-        </div>
-        {{-- <a href="#" class="small-box-footer">
-          More info <i class="fa fa-arrow-circle-right"></i>
-        </a> --}}
+        <a href="{{route('admin.users.index')}}">
+          <div class="icon">
+            <i class="fa fa-fw fa-group"></i>
+          </div>
+        </a>
+        <a href="{{route('admin.users.index')}}" class="small-box-footer">
+          Más info <i class="fa fa-arrow-circle-right"></i>
+        </a>
       </div>
     </div>
     <!-- ./col -->
@@ -28,12 +30,14 @@
 
           <p>Novedades ocurridas este mes</p>
         </div>
-        <div class="icon">
-          <i class="ion ion-stats-bars"></i>
-        </div>
-        {{-- <a href="#" class="small-box-footer">
-          More info <i class="fa fa-arrow-circle-right"></i>
-        </a> --}}
+      <a href="{{route('admin.posts.index')}}">
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+        </a>
+        <a href="{{route('admin.posts.index')}}" class="small-box-footer">
+          Más info <i class="fa fa-arrow-circle-right"></i>
+        </a>
       </div>
     </div>
     <!-- ./col -->
@@ -45,12 +49,14 @@
 
           <p>Aprehendidos este mes</p>
         </div>
-        <div class="icon">
-          <i class="fa fa-fw fa-shield"></i>
-        </div>
-        {{-- <a href="#" class="small-box-footer">
-          More info <i class="fa fa-arrow-circle-right"></i>
-        </a> --}}
+      <a href="{{route('admin.antecedentes.index')}}">
+          <div class="icon">
+            <i class="fa fa-fw fa-shield"></i>
+          </div>
+        </a>
+        <a href="{{route('admin.antecedentes.index')}}" class="small-box-footer">
+          Más info <i class="fa fa-arrow-circle-right"></i>
+        </a>
       </div>
     </div>
     <!-- ./col -->

@@ -40,7 +40,7 @@
                                 <td>{{ $tag->name }}</td>
                                 <td> {{ $post->published_at->format('Y') }} </td>
                                 <td>{{  $post->published_at->format('M') }}</td>
-                                <td>{{  $post->published_at->format('l') }} </td>
+                                <td>{{  $post->published_at->format('F') }} </td>
                                 <td>{{  $post->published_at->format('d-m-Y') }} </td>
                                 <td>{{ $post->time }}</td>
                                 <td>{{ $post->address->name }}</td>

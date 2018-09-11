@@ -231,7 +231,7 @@ desired effect
         <div class="pull-left info">
         <p>{{ auth()->user()->name }}</p>
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a href="#"><i class="fa fa-circle text-success"></i> En linea</a>
         </div>
       </div>
 
@@ -284,7 +284,7 @@ desired effect
       👮 Al servicio de la poblacioón
     </div>
     <!-- Default to the left -->
-    <strong>👮 Policia Nacional Civil &copy; 2019 <a href="#">PNC</a>.</strong> Derechos reservados.
+    <strong>👮 Policia Nacional Civil &copy; Desarrollado por: <a href="alextello1@hotmail.com">Edwin Tello</a>.</strong> Derechos reservados.
   </footer>
 
   <!-- Control Sidebar -->

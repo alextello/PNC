@@ -526,7 +526,7 @@
                             <label>Hora del suceso:</label>
 
                             <div class="input-group">
-                                <input required type="text" name="time" class="form-control timepicker" value="{{ old('time', $post->time ?  date(" g:i a", strtotime($post->time)): '') }}">
+                                <input required type="text" name="time" class="form-control timepicker" value="{{ old('time', $post->time ?  date('h:i:s a m/d/Y', strtotime($post->time)): '') }}">
                                 <div class="input-group-addon">
                                     <i class="fa fa-clock-o"></i>
                                 </div>

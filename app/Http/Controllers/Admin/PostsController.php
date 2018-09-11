@@ -72,7 +72,7 @@ class PostsController extends Controller
         }])->with(['arma' => function($f){
             $f->with(['brand', 'tipo']);
         }])->first();
-        
+        // dd($post);
         if($post && ($post->user_id == auth()->user()->id) || auth()->user()->hasPermissionTo('Editar reportes'))
         {
             $aldeas = Aldea::all();
@@ -91,7 +91,7 @@ class PostsController extends Controller
             $plantillas = Plantilla::all();
             return view('admin.posts.edit', compact('post', 'users', 'unidades', 'categories', 'tags', 'marcaV', 'marcaA', 'plantillas', 'aldeas', 'gangs', 'typeA', 'typeV', 'modus', 'typology', 'offense'));
         }
-       
+        
         else{
             abort(404);
         }
