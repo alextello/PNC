@@ -111,7 +111,15 @@
                 text: 'Exportar PDF',
                 title: "Listado de hechos negativos año: "+$("#year").val()
           }
-      ],
+      ],language: {
+            buttons: {
+                copyTitle: 'Datos copiados',
+                copySuccess: {
+                    _: '%d Lineas copiadas',
+                    1: '1 Lina copiada'
+                }
+            }
+        },
       columnDefs: [ {
           visible: false
       } ],

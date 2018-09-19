@@ -284,7 +284,7 @@ desired effect
       👮 Al servicio de la poblacioón
     </div>
     <!-- Default to the left -->
-    <strong>👮 Policia Nacional Civil &copy; Desarrollado por: <a href="alextello1@hotmail.com">Edwin Tello</a>.</strong> Derechos reservados.
+    <strong>👮 Policia Nacional Civil &copy; Desarrollado por: <a href="mailto:alextello1@hotmail.com">Edwin Tello</a>.</strong> Derechos reservados.
   </footer>
 
   <!-- Control Sidebar -->
