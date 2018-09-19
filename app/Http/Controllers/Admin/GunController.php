@@ -11,17 +11,17 @@ use App\Http\Controllers\Controller;
 
 class GunController extends Controller
 {
-    public function edit($id)
+    public function edit($id, $post)
     {
         $gun = Gun::with(['brand', 'tipo'])->find($id);
         $tipos = Type::where('modelo', 'App\Gun')->get();
         $marcas = Marca::where('modelo', 'App\Gun')->get();
-        return view('admin.guns.edit', compact('gun', 'tipos', 'marcas'));
+        return view('admin.guns.edit', compact('gun', 'tipos', 'marcas', 'post'));
     }
 
     public function update($id, Request $request)
     {
-        // dd($request->all());
+        $p = Post::find($request->post);
         $gun = Gun::find($id);
         $tipo = $gun->syncTipo($request->type_id);  
         $marca = $gun->syncMarca($request->marca_id);      
@@ -32,12 +32,11 @@ class GunController extends Controller
         $gun->calibre = $request->calibre ? $request->calibre : 'IGN';
         $gun->recuperada_por = $request->recuperada_por;
         $gun->save();
-        return redirect()->back()->withFlash('Editado exitosamente');        
+        return redirect()->route('admin.posts.edit', $p)->withFlash('Editado!');       
     }
 
     public function delete($id)
     {
-
         $gun =  Gun::find($id);
         $post = Post::find(request()->post);
         $post->gun_id = null;

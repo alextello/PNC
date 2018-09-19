@@ -11,6 +11,7 @@
                             <div class="box-body">
                                 <form action="{{ route('admin.vehiculo.update', $vehiculo) }}" method="POST">
                                     @csrf
+                                    <input type="hidden" name="post" value="{{$post}}">
                                     <div class="form-group">
                                         <label for="">Tipo:</label>
                                         <select name="type_id" class="form-control select2" id="type_id">
@@ -71,4 +72,5 @@
      tags: true
  })
 </script>
+
 @endpush

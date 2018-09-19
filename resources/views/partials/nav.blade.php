@@ -9,6 +9,7 @@
         <li><a href="{{ route('login') }}" class="text-uppercase {{ setActiveRoute('auth.login') }}">Login</a></li>
     </ul>
 </nav>
+<div class="form-group">
 @if(request()->routeIs('pages.home') || 
 request()->routeIs('categories.show') || 
 request()->routeIs('subcategories.show') ||
@@ -18,7 +19,7 @@ request()->routeIs('tags.show') )
   <label>Rango de fecha:</label>
   <div class="form-group">
       
-      <div class="col-md-6">
+      <div class="col-md-12">
           <div class="input-group">
               <div class="input-group-addon">
                   <i class="fa fa-calendar"></i>
@@ -32,6 +33,7 @@ request()->routeIs('tags.show') )
       </div>
   </form>
 @endif
+</div> 
 {{-- <div class="container container-flex space-between">
   <nav class="custom-wrapper" id="menu">
       <div class="pure-menu"></div>

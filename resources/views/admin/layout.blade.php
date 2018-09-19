@@ -382,10 +382,18 @@ desired effect
 
 @stack('scripts')
 <!-- AdminLTE App -->
-<script src={{asset("/adminlte/js/adminlte.min.js")}}></script>
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
-     Both of these plugins are recommended to enhance the
-     user experience. -->
+  Both of these plugins are recommended to enhance the
+  user experience. -->
+  <script>
+    console.log();
+    if(window.location.pathname != '/admin/posts/nuevo/edit' && window.location.hash === '#create')
+    {
+      $('#myModal').modal('show');
+    }
+    </script>
+  
+  <script src={{asset("/adminlte/js/adminlte.min.js")}}></script>
 </body>
 
 </html>

@@ -9,19 +9,20 @@ use App\Post;
 
 class IncautacionController extends Controller
 {
-    public function edit($id)
+    public function edit($id, $post)
     {
         $inc = Incautacion::find($id);
-        return view('admin.incautacion.edit', compact('inc'));
+        return view('admin.incautacion.edit', compact('inc','post'));
     }
 
     public function update($id, Request $request)
     {
         // dd($request->all());
+        $p = Post::find($request->post);
         $inc = Incautacion::find($id);
         $inc->descripcion = $request->descripcion;
         $inc->save();
-        return redirect()->back()->withFlash('Editado exitosamente');        
+        return redirect()->route('admin.posts.edit', $p)->withFlash('Editado!');  
     }
 
     public function delete($id)

@@ -20,6 +20,7 @@
                                             @endforeach
                                         </select>
                                     </div>
+                                    <input type="hidden" name="post" value="{{$post}}">
                                     <div class="form-group">
                                         <label for="">Marca:</label>
                                         <select name="marca_id" id="marca_id" class="form-control select2">

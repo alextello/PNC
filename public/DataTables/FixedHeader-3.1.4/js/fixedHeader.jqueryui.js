@@ -1,11 +1,11 @@
-/*! Bootstrap integration for DataTables' AutoFill
- * ©2015 SpryMedia Ltd - datatables.net/license
+/*! jQuery UI styling wrapper for FixedHeader
+ * ©2018 SpryMedia Ltd - datatables.net/license
  */
 
 (function( factory ){
 	if ( typeof define === 'function' && define.amd ) {
 		// AMD
-		define( ['jquery', 'datatables.net-bs', 'datatables.net-autofill'], function ( $ ) {
+		define( ['jquery', 'datatables.net-jqui', 'datatables.net-fixedheader'], function ( $ ) {
 			return factory( $, window, document );
 		} );
 	}
@@ -17,11 +17,11 @@
 			}
 
 			if ( ! $ || ! $.fn.dataTable ) {
-				$ = require('datatables.net-bs')(root, $).$;
+				$ = require('datatables.net-jqui')(root, $).$;
 			}
 
-			if ( ! $.fn.dataTable.AutoFill ) {
-				require('datatables.net-autofill')(root, $);
+			if ( ! $.fn.dataTable.FixedHeader ) {
+				require('datatables.net-fixedheader')(root, $);
 			}
 
 			return factory( $, root, root.document );
@@ -32,12 +32,7 @@
 		factory( jQuery, window, document );
 	}
 }(function( $, window, document, undefined ) {
-'use strict';
-var DataTable = $.fn.dataTable;
 
+return $.fn.dataTable;
 
-DataTable.AutoFill.classes.btn = 'btn btn-primary';
-
-
-return DataTable;
 }));

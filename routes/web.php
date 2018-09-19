@@ -71,22 +71,22 @@ Route::group([
         Route::get('/involucrado/{id}/{postid}', 'PostsController@involucrado')->name('involucrado.index');
         Route::post('/fallecidos', 'InvolucradoController@fallecidos')->name('admin.involucrados.fallecidos');
         Route::post('/involucrado/update/{id}/{postid}', 'PostsController@involucradoUpdate')->name('admin.involucrado.update');
-        Route::get('/vehiculo/edit/{id}', 'VehiculoController@edit')->name('admin.vehiculo.edit');
+        Route::get('/vehiculo/edit/{id}/{postid}', 'VehiculoController@edit')->name('admin.vehiculo.edit');
         Route::post('/vehiculo/delete/{id}', 'VehiculoController@delete')->name('admin.vehiculo.delete');
         Route::post('/vehiculo/update/{id}', 'VehiculoController@update')->name('admin.vehiculo.update');
         Route::post('/vehiculo/store', 'VehiculoController@store')->name('admin.vehiculo.store');
 
-        Route::get('/arma/edit/{id}', 'GunController@edit')->name('admin.arma.edit');
+        Route::get('/arma/edit/{id}/{postid}', 'GunController@edit')->name('admin.arma.edit');
         Route::post('/arma/delete/{id}', 'GunController@delete')->name('admin.arma.delete');
         Route::post('/arma/update/{id}', 'GunController@update')->name('admin.arma.update');
         Route::post('/arma/store', 'GunController@store')->name('admin.arma.store');
 
-        Route::get('/incautado/edit/{id}', 'IncautacionController@edit')->name('admin.incautado.edit');
+        Route::get('/incautado/edit/{id}/{postid}', 'IncautacionController@edit')->name('admin.incautado.edit');
         Route::post('/incautado/delete/{id}', 'IncautacionController@delete')->name('admin.incautado.delete');
         Route::post('/incautado/update/{id}', 'IncautacionController@update')->name('admin.incautado.update');
         Route::post('/incautado/store', 'IncautacionController@store')->name('admin.incautado.store');
         
-        Route::get('/robo/edit/{id}', 'RoboController@edit')->name('admin.robo.edit');
+        Route::get('/robo/edit/{id}/{postid}', 'RoboController@edit')->name('admin.robo.edit');
         Route::post('/robo/delete/{id}', 'RoboController@delete')->name('admin.robo.delete');
         Route::post('/robo/update/{id}', 'RoboController@update')->name('admin.robo.update');
         Route::post('/robo/store', 'RoboController@store')->name('admin.robo.store');

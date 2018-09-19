@@ -86,7 +86,7 @@
             {
                 extend: 'print',
                 exportOptions: {
-                    columns: ':visible'
+                  columns: [ 0, 1, 2, 3, 4 ]
                 },
                 customize: function ( win ) {
                     $(win.document.body)
@@ -101,6 +101,15 @@
             },
             'colvis', 'excel', 'pdf', 'csv', 'copy'
         ],
+        language: {
+            buttons: {
+                copyTitle: 'Datos copiados',
+                copySuccess: {
+                    _: '%d Lineas copiadas',
+                    1: '1 Lina copiada'
+                }
+            }
+        },
         columnDefs: [ {
             visible: false
         } ],
@@ -111,15 +120,6 @@
 {{-- buttons: [
   'copy', 'csv', 'excel', 'pdf', 'print', 'colvis'
 ] --}}
-  <script>
-$(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#miTabla tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-  </script>
+
 @endpush
 

@@ -129,6 +129,7 @@ class PostsTableSeeder extends Seeder
         $user->codigo = 'AF200E';
         $user->telefono = '35202684';
         $user->password = 'admin';
+        $user->reference = 'et';
         $user->save();
         $user->assignRole($adminRole);
 
@@ -137,6 +138,7 @@ class PostsTableSeeder extends Seeder
         $user->email = 'samuel@hotmail.com';
         $user->codigo = 'AD0049';
         $user->telefono = '7778888';
+        $user->reference = 'sr';
         $user->password = 'admin';
         $user->save();
         $user->assignRole($escritorRole);
@@ -146,6 +148,7 @@ class PostsTableSeeder extends Seeder
         $user->email = 'wilkier@hotmail.com';
         $user->codigo = 'ADDDD';
         $user->telefono = '11111';
+        $user->reference = 'wm';
         $user->password = 'admin';
         $user->save();
         $user->assignRole($escritorRole);
@@ -1016,7 +1019,8 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now();
         $post->user_id =  1;
         $post->tag_id = 1;
-        $post->oficio = 1;
+        $post->oficio = '1111-1111';
+        $post->jefe_de_turno_id = 1;
         $post->address_id = Address::create(['name' => '1ra. Calle 5-22 zona 3', 'aldea_id' => '1'])->id;
         $post->save();
 
@@ -1029,7 +1033,8 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(1);
         $post->user_id =  2;
         $post->tag_id = 1;
-        $post->oficio = 11;
+        $post->oficio = '1111-2222';
+        $post->jefe_de_turno_id = 1;
         $post->address_id = Address::create(['name' => '11av. 8-20 zona 1', 'aldea_id' => '2'])->id;
         $post->save();
 
@@ -1040,7 +1045,8 @@ class PostsTableSeeder extends Seeder
         $post->published_at = Carbon::now()->subDays(2);
         $post->user_id =  2;
         $post->tag_id = 2;
-        $post->oficio = 1111;
+        $post->oficio = '1111-3333';
+        $post->jefe_de_turno_id = 1;
         $post->address_id = Address::create(['name' => '4ta. calle 6-32 zona 2', 'aldea_id' => '3'])->id;
         $post->save();
 

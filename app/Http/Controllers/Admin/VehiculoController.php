@@ -12,18 +12,20 @@ use App\Http\Controllers\Controller;
 
 class VehiculoController extends Controller
 {
-    public function edit($id)
+    public function edit($id, $post)
     {
+        // dd($id,$post);
         $vehiculo = Vehiculo::with(['brand', 'tipo'])->find($id);
         $tipos = Type::where('modelo', 'App\Vehiculo')->get();
         $marcas = Marca::where('modelo', 'App\Vehiculo')->get();
-        return view('admin.vehiculos.edit', compact('vehiculo', 'tipos', 'marcas'));
+        return view('admin.vehiculos.edit', compact('vehiculo', 'tipos', 'marcas', 'post'));
     }
 
     public function update($id, Request $request)
     {
         // dd($request->all());
         $vehiculo = Vehiculo::find($id);
+        $p = Post::find($request->post);
         $tipo = $vehiculo->syncTipo($request->type_id);  
         $marca = $vehiculo->syncMarca($request->marca_id);      
         $vehiculo->placa = $request->placa;
@@ -34,7 +36,7 @@ class VehiculoController extends Controller
         $vehiculo->type_id = $tipo;
         $vehiculo->marca_id = $marca;
         $vehiculo->save();
-        return redirect()->back()->withFlash('Editado exitosamente');        
+        return redirect()->route('admin.posts.edit', $p)->withFlash('Editado!');      
     }
 
     public function delete($id)

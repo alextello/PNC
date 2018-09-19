@@ -98,24 +98,19 @@
  @push('scripts')
  <script>
 
-    if(window.location.hash === '#create')
-    {
-      $('#myModal').modal('show');
-      $('#title').focus();
-    }
 
     // if(window.localtion.hash === '#error')
     // {
     //   $('#myModal').modal('hide');
     // }   
-       $('#myModal').on('hide.bs.modal', function(){
-         window.location.hash = '#';
-       });
+      //  $('#myModal').on('hide.bs.modal', function(){
+      //    window.location.hash = '#';
+      //  });
    
-       $('#myModal').on('shown.bs.modal', function(){
-         window.location.hash = '#create';
-         $('#title').focus();
-       });
+      //  $('#myModal').on('shown.bs.modal', function(){
+      //    window.location.hash = '#create';
+      //    $('#title').focus();
+      //  });
    </script>
 
    <script>

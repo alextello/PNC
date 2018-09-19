@@ -9,19 +9,20 @@ use App\Post;
 
 class RoboController extends Controller
 {
-    public function edit($id)
+    public function edit($id, $post)
     {
         $inc = Robo::find($id);
-        return view('admin.robo.edit', compact('inc'));
+        return view('admin.robo.edit', compact('inc','post'));
     }
 
     public function update($id, Request $request)
     {
         // dd($request->all());
         $inc = Robo::find($id);
+        $p = Post::find($request->post);
         $inc->descripcion = $request->descripcion;
         $inc->save();
-        return redirect()->back()->withFlash('Editado exitosamente');        
+        return redirect()->route('admin.posts.edit', $p)->withFlash('Editado!');   
     }
 
     public function delete($id)
@@ -29,7 +30,7 @@ class RoboController extends Controller
 
         $inc =  Robo::find($id);
         $post = Post::find(request()->post);
-        $post->incautacion_id = null;
+        $post->robo_id = null;
         $post->save();
         $inc->delete();
         return redirect()->back()->withFlash('Eliminado exitosamente');

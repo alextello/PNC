@@ -13,6 +13,7 @@
     </li>
 </ol>
 @endsection @section('content') 
+
 @if($post->photos->count())
 <div class="row">
     <div class="col-md-12">
@@ -34,7 +35,8 @@
             </div>
         </div>
     </div>
-    @endif 
+</div>
+@endif 
 
     @if(isset($post->incautacion_id))
     <div class="col-md-12">
@@ -57,7 +59,7 @@
                     </div>
                     <div class="col-md-2 btn-group">  
                         <br>                          
-                        <a target="_blank" href="{{route('admin.incautado.edit', $post->incautacion->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                        <a href="{{route('admin.incautado.edit', [$post->incautacion->id, $post->id])}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
                         <form action="{{route('admin.incautado.delete', $post->incautacion->id)}}" method="POST" style="display: inline">
                             @csrf
                             <input type="hidden" value="{{$post->id}}" name="post">
@@ -91,7 +93,7 @@
                     </div>
                     <div class="col-md-2 btn-group">  
                         <br>                          
-                        <a target="_blank" href="{{route('admin.robo.edit', $post->robo->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                        <a href="{{route('admin.robo.edit', [$post->robo->id, $post->id])}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
                         <form action="{{route('admin.robo.delete', $post->robo->id)}}" method="POST" style="display: inline">
                             @csrf
                             <input type="hidden" value="{{$post->id}}" name="post">
@@ -145,10 +147,10 @@
                     </div>     
                     <div class="col-md-2 btn-group">  
                         <br>                          
-                        <a target="_blank" href="{{route('admin.arma.edit', $post->arma->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                        <a href="{{route('admin.arma.edit', [$post->arma->id, $post->id])}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
                         <form action="{{route('admin.arma.delete', $post->arma->id)}}" method="POST" style="display: inline">
                             @csrf
-                            <input type="hidden" value="{{$post->id}}" name="post">
+                            <input type="hidden" name="post" value="{{$post->id}}">
                             <button class="btn btn-danger"><i class="fa fa-remove" onclick="return confirm('¿Está seguro de querer eliminar el arma registrada?')"></i></button>
                         </form>
                     </div>
@@ -203,7 +205,7 @@
                         </div>
                         <div class="col-md-2 btn-group">  
                             <br>                          
-                            <a target="_blank" href="{{route('admin.vehiculo.edit', $post->vehiculo->id)}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                            <a href="{{route('admin.vehiculo.edit', [$post->vehiculo->id, $post->id] )}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
                             <form action="{{route('admin.vehiculo.delete', $post->vehiculo->id)}}" method="POST" style="display: inline">
                                 @csrf
                                 <input type="hidden" value="{{$post->id}}" name="post">
@@ -215,12 +217,13 @@
             </div>
         </div>
     @endif
-    @if($post->involucrados->count())
+
+    @if($post->involucrados->pluck('aprehendido')->contains(1))
     <div class="col-md-12">
         <div class="box box-primary collapsed-box">
             <div class="box-header">
                 <h3 class="box-title">
-                    Involucrados
+                    Aprehendidos
                     <small></small>
                 </h3>
                 <!-- tools box -->
@@ -297,117 +300,91 @@
                 @endforeach
             </div>
         </div>
-    </div>
+        @endif
 
+    @if($post->involucrados->pluck('aprehendido')->contains(0))
     <div class="col-md-12">
-            <div class="box box-primary collapsed-box">
-                <div class="box-header">
-                    <h3 class="box-title">
-                        Heridos/Fallecidos
-                        <small></small>
-                    </h3>
-                    <!-- tools box -->
-                    <div class="pull-right box-tools">
-                        <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div>
-                    <!-- /. tools -->
+        <div class="box box-primary collapsed-box">
+            <div class="box-header">
+                <h3 class="box-title">
+                    Heridos/Fallecidos
+                    <small></small>
+                </h3>
+                <!-- tools box -->
+                <div class="pull-right box-tools">
+                    <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
                 </div>
-                <!-- /.box-header -->
-                <div class="box-body pad" style="">
-                    @foreach ($post->involucrados as $inv)
-                    @if($inv->aprehendido == '0')
-                    <div class="row">
-                            <div class="form-group col-md-3">
-                                <label for="">Nombre</label>
-                                <input type="text" class="form-control" disabled value="{{$inv->name}}">
-                            </div>
-                            <div class="form-group col-md-3">
-                                <label for="">DPI</label>
-                                <input type="number" class="form-control" disabled value="{{$inv->dpi}}">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="">Género</label>
-                                <input type="text" class="form-control" disabled value="{{$inv->gender}}">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="">Edad</label>
-                                <input type="number" class="form-control" disabled value="{{$inv->age}}">
-                            </div>
-                            <div class="form-group col-md-2">
-                                <label for="">Fallecido/Herido</label>
-                                @if($inv->fallecido == 1)
-                                <input type="text" class="form-control" disabled value="Fallecido">
-                                @else
-                                <input type="text" class="form-control" disabled value="Herido">
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
+                <!-- /. tools -->
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body pad" style="">
+                @foreach ($post->involucrados as $inv)
+                @if($inv->aprehendido == '0')
+                <div class="row">
+                    <div class="form-group col-md-3">
+                        <label for="">Nombre</label>
+                    <input type="text" disabled class="form-control" value="{{$inv->name}}">
 
-                            <div class="form-group col-md-4">
-                                <label for="">Tatuajes</label>
-                            <textarea name="tattoosherido" id="tattoosherido" class="form-control" cols="30" rows="2" disabled>{{ $inv->tattoos }}</textarea>
-                            </div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="">DPI (opcional)</label>
+                        <input type="number" disabled class="form-control" value="{{$inv->dpi}}">
 
-                            <div class="form-group col-md-3">
-                                <label for="">Alias</label>
-                                <input type="text" class="form-control" disabled value="{{$inv->alias}}">
-                            </div>
-
-                            <div class="form-group col-md-2">
-                                <label for="gang">Mara</label>
-                                <input type="text" class="form-control" disabled value="{{optional($inv->mara)->name}}">
-                            </div>
-
-                            <div class="col-md-3 form-group">
-                                <label for="">Abordo:</label>
-                                <input type="text" class="form-control" disabled value="{{ optional($inv->movil)->tipo}}">
-                            </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label for="">Heridas:</label>
-                                    <textarea cols="30" rows="4" class="form-control" disabled>{{$inv->heridas}}</textarea>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="">Motivo:</label>
-                                    <textarea cols="30" rows="4" class="form-control" disabled>{{$inv->motivo}}</textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label for="">Diagnostico</label>
-                                    <textarea cols="30" rows="4" class="form-control" disabled>{{$inv->diagnostico}}</textarea>
-                                </div>
-                                <div class="col-md-6 form-group">
-                                    <label for="">Observaciones</label>
-                                    <textarea cols="30" rows="4" class="form-control" disabled>{{$inv->observaciones}}</textarea>
-                                </div>
+                    </div>
                     <div class="form-group col-md-2">
-                        <br>
-                        <form action=" {{ route('admin.involucrados.destroy', [$inv->id, $post->id] )}} " method="post" style="padding-right: 0px !important;">
-                                @csrf @method('DELETE')
-                                <div class="btn-group">
-                            <button class="btn btn-md btn-danger"  onclick="return confirm('¿Está seguro de querer eliminarlo?')">
-                                <span>X</span>
-                            </button>
-                            <a class="btn btn-md btn-info" href="{{ route('involucrado.index', [$inv->id, $post->id] ) }}">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                        </form>
+                        <label for="">Género</label>
+                        <input type="text" class="form-control" disabled value="{{$inv->gender}}">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="">Edad</label>
+                        <input disabled type="number" value="{{ $inv->age }}"class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="">Delito</label>
+                        <input disabled type="text" value="{{ optional($inv->delito)->name }}"class="form-control">
                     </div>
                 </div>
-                </div>
-                <hr>
-                    @endif
-                    @endforeach
+                <div class="row">
+
+                    <div class="form-group col-md-4">
+                        <label for="">Tatuajes</label>
+                        <textarea name="tattoos[]" disabled class="form-control" cols="30" rows="2">{{ $inv->tattoos }}</textarea>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label for="">Alias</label>
+                        <input type="text"  disabled value="{{ $inv->alias }}" class="form-control">
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="gang">Mara</label>
+                        <input type="text" class="form-control" disabled value="{{optional($inv->mara)->name}}">
+                    </div>
+                <div class="form-group col-md-2">
+                    <br>
+                    <form action=" {{ route('admin.involucrados.destroy', [$inv->id, $post->id] )}} " method="post" style="padding-right: 0px !important;">
+                            @csrf @method('DELETE')
+                            <div class="btn-group">
+                        <button class="btn btn-md btn-danger"  onclick="return confirm('¿Está seguro de querer eliminarlo?')">
+                            <span>X</span>
+                        </button>
+                        <a class="btn btn-md btn-info" href="{{ route('involucrado.index', [$inv->id, $post->id] ) }}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </form>
                 </div>
             </div>
+            </div>
+            <hr>
+                @endif
+                @endforeach
+            </div>
         </div>
-
-    @endif
+        @endif
  
     <form action={{ route( 'admin.posts.update', $post)}} method="POST">
         @csrf @method('PUT')
@@ -428,7 +405,7 @@
                 <div class="box-header">
                     <h3 class="box-title">
                         Nueva novedad
-                        <small>llene todos los campos</small>
+                        <small style="color: red">Los campos con asterisco (*) son obligatorios</small>
                     </h3>
                     <!-- tools box -->
                     <div class="pull-right box-tools">
@@ -441,14 +418,14 @@
                 <!-- /.box-header -->
                 <div class="box-body pad" style="">
                     <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}">
-                        <label for="">Titulo del reporte</label>
+                        <label for="">(*) Titulo del reporte</label>
                         <input type="text" class="form-control" placeholder="Ingrese aquí el titulo del reporte" id="title" name="title" value="{{ old('title', $post->title)}}" required> 
                         {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
 
                     </div>
 
                     <div class="form-group {{$errors->has('body') ? 'has-error' : ''}}">
-                        <label for="">Contenido del reporte</label>
+                        <label for="">(*) Contenido del reporte</label>
                         <textarea required name="body" id="editor" class="form-control" rows="10" placeholder="Detalle aquí el reporte">{{ old('body', $post->body ? $post->body : $post->plantilla )}}</textarea>
                         {!! $errors->first('body', '
                         <span class="help-block">:message</span>') !!}
@@ -471,7 +448,7 @@
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group {{$errors->has('oficio') ? 'has-error' : ''}}">
-                        <label>Oficio: </label>
+                        <label>(*) Oficio: </label>
                         <div class="input-group">
                             <div class="input-group-addon">
                             <i class="fa fa-laptop"></i>
@@ -490,7 +467,7 @@
                     </div>
 
                     <div class="form-group {{$errors->has('aldea') ? 'has-error' : ''}}">
-                        <label for="">Seleccione el aldea</label>
+                        <label for="">(*) Seleccione el aldea</label>
                         <select name="aldea" id="aldea" class="form-control select2" required>
                             <option value="">Seleccione el aldea</option>
                             @if($post->address!=null) 
@@ -506,12 +483,12 @@
                     </div>
 
                     <div class="form-group {{$errors->has('address_id') ? 'has-error' : ''}}">
-                        <label>Dirección del suceso</label>
+                        <label>(*) Dirección del suceso</label>
                         <input required name="address_id" type="text" class="form-control" id="address_id" value="{{ old('address_id', $post->address_id ? $post->address()->pluck('name')->implode('') : '') }}">
                         <!-- /.input group -->
                     </div>
                     <div class="form-group {{$errors->has('published_at') ? 'has-error' : ''}}">
-                        <label>Fecha de suceso</label>
+                        <label>(*) Fecha de suceso</label>
                         <div class="input-group date">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -523,7 +500,7 @@
                     </div>
                     <div class="bootstrap-timepicker">
                         <div class="form-group {{$errors->has('time') ? 'has-error' : ''}}">
-                            <label>Hora del suceso:</label>
+                            <label>(*) Hora del suceso:</label>
 
                             <div class="input-group">
                                 <input required type="text" name="time" class="form-control timepicker" value="{{ old('time', $post->time ?  date('h:i:s a m/d/Y', strtotime($post->time)): '') }}">
@@ -546,7 +523,7 @@
                     </div>
 
                     <div class="form-group {{$errors->has('tag_id') ? 'has-error' : ''}}">
-                        <label for="">Etiqueta</label>
+                        <label for="">(*) Etiqueta</label>
                         <select required name="tag_id" id="tag_id" class="form-control select2" data-placeholder="Elija la etiqueta" style="width: 100%;">
                             @foreach($tags as $tag)
                             <option {{ collect(old( 'tag_id', optional($post->tag_id)))->contains($tag->id) ? 'selected' : '' }} value="{{ $tag->id }}">{{$tag->subcategory->name}} / {{ $tag->name }}</option> 
@@ -593,7 +570,7 @@
                     </div>
 
                     <div class="form-group {{$errors->has('jefe_de_turno_id') ? 'has-error' : ''}}">
-                        <label for="">Jefe de turno</label>
+                        <label for="">(*) Jefe de turno</label>
                         <select name="jefe_de_turno_id" class="form-control select2" id="jefe_de_turno_id" required>
                             <option value="">Seleccione una opcion</option>
                             @foreach($users as $user)
@@ -673,7 +650,7 @@
                                     <div class="form-group col-md-2">
                                         <label for="">Delito/Falta menor: </label>
                                         <select name="offense_id[]" id="offense_id" class="form-control tags" style="width:100%;">
-                                            <option value="Seleccione una opcion"></option>
+                                            <option value="0">Seleccione una opcion</option>
                                             @foreach($offense as $off)
                                                 <option value="{{$off->name}}">{{$off->name}}</option>
                                             @endforeach
@@ -845,7 +822,7 @@
                                         @csrf
                                         <input type="hidden" name="post" value="{{$post->id}}">
                                     <div class="col-md-2 form-group">
-                                        <label for="">Tipo:</label>
+                                        <label for="">(*) Tipo:</label>
                                         <br>
                                         <select name="type_id" id="type_id" class="form-cotrol tags" required>
                                             <option value="">Seleccione una op.</option>
@@ -855,7 +832,7 @@
                                         </select>
                                     </div> 
                                     <div class="col-md-2 form-group">
-                                        <label for="">Marca:</label>
+                                        <label for="">(*) Marca:</label>
                                         <br>
                                         <select name="marca_id" id="marca_id" class="tags form-control" required>
                                             <option value="">Seleccione marca</option>
@@ -867,16 +844,16 @@
                                     <div class="col-md-2 form-group">
                                         <label for="">Linea:</label>
                                         <br>
-                                        <input type="text" name="linea" class="form-control" placeholder="Ingrese linea" value="IGN">
+                                        <input type="text" name="linea" class="form-control" placeholder="Ingrese linea">
                                     </div>
                                     <div class="col-md-2 form-group">
                                         <label for="">Color:</label>
                                         <br>
-                                        <input type="text" name="color" class="form-control" value="IGN" placeholder="Ingrese color">
+                                        <input type="text" name="color" class="form-control" placeholder="Ingrese color">
                                     </div>
                                     <div class="col-md-2 form-group">
                                         <label for="">Placa:</label>
-                                        <input type="text" name="placa" class="form-control" value="IGN" placeholder="Placa">
+                                        <input type="text" name="placa" class="form-control" placeholder="Placa">
                                     </div>
                                     <div class="col-md-2 form-group">
                                     <label for="">Modelo</label>
@@ -981,7 +958,7 @@
                                         @csrf
                                         <input type="hidden" name="post" value="{{$post->id}}">
                                     <div class="col-md-3 form-group">
-                                        <label for="">Tipo:</label>
+                                        <label for="">(*) Tipo:</label>
                                         <br>
                                         <select name="type_id" id="type_id" class="form-cotrol tags" required>
                                             <option value="">Seleccione el tipo de arma</option>
@@ -991,7 +968,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3 form-group">
-                                        <label for="">Marca:</label>
+                                        <label for="">(*) Marca:</label>
                                         <br>
                                         <select name="marca_id" id="marca_id" class="tags form-control" required>
                                             <option value="">Seleccione marca</option>
@@ -1073,6 +1050,16 @@
         CKEDITOR.replace('editor');
         $('.select2').select2({
             tags: true,
+            language: {
+            noResults: function() {
+
+            return "No hay resultados";        
+            },
+            searching: function() {
+
+            return "Buscando..";
+            }
+            },
             createTag: function (params) {
                 return undefined;
             }
@@ -1080,22 +1067,62 @@
 
         $('.tags').select2({
             tags: true,
+            language: {
+            noResults: function() {
+
+            return "No hay resultados";        
+            },
+            searching: function() {
+
+            return "Buscando..";
+            }
+            },
             // width: 200
         })
 
         $('#gang').select2({
             tags: true,
-            width: 100
+            width: 100,
+            language: {
+            noResults: function() {
+
+            return "No hay resultados";        
+            },
+            searching: function() {
+
+            return "Buscando..";
+            }
+            },
         });
 
         $('#tattoos').select2({
             tags: true,
             placeholder: 'Ingrese tatuajes',
-            width: 280
+            width: 280,
+            language: {
+            noResults: function() {
+
+            return "No hay resultados";        
+            },
+            searching: function() {
+
+            return "Buscando..";
+            }
+            }
         });
 
         $('.multiple').select2({
-            tags: true
+            tags: true,
+            language: {
+            noResults: function() {
+
+            return "No hay resultados";        
+            },
+            searching: function() {
+
+            return "Buscando..";
+            }
+            }
         })
        
         $('[data-mask]').inputmask()
@@ -1140,9 +1167,19 @@
             var i = 1;
             $('#otro').click(function () {
                 i++;
-                $('#dinamico').append("<div id='conjunto"+i+"'><div class='row'><div class='form-group col-md-4'><label for=''>Nombre</label><input type='text' class='form-control' placeholder='Nombre completo' name='involucrados[]'></div><div class='form-group col-md-4'> <label for=''>DPI (opcional)</label> <input type='number' class='form-control' placeholder='' id='dpi' name='dpi[]'> </div> <div class='form-group col-md-2'> <label for=''>Género</label> <select type='text' class='form-control' placeholder='Nombre completo' id='genero' name='genero[]'> <option value='M'>M</option> <option value='F'>F</option> </select></div> <div class='form-group col-md-2'> <label for=''>Edad</label> <input type='number' name='age[]' class='form-control'> </div> </div> <div class='row'> <div class='form-group col-md-4'> <label for=''>Tatuajes</label> <textarea name='tattoos[]' id='tattoos[]' class='form-control' cols='30' rows='2'></textarea> </div> <div class='form-group col-md-3'> <label for=''>Alias</label> <input type='text' name='alias[]' class='form-control'> </div> <div class='form-group col-md-2'> <label for='gang'>Mara</label> <select name='gang[]' id='gang' class='form-control new-select2'> @foreach($gangs as $gang) <option value='{{ $gang->name }}'>{{ $gang->name }}</option> @endforeach </select> </div> <div class='form-group col-md-1'> <label for=''>Quitar</label><button class='form-control btn btn-danger btn_remove' type='button' name='remove' id='"+i+"'><span><i class='fa fa-minus'></i></span></button></div></div>");
+                $('#dinamico').append("<div id='conjunto"+i+"'><div class='row'> <div class='form-group col-md-3'> <label for=''>Nombre</label> <input type='text' class='form-control' placeholder='Nombre completo' name='involucrados[]'> </div> <div class='form-group col-md-3'> <label for=''>DPI (opcional)</label> <input type='number' class='form-control' placeholder='' id='dpi' name='dpi[]'> </div> <div class='form-group col-md-2'> <label for=''>Género</label> <select type='text' class='form-control' placeholder='Nombre completo' id='genero' name='genero[]'> <option value='M' selected>M</option> <option value='F'>F</option> </select> </div> <div class='form-group col-md-2'> <label for=''>Edad</label> <input name='age[]' type='number' class='form-control'> </div> <div class='form-group col-md-2'> <label for=''>Delito/Falta menor: </label> <select name='offense_id[]' id='offense_id' class='form-control new-select2' style='width:100%;'> <option value='0'>Seleccione una opcion</option> @foreach($offense as $off) <option value='{{$off->name}}'>{{$off->name}}</option> @endforeach </select> </div> </div> <div class='row'> <div class='form-group col-md-4'> <label for=''>Tatuajes</label> <textarea name='tattoos[]' id='tattoos[]' class='form-control' cols='30' rows='2'></textarea> </div> <div class='form-group col-md-3'> <label for=''>Alias</label> <input type='text' name='alias[]' class='form-control'> </div> <div class='form-group col-md-2'> <label for='gang'>Mara</label> <select name='gang[]' id='gang' class='form-control new-select2'> <option value='0'>Seleccione</option> @foreach($gangs as $gang) <option value='{{ $gang->name }}'>{{ $gang->name }}</option> @endforeach </select> </div> <div class='form-group col-md-1'> <label for=''>Quitar</label><button class='form-control btn btn-danger btn_remove' type='button' name='remove' id='"+i+"'><span><i class='fa fa-minus'></i></span></button></div></div><a/div>");
                 $('.new-select2').select2({
-                    tags: true
+                    tags: true,
+                    language: {
+                    noResults: function() {
+
+                    return "No hay resultados";        
+                    },
+                    searching: function() {
+
+                    return "Buscando..";
+                    }
+                    }
                 });
             });
             $(document).on('click', '.btn_remove', function () {

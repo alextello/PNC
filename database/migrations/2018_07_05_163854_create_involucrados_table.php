@@ -19,10 +19,10 @@ class CreateInvolucradosTable extends Migration
             $table->bigInteger('dpi')->nullable();
             $table->char('gender', 1);//PARA ALMACENAR LA LETRA DEL GENERO M MASCULINO Y F FEMENINO
             $table->string('genero', 10);//GUARDA EL GENERO DE LA PERSONA
-            $table->unsignedInteger('gang_id')->defult('0');//INDICA A QUE MARA PERTENECE, DE NO PERTENECER A NINGUNA EL VALOR ES 0
+            $table->integer('gang_id')->nullable();//INDICA A QUE MARA PERTENECE, DE NO PERTENECER A NINGUNA EL VALOR ES 0
             $table->string('tattoos')->nullable();
             $table->string('alias', 100)->nullable();
-            $table->Integer('age')->default('1')->nullable();//EDAD DEL APREHENDIDO
+            $table->integer('age')->default('1')->nullable();//EDAD DEL APREHENDIDO
             $table->boolean('aprehendido')->default('1');//1 PARA SABER SI ES APREHENDIDO Y 0 PARA SABER SI ES UN FALLECIDO O HERIDO
             $table->boolean('fallecido')->default('0');//1 PARA SABER SI ES FALLECIDO Y 0 PARA SABER SI ES HERIDO
             $table->string('heridas')->nullable();

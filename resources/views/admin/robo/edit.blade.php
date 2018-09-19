@@ -11,6 +11,7 @@
                             <div class="box-body">
                                 <form action="{{ route('admin.robo.update', $inc) }}" method="POST">
                                     @csrf
+                                    <input type="hidden" name="post" value="{{$post}}">
                                     <div class="form-group">
                                         <label for="">Descripcion:</label>
                                         <textarea name="descripcion" id="descricion" cols="30" class="form-control" rows="10">{{ old('descripcion', $inc->descripcion)}}</textarea>
