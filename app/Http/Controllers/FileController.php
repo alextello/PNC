@@ -48,7 +48,14 @@ class FileController extends Controller
         // }catch(Exception $e){
 
         // }
-        return response()->download(storage_path($post->url.'.docx'));
+        // return response()->download(storage_path($post->url.'.docx'));
+        $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+        try {
+          $objWriter->save(storage_path($post->url.'.docx'));
+        } catch (Exception $e) {
+    
+        }
+        return response()->download(storage_path($post->url.'.docx'))->deleteFileAfterSend(true);;
     }
 
     public function pdf($id)
