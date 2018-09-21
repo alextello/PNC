@@ -218,7 +218,7 @@ class Post extends Model
    
         foreach($involucrado as $in)
         {
-            $coleccion->push(['name' => $in[$i], 'dpi' => $dpi[$i], 'gender' => $genero[$i], 'gang_id' => $gangs[$i], 'alias' => $request->alias[$i], 'tattoos' => $request->tattoos[$i], 'age'=>$request->age[$i], 'offense_id' => $offenses[$i] ]);
+            $coleccion->push(['name' => $in, 'dpi' => $dpi[$i], 'gender' => $genero[$i], 'gang_id' => $gangs[$i], 'alias' => $request->alias[$i], 'tattoos' => $request->tattoos[$i], 'age'=>$request->age[$i], 'offense_id' => $offenses[$i] ]);
             $i++;
         }
         $i = 0;

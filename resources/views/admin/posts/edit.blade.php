@@ -1,6 +1,6 @@
 @extends('admin.layout') @section('header')
 <h1>
-    Crear publicación
+    Crear novedad
     <small>Reportes PNC</small>
 </h1>
 <ol class="breadcrumb">
@@ -426,13 +426,13 @@
 
                     <div class="form-group {{$errors->has('body') ? 'has-error' : ''}}">
                         <label for="">(*) Contenido del reporte</label>
-                        <textarea required name="body" id="editor" class="form-control" rows="10" placeholder="Detalle aquí el reporte">{{ old('body', $post->body ? $post->body : $post->plantilla )}}</textarea>
+                        <textarea name="body" id="editor" class="form-control" rows="10" placeholder="Detalle aquí el reporte" required>{{ old('body', $post->body ? $post->body : $post->plantilla )}}</textarea>
                         {!! $errors->first('body', '
                         <span class="help-block">:message</span>') !!}
                     </div>
                     <p><strong>Añadir registro de:</strong></p>
                     <div class="btn-group col-md-12">
-                        <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#myModal">Aprehendidos</button>
+                        <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#myModalInv">Aprehendidos</button>
                     <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#vehiculoModal" {{ isset($post->vehiculo_id) ? 'disabled' : '' }}>Vehiculo</button>
                     <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#armaModal" {{ isset($post->gun_id) ? 'disabled' : '' }}>Arma</button>
                     <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#incautadoModal" {{ isset($post->incautacion_id) ? 'disabled' : '' }}>Incautacion</button>
@@ -461,8 +461,9 @@
                     <div class="form-group {{$errors->has('guardia') ? 'has-error' : ''}}">
                         <label>Guardia:</label>
                         <select name="guardia"  class="form-control multiple" id="guardia">
-                            <option value="A">A</option>
-                            <option value="B">B</option>
+                            <option value="">Seleccione guardia</option>
+                            <option value="A" {{ old('guardia', $post->guardia) == 'A' ? 'selected' : '' }}>A</option>
+                            <option value="B" {{ old('guardia',$post->guardia) == 'B' ? 'selected' : '' }}>B</option>
                         </select>
                     </div>
 
@@ -534,10 +535,13 @@
                     <div class="form-group {{$errors->has('modus_operandi_id') ? 'has-error' : ''}}">
                         <label for="">Modus operandi: </label>
                         <select name="modus_operandi_id" id="modus_operandi_id" class="form-control tags" data-placeholder="Elija una opcion" style="width: 100%;">
-                            <option value="">Seleccione una opcion</option>
+                            @if($modus->count() > 0)
                             @foreach($modus as $mod)
                             <option {{ collect(old( 'modus_operandi_id', optional($post->modus_operandi_id)))->contains($mod->id) ? 'selected' : '' }} value="{{ $mod->id }}">{{ $mod->name }}</option> 
                             @endforeach
+                            @else
+                            <option >{{old('modus_operandi_id')}}</option>
+                            @endif
                         </select>
                     </div>
 
@@ -545,9 +549,13 @@
                         <label for="">Tipologia: </label>
                         <select name="typology_id" id="typology_id" class="form-control tags" data-placeholder="Elija una opcion" style="width: 100%;">
                             <option value="">Seleccione una opcion</option>
+                            @if($typology->count() > 0)
                             @foreach($typology as $typo)
                             <option {{ collect(old( 'typology_id', optional($post->typology_id)))->contains($typo->id) ? 'selected' : '' }} value="{{ $typo->id }}">{{ $typo->name }}</option> 
                             @endforeach
+                            @else
+                            <option >{{old('modus_operandi_id')}}</option>
+                            @endif
                         </select>
                     </div>
         
@@ -611,7 +619,7 @@
         </div>
     
 
-        <div id="myModal" class="modal fade" role="dialog">
+        <div id="myModalInv" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg">
 
                 <!-- Modal content-->
@@ -632,7 +640,7 @@
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="">DPI (opcional)</label>
-                                        <input type="number" class="form-control" placeholder="" id="dpi" name="dpi[]">
+                                        <input type="text" maxlength="13" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" class="form-control" placeholder="" id="dpi" name="dpi[]">
 
                                     </div>
                                     <div class="form-group col-md-2">
@@ -644,7 +652,7 @@
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="">Edad</label>
-                                        <input name="age[]" type="number" class="form-control">
+                                        <input name="age[]" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" type="text" class="form-control">
                                     </div>
 
                                     <div class="form-group col-md-2">
@@ -682,6 +690,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
+                        <span class="help-block">Debe guardar la novedad para añadir a los aprehendidos</span>
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                         <button class="btn btn-success" type="button" name='otro' id='otro'>
                                 <span>
@@ -857,7 +866,7 @@
                                     </div>
                                     <div class="col-md-2 form-group">
                                     <label for="">Modelo</label>
-                                    <input type="number" name="modelo" class="form-control" placeholder="1998">
+                                    <input type="text" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" maxlength="4" name="modelo" class="form-control" placeholder="1998">
                                     </div>      
 
                                     <div class="col-md-12 form-group">

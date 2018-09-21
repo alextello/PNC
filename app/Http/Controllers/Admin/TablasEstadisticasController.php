@@ -376,13 +376,13 @@ class TablasEstadisticasController extends Controller
         ->select('tags.name')
         ->get();
 
-        foreach($nullTags as $null)
-        {
-            $vacios[$null->name] = collect(['name' => $null->name]);
-            $vacios[$null->name]['meses'] = $meses;
-        }
+        // foreach($nullTags as $null)
+        // {
+        //     $vacios[$null->name] = collect(['name' => $null->name]);
+        //     $vacios[$null->name]['meses'] = $meses;
+        // }
 
-        $tags = $tags->union($vacios);
+        // $tags = $tags->union($vacios);
         return $tags;
 
     }

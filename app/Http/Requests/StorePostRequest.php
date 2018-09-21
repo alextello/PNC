@@ -33,7 +33,9 @@ class StorePostRequest extends FormRequest
             'oficio' => 'required|regex:/^([0-9]{4})-([0-9]{4})$/',
             'address_id' => 'required',
             'time' => 'required',
-            'jefe_de_turno_id' => 'required'
+            'jefe_de_turno_id' => 'required',
+            'modus_operandi_id' => 'nullable',
+            'typology_id' => 'nullable'
         ];
     }
 }

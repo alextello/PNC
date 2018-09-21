@@ -105,7 +105,6 @@ class PostsController extends Controller
         //     return redirect()->route('admin.posts.edit', $post)->with('error', 'La fecha no debe ser futura');
         // }
         // $post->involucrados()->detach();
-        // dd($request->all());
         $request->merge(['time' => date("H:i", strtotime($request->time))]);
         $request->merge(['address_id' => Address::create(['name' => $request->address_id, 'aldea_id' => $request->aldea])->id]);
         if($request->typology_id)

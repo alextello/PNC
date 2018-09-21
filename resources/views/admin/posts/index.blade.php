@@ -3,7 +3,7 @@
 @section('header')
 <h1>
    TABLA
-    <small>Reportes PNC</small>
+    <small>Novedades PNC</small>
   </h1>
   <ol class="breadcrumb">
     <li><a href="{{ route('dashboard')}}"><i class="fa fa-home"></i> Inicio </a></li>
@@ -14,8 +14,8 @@
 @section('content')
 <div class="box box-primary">
     <div class="box-header">
-      <h3 class="box-title">lISTADO DE REPORTES</h3>
-      <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Crear publicacion</button>
+      <h3 class="box-title">lISTADO DE NOVEDADES</h3>
+      <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus"></i> Crear novedad</button>
     </div>
     <!-- /.box-header -->
     <div class="box-body">
