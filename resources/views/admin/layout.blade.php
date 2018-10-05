@@ -263,7 +263,9 @@ desired effect
 
     <!-- Main content -->
     <section class="content container-fluid">
-      @if (session()->has('flash') && isset($post))
+      @if (session()->has('delete') && isset($post))
+      <div class="alert alert-success">{{ session('delete') }}</div>
+      @elseif (session()->has('flash') && isset($post))
       <div class="alert alert-success">{{ session('flash') }} <a href="{{ url('reportes/'.$post->url) }}"><h4>Ir al reporte</h4></a></div>
       @elseif(session()->has('flash'))
       <div class="alert alert-success">{{ session('flash') }}</div>

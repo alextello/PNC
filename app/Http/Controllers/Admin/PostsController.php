@@ -130,7 +130,8 @@ class PostsController extends Controller
         if(auth()->user()->hasPermissionTo('Eliminar reportes') || auth()->user->hasRole('Administrador'))
         {
             $post->delete();
-            return redirect()->route('admin.posts.index')->with('flash', 'Reporte Eliminado');
+            $posts = Post::with('owner', 'tags')->allowed()->latest('published_at')->get();
+            return redirect()->route('admin.posts.index', compact('posts'))->withDelete('Reporte Eliminado');
         }
         else
         {
