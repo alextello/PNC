@@ -71,22 +71,22 @@
             </a>
             <ul class="treeview-menu">
               <li {{ request()->is('admin/estadisticas/Hechos-negativos') ? 'class=active' : ''}}>
-                <a href="{{ route('hechosnegativos') }}"><i class="fa fa-fw fa-minus-square"></i>Hechos Negativos -por año-</a>
+                <a href="{{ route('hechosnegativos') }}"><i class="fa fa-fw fa-minus-square"></i>Hechos Negativos por año</a>
               </li>
               <li {{ request()->is('admin/estadisticas/Hechos-negativos-mes') ? 'class=active' : ''}}>
-                <a href="{{ route('hechosnegativos.mes') }}"><i class="fa fa-fw fa-minus-square"></i>Hechos Negativos -por mes-</a>
+                <a href="{{ route('hechosnegativos.mes') }}"><i class="fa fa-fw fa-minus-square"></i>Hechos Negativos por mes</a>
               </li>
               <li {{ request()->is('admin/estadisticas/Hechos-positivos') ? 'class=active' : ''}}>
-                <a href="{{ route('hechospositivos') }}"><i class="fa fa-fw fa-plus-square"></i>Hechos Positivos -por año-</a>
+                <a href="{{ route('hechospositivos') }}"><i class="fa fa-fw fa-plus-square"></i>Hechos Positivos por año</a>
               </li>
               <li {{ request()->is('admin/estadisticas/Hechos-positivos-mes') ? 'class=active' : ''}}>
-                <a href="{{ route('hechospositivos.mes') }}"><i class="fa fa-fw fa-plus-square"></i>Hechos Positivos -por mes-</a>
+                <a href="{{ route('hechospositivos.mes') }}"><i class="fa fa-fw fa-plus-square"></i>Hechos Positivos por mes</a>
               </li>
               <li {{ request()->is('admin/estadisticas/Hechos-negativos/tag') ? 'class=active' : ''}}>
-                <a href="{{ route('hechosnegativos.tag') }}"><i class="fa fa-fw fa-tag"></i> Hechos Negativos -por etiqueta-</a>
+                <a href="{{ route('hechosnegativos.tag') }}"><i class="fa fa-fw fa-tag"></i> Hechos Negativos por etiqueta</a>
               </li>
               <li {{ request()->is('admin/estadisticas/Hechos-positivos/tag') ? 'class=active' : ''}}>
-                <a href="{{ route('hechospositivos.tag') }}"><i class="fa fa-fw fa-tag"></i> Hechos Positivos -por etiqueta-</a>
+                <a href="{{ route('hechospositivos.tag') }}"><i class="fa fa-fw fa-tag"></i> Hechos Positivos por etiqueta</a>
               </li>
              {{-- <li {{ request()->is('admin/estadisticas/personas') ? 'class=active' : ''}}>
                 <a href="{{ route('admin.estadisticas.personas') }}"><i class="fa fa-fw fa-map-signs"></i>Ver por aldeas</a>

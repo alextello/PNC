@@ -535,6 +535,7 @@
                     <div class="form-group {{$errors->has('modus_operandi_id') ? 'has-error' : ''}}">
                         <label for="">Modus operandi: </label>
                         <select name="modus_operandi_id" id="modus_operandi_id" class="form-control tags" data-placeholder="Elija una opcion" style="width: 100%;">
+                            <option value="">Seleccione una opcion</option>
                             @if($modus->count() > 0)
                             @foreach($modus as $mod)
                             <option {{ collect(old( 'modus_operandi_id', optional($post->modus_operandi_id)))->contains($mod->id) ? 'selected' : '' }} value="{{ $mod->id }}">{{ $mod->name }}</option> 

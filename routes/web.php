@@ -15,7 +15,7 @@
 // $s = Involucrado::find($a);
 // dd($s);
 Route::get('prueba', function(){
-    $post = App\Post::first();
+    $post = App\Post::where('url', 'ebriedad-zona-1-san-juan')->first();
     return view('posts.pdf', ['post' => $post]);
 });
 

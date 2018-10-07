@@ -32,7 +32,7 @@
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Publicaciones</h3>
+                    <h3 class="box-title">Ultimas 10 publicaciones</h3>
                 </div>
                 <div class="box-body">
                     @forelse($user->created_by as $post)

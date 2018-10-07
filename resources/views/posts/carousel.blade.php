@@ -9,11 +9,11 @@
         </ol>
       
         <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox" style="max-width: 2000px; max-height: 500px">
+        <div class="carousel-inner" role="listbox" style="min-width: 100%; max-height: 500px">
             @foreach($post->photos as $photo)
 
             <div class="item {{ $loop->first ? 'active' : ''}}">
-            <img src="/storage/{{ $photo->url }}" alt="">
+            <img src="/storage/{{ $photo->url }}" alt="" style="min-width: 100%;">
             </div>
 
             @endforeach

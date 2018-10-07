@@ -63,7 +63,7 @@ class FileController extends Controller
         $post = Post::where('id',$id)->with(['owner', 'jefeDeTurno', 'photos'])->first();
         // $post->load('photos');
         // dd($post);
-        $pdf = PDF::loadView('posts.pdf', ['post' => $post])->setPaper('letter');
+        $pdf = PDF::loadView('posts.pdf', ['post' => $post])->setPaper('folio');
         return $pdf->download($post->url.'.pdf');
     }
 }

@@ -86,6 +86,9 @@ class UsersController extends Controller
     public function show(User $user)
     {
         $this->authorize('view', $user);
+        $user->load(['created_by' => function($q){
+            $q->take(10);
+        }]);
         return view('admin.users.show', compact('user'));
     }
 
