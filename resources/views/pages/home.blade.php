@@ -34,7 +34,8 @@
 		</article>
 		@endforeach
 
-	</section><!-- fin del div.posts.container -->
+	</section>
+	<!-- fin del div.posts.container -->
 	{{$posts->links()}}
 
 @endsection

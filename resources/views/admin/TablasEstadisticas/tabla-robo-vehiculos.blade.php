@@ -33,6 +33,7 @@
                         <tbody id="miTabla">
                             @php $i=1; @endphp
                             @foreach ($posts as $post)
+                            @if(isset($post->vehiculo))
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $post->oficio }}</td>
@@ -46,14 +47,15 @@
                                 <td>{{ $post->address->aldea->name }}</td>
                                 <td>{{ optional($post->vehiculo->tipo)->tipo}}</td>
                                 <td>{{ optional($post->vehiculo->brand)->name }}</td>
-                                <td>{{ $post->vehiculo->linea }}</td>
-                                <td>{{ $post->vehiculo->placa }}</td>
-                                <td>{{ $post->vehiculo->modelo }}</td>
-                                <td>{{ $post->vehiculo->color }}</td>
+                                <td>{{ optional($post->vehiculo)->linea }}</td>
+                                <td>{{ optional($post->vehiculo)->placa }}</td>
+                                <td>{{ optional($post->vehiculo)->modelo }}</td>
+                                <td>{{ optional($post->vehiculo)->color }}</td>
                                 <td>{{$post->guardia}}</td>
                                 <td>{{ $post->juzgado }}</td>
                             </tr>
-                                @php $i++ @endphp
+                            @php $i++ @endphp
+                            @endif
                             @endforeach
                         </tbody>
                        

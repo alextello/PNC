@@ -73,7 +73,7 @@ class PostsController extends Controller
             $f->with(['brand', 'tipo']);
         }])->first();
         // dd($post);
-        if($post && ($post->user_id == auth()->user()->id) || auth()->user()->hasPermissionTo('Editar reportes'))
+        if(isset($post) && (($post->user_id == auth()->user()->id) || auth()->user()->hasPermissionTo('Editar reportes')))
         {
             $aldeas = Aldea::all();
             $typeA = Type::where('modelo', 'App\Gun')->get();

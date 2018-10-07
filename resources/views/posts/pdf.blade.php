@@ -12,7 +12,7 @@
   </header>
   <main style="padding-top: 3cm; text-align: justify; width:16cm">
   <p style="text-align: right">Oficio: {{$post->oficio}}</p>
-  <p style="text-align: right">Ref. {{ optional($post->owner)->reference}}/{{strtoupper(optional($post->jefeDeTurno)->reference)}}</p>
+  <p style="text-align: right">Ref. {{strtolower(optional($post->owner)->reference)}}/{{strtoupper(optional($post->jefeDeTurno)->reference)}}</p>
   <h2 style="text-align: center;">{{$post->title}}</h2>
   <p style="text-align: justify">{!!$post->body!!}</p>
   <br><br>

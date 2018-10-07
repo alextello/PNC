@@ -20,6 +20,9 @@
                 <li class="list-group-item">
                 <b>Pubicaciones</b> <a class="pull-right">{{ $user->created_by()->count() }}</a>
                 </li>
+                <li class="list-group-item">
+                <a class="btn btn-default" href="{{route('admin.users.edit', $user)}}">Editar <i class="fa fa-edit"></i></a>
+                </li>
               </ul>
 
               {{-- <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a> --}}
