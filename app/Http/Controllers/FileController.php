@@ -64,6 +64,7 @@ class FileController extends Controller
         // $post->load('photos');
         // dd($post);
         $pdf = PDF::loadView('posts.pdf', ['post' => $post])->setPaper('folio');
+        // return $pdf->stream();
         return $pdf->download($post->url.'.pdf');
     }
 }

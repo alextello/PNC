@@ -1,5 +1,7 @@
 <ul class="sidebar-menu" data-widget="tree">
+      <a target="_blank" href="{{route('pages.home')}}" style="cursor: pointer;" alt="Abrir seccion de reportes">
         <li class="header">Navegación</li>
+      </a>
         <!-- Optionally, you can add icons to the links -->
 <li {{ request()->is('admin') ? 'class=active' : ''}}><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i> <span>Inicio</span></a></li>
 <li {{ request()->is('admin/antecedentes') ? 'class=active' : ''}}><a href="{{ route('admin.antecedentes.index') }}"><i class="fa fa-fw fa-user-secret"></i> <span>Antecedentes</span></a></li>

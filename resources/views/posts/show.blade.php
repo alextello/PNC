@@ -11,7 +11,7 @@
     <h1>{{ $post->title }}</h1>
         <div class="divider"></div>
         <div class="image-w-text" style="text-align: justify;">
-          {!! $post->body !!}
+          {!! Purify::clean($post->body) !!}
         </div>
         @if($post->photos->count()===1)
         <figure><img src="/storage/{{ $post->photos->first()->url }}" alt="" class="img-responsive"></figure>
