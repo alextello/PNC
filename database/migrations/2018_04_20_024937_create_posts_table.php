@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->text('body')->nullable();
             $table->timestamp('published_at')->nullable();//ESTA ES LA FECHA EN QUE OCURRIO LA NOVEDAD
             $table->time('time')->nullable();//LA HORA EN QUE OCURRIO LA NOVEDAD
-            $table->string('oficio', 10)->nullable();//NUMERO DE OFICIO
+            $table->string('oficio', 10)->nullable()->unique();//NUMERO DE OFICIO
             $table->unsignedInteger('user_id');//USUARIO QUE CREA EL OFICIO
             $table->string('denunciante', 50)->nullable();//REGISTRO DE LA PERSONA QUE HIZO LA DENUNCIA
             $table->unsignedInteger('jefe_de_turno_id')->nullable();//REGISTRO DEL JEFE EN TURNO EN ESE MOMENTO

@@ -405,8 +405,8 @@
                 <div class="box-header">
                     <h3 class="box-title">
                         Nueva novedad
-                        <small style="color: red">Los campos con asterisco (*) son obligatorios</small>
                     </h3>
+                    <small style="color: white" class="label label-danger">Los campos con asterisco (*) son obligatorios</small>
                     <!-- tools box -->
                     <div class="pull-right box-tools">
                         <button type="button" class="btn btn-primary btn-sm" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
@@ -418,14 +418,14 @@
                 <!-- /.box-header -->
                 <div class="box-body pad" style="">
                     <div class="form-group {{$errors->has('title') ? 'has-error' : ''}}">
-                        <label for="">(*) Titulo del reporte</label>
+                        <label for=""><span style="color: red">(*)</span> Titulo del reporte</label>
                         <input type="text" class="form-control" placeholder="Ingrese aquí el titulo del reporte" id="title" name="title" value="{{ old('title', $post->title)}}" required> 
                         {!! $errors->first('title', '<span class="help-block">:message</span>') !!}
 
                     </div>
 
                     <div class="form-group {{$errors->has('body') ? 'has-error' : ''}}">
-                        <label for="">(*) Contenido del reporte</label>
+                        <label for=""><span style="color: red">(*)</span> Contenido del reporte</label>
                         <textarea name="body" id="editor" class="form-control" rows="10" placeholder="Detalle aquí el reporte" required>{{ old('body', $post->body ? $post->body : $post->plantilla )}}</textarea>
                         {!! $errors->first('body', '
                         <span class="help-block">:message</span>') !!}
@@ -436,7 +436,7 @@
                     <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#vehiculoModal" {{ isset($post->vehiculo_id) ? 'disabled' : '' }}>Vehiculo</button>
                     <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#armaModal" {{ isset($post->gun_id) ? 'disabled' : '' }}>Arma</button>
                     <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#incautadoModal" {{ isset($post->incautacion_id) ? 'disabled' : '' }}>Incautacion</button>
-                        <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#heridosModal">Heridos/fallecidos</button>
+                        <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#heridosModal">Herido/fallecido</button>
                         <button type="button" class="btn btn-primary col-md-2" data-toggle="modal" data-target="#roboModal">Robo/hurto</button>
                     </div>
                 </div>
@@ -448,13 +448,16 @@
             <div class="box box-primary">
                 <div class="box-body">
                     <div class="form-group {{$errors->has('oficio') ? 'has-error' : ''}}">
-                        <label>(*) Oficio: </label>
+                        <label><span style="color: red">(*)</span> Oficio: </label>
                         <div class="input-group">
                             <div class="input-group-addon">
                             <i class="fa fa-laptop"></i>
                             </div>
                             <input type="text" class="form-control" data-inputmask="&quot;mask&quot;: &quot;9999-9999&quot;" data-mask="" name="oficio" value="{{ old('oficio', $post->oficio ? $post->oficio : '') }}" required>
                         </div>
+                        <span class="invalid-feedback">
+                            <strong style="color: red">{{ $errors->first('oficio') }}</strong>
+                        </span>
                       <!-- /.input group -->
                     </div>
 
@@ -468,7 +471,7 @@
                     </div>
 
                     <div class="form-group {{$errors->has('aldea') ? 'has-error' : ''}}">
-                        <label for="">(*) Seleccione el aldea</label>
+                        <label for=""><span style="color: red">(*)</span> Seleccione el aldea</label>
                         <select name="aldea" id="aldea" class="form-control select2" required>
                             <option value="">Seleccione el aldea</option>
                             @if($post->address!=null) 
@@ -484,12 +487,12 @@
                     </div>
 
                     <div class="form-group {{$errors->has('address_id') ? 'has-error' : ''}}">
-                        <label>(*) Dirección del suceso</label>
+                        <label><span style="color: red">(*)</span> Dirección del suceso</label>
                         <input required name="address_id" type="text" class="form-control" id="address_id" value="{{ old('address_id', $post->address_id ? $post->address()->pluck('name')->implode('') : '') }}">
                         <!-- /.input group -->
                     </div>
                     <div class="form-group {{$errors->has('published_at') ? 'has-error' : ''}}">
-                        <label>(*) Fecha de suceso</label>
+                        <label><span style="color: red">(*)</span> Fecha de suceso</label>
                         <div class="input-group date">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
@@ -501,7 +504,7 @@
                     </div>
                     <div class="bootstrap-timepicker">
                         <div class="form-group {{$errors->has('time') ? 'has-error' : ''}}">
-                            <label>(*) Hora del suceso:</label>
+                            <label><span style="color: red">(*)</span> Hora del suceso:</label>
 
                             <div class="input-group">
                                 <input required type="text" name="time" class="form-control timepicker" value="{{ old('time', $post->time ?  date('h:i:s a m/d/Y', strtotime($post->time)): '') }}">
@@ -524,7 +527,7 @@
                     </div>
 
                     <div class="form-group {{$errors->has('tag_id') ? 'has-error' : ''}}">
-                        <label for="">(*) Etiqueta</label>
+                        <label for=""><span style="color: red">(*)</span> Etiqueta</label>
                         <select required name="tag_id" id="tag_id" class="form-control select2" data-placeholder="Elija la etiqueta" style="width: 100%;">
                             @foreach($tags as $tag)
                             <option {{ collect(old( 'tag_id', optional($post->tag_id)))->contains($tag->id) ? 'selected' : '' }} value="{{ $tag->id }}">{{$tag->subcategory->name}} / {{ $tag->name }}</option> 
@@ -579,7 +582,7 @@
                     </div>
 
                     <div class="form-group {{$errors->has('jefe_de_turno_id') ? 'has-error' : ''}}">
-                        <label for="">(*) Jefe de turno</label>
+                        <label for=""><span style="color: red">(*)</span> Jefe de turno</label>
                         <select name="jefe_de_turno_id" class="form-control select2" id="jefe_de_turno_id" required>
                             <option value="">Seleccione una opcion</option>
                             @foreach($users as $user)
@@ -832,7 +835,7 @@
                                         @csrf
                                         <input type="hidden" name="post" value="{{$post->id}}">
                                     <div class="col-md-2 form-group">
-                                        <label for="">(*) Tipo:</label>
+                                        <label for=""><span style="color: red">(*)</span> Tipo:</label>
                                         <br>
                                         <select name="type_id" id="type_id" class="form-cotrol tags" required>
                                             <option value="">Seleccione una op.</option>
@@ -842,7 +845,7 @@
                                         </select>
                                     </div> 
                                     <div class="col-md-2 form-group">
-                                        <label for="">(*) Marca:</label>
+                                        <label for=""><span style="color: red">(*)</span> Marca:</label>
                                         <br>
                                         <select name="marca_id" id="marca_id" class="tags form-control" required>
                                             <option value="">Seleccione marca</option>
@@ -968,7 +971,7 @@
                                         @csrf
                                         <input type="hidden" name="post" value="{{$post->id}}">
                                     <div class="col-md-3 form-group">
-                                        <label for="">(*) Tipo:</label>
+                                        <label for=""><span style="color: red">(*)</span> Tipo:</label>
                                         <br>
                                         <select name="type_id" id="type_id" class="form-cotrol tags" required>
                                             <option value="">Seleccione el tipo de arma</option>
@@ -978,7 +981,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-3 form-group">
-                                        <label for="">(*) Marca:</label>
+                                        <label for=""><span style="color: red">(*)</span> Marca:</label>
                                         <br>
                                         <select name="marca_id" id="marca_id" class="tags form-control" required>
                                             <option value="">Seleccione marca</option>
