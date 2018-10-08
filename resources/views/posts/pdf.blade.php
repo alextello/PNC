@@ -1,26 +1,41 @@
 <html>
 <head>
-  <style>
-    @page { margin: 0.3cm 2.5cm 2.5cm 2.5cm; }
-    header { position: fixed;  left: 0px; right: 0px; display: block}
+  <style type="text/css">
+   @page {
+            margin-top: 100px;
+            margin-bottom: 50pxcm;
+            margin-left: 2.5cm;
+            margin-right: 2.5cm;
+            /* @bottom-left {
+            content: counter(page) "/" counter(pages);
+        } */
+            /* @top-center {
+                content: element(header);
+            } */
+        }
+  body{
+    padding: 1rem;
+  }
+  footer { position: fixed; bottom: -60px; left: 0px; right: 0px; background-color: lightblue; height: 50px; }
+  .footer { position: fixed; bottom: 0px; }
+  /* .pagenum:before { content: "Página " counter(page) " de " counter(pages); } */
+  p:last-child { page-break-after: never; }
+    #header { position: fixed; top: -100px; left: 0px; right: 0px; height: 50px; padding: .5em; text-align: center; }
   </style>
+<link rel="stylesheet" href="{{ asset('/css/app.css') }}">
 </head>
-<style>
-h1 { font-family: Arial; font-size: 12px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 13.2px; } h3 { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; } p { font-family: Arial; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } blockquote { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; } pre { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; }
-</style>
 <body style="background: white;">
-  <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
-  <header>
-  <img src={{asset('/storage/'.'banner/banner.jpg')}} style="width: 18cm; height: 2.5cm" alt="">
+  <header class="header" id="header">
+  <img src={{asset('/storage/'.'banner/banner.png')}} style="width: 100%; height: 2.5cm" alt="">
   </header>
-  <main style="padding-top: 3cm; text-align: justify; width:16cm">
+  <div class="footer"><span class="pagenum"></span></div>
+  <main style="text-align: justify; width:16cm">
   <p style="text-align: right">Oficio: {{$post->oficio}}</p>
   <p style="text-align: right">Ref. {{strtolower(optional($post->owner)->reference)}}/{{strtoupper(optional($post->jefeDeTurno)->reference)}}</p>
-  <h2 style="text-align: center;">{{$post->title}}</h2>
-  <br>
+  <h2 style="text-align: center;" class="flyleaf">{{$post->title}}</h2>
+
   <p style="text-align: justify;">{!!$post->body!!}</p>
 
-  <p class="page-break"></p>
   @if($post->photos->count())
   <div class="text-center">
   @foreach($post->photos as $photo)
@@ -35,6 +50,12 @@ h1 { font-family: Arial; font-size: 12px; font-style: normal; font-variant: norm
   <p style="text-align: center; margin: 0;">Subcomisaria 41-31 San Juan Ostuncalco</p>
   </main>
 </body>
+<script type="text/php">
+  if ( isset($pdf) ) {
+      $font = Font_Metrics::get_font("helvetica", "bold");
+      $pdf->page_text(72, 18, "Header: {PAGE_NUM} of {PAGE_COUNT}", $font, 6, array(0,0,0));
+  }
+</script> 
 </html>
 {{-- <style>
 p { margin:0 }

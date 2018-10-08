@@ -34,6 +34,7 @@
                         <tbody id="miTabla">
                             @php $i=1; @endphp
                             @foreach ($posts as $post)
+                            @if(isset($post->vehiculo))
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $post->oficio }}</td>
@@ -56,6 +57,7 @@
                                 <td>{{ $post->juzgado }}</td>
                             </tr>
                                 @php $i++ @endphp
+                                @endif
                             @endforeach
                         </tbody>
                        

@@ -32,6 +32,7 @@
                         <tbody id="miTabla">
                             @php $i=1; @endphp
                             @foreach ($posts as $post)
+                            @if(isset($post->arma))
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $post->oficio }}</td>
@@ -52,6 +53,7 @@
                                 <td>{{ $post->arma->recuperada_por }}</td>
                             </tr>
                                 @php $i++ @endphp
+                                @endif
                             @endforeach
                         </tbody>
                        
