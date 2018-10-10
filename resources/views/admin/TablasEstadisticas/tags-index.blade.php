@@ -14,7 +14,7 @@
                         <input type="text" id="Buscar" name="Buscar" class="form-control" placeholder="Ingrese el año que desea" required>
                     <div class="form-group">
                         <label for="tag">Seleccione la etiqueta</label>
-                        <select name="tag" id="tag" class="form-control select2">
+                        <select name="tag" id="tag" class="form-control select2" required>
                             <option value="">Seleccione una etiqueta</option>
                             @foreach($tags as $tag)
                             <option value="{{$tag->id}}">{{$tag->subcategory}} / {{$tag->name}}</option>

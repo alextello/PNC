@@ -47,7 +47,7 @@
                     @csrf
                     <label for="">Seleccionar nuevo encabezado</label>
                     <small>dimensiones: 22cm X 2.5cm</small>
-                    <input type="file"  accept="image/*" name="photo" class="form-control">
+                    <input type="file"  accept="image/*" name="photo" class="form-control" required>
                     <button class="btn btn-info" type="submit">Guardar</button>
                 </form>
             </div>
