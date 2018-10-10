@@ -34,6 +34,8 @@
             <li {{ request()->is('admin/plantillas/create') ? 'class=active' : ''}}>
                <a href="{{ route('admin.plantillas.create') }}"><i class="fa fa-pencil"></i>Crear plantilla</a>
             </li>
+            <li {{ request()->is('admin/plantillas-header') ? 'class=active' : ''}}><a href="{{ route('admin.plantillas.header') }}"><i class="fa fa-pencil"></i>Cambiar encabezado</a></li>
+            <li {{ request()->is('admin/plantillas-footer') ? 'class=active' : ''}}><a href="{{ route('admin.plantillas.footer') }}"><i class="fa fa-pencil"></i>Cambiar pie de pag.</a></li>
           </ul>
         </li>
 

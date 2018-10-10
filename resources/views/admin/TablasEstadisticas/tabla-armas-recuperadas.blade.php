@@ -4,7 +4,7 @@
 <div class="box box-primary">
     <div class="box-body">
         <div class="box-header with-border">
-            <h3>Tabla estadistica</h3>
+            <h3>Tabla estadistica</h3><h2>{{$date->format('m-Y')}}</h2>
         </div>
         <div class="box-body">
                 <table id="posts-table" class="table table-bordered table-striped">
@@ -38,8 +38,8 @@
                                 <td>{{ $post->oficio }}</td>
                                 <td>{{ $tag->name }}</td>
                                 <td> {{ $post->published_at->format('Y') }} </td>
-                                <td>{{  $post->published_at->format('M') }}</td>
-                                <td>{{  $post->published_at->format('lll') }} </td>
+                                <td>{{  $post->published_at->format('F') }}</td>
+                                <td>{{  $post->published_at->format('l') }} </td>
                                 <td>{{  $post->published_at->format('d-m-Y') }} </td>
                                 <td>{{ $post->time }}</td>
                                 <td>{{ $post->address->name }}</td>

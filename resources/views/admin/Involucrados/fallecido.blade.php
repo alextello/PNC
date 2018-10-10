@@ -36,7 +36,7 @@
                                 <label for="">Herido/Fallecido</label>
                                 <select name="herofall" id="herofall" class="form-control" >
                                         <option {{ collect(old( 'herofall', optional($involucrado->fallecido)))->contains('1') ? 'selected' : '' }} value="1">Fallecido</option>
-                                        <option {{ collect(old( 'herofall', optional($involucrado->fallecido)))->contains('2') ? 'selected' : '' }} value="0">Herido</option>
+                                        <option {{ collect(old( 'herofall', optional($involucrado->fallecido)))->contains('0') ? 'selected' : '' }} value="0">Herido</option>
                                 </select>
                             </div>
                         </div>

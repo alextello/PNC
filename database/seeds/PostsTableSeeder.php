@@ -1,19 +1,20 @@
 <?php
 
 use App\Tag;
-use App\Post;
-use App\User;
-use App\Address;
-use App\Category;
-use App\Aldea;
-use Carbon\Carbon;
-use App\Subcategory;
-use App\Municipio;
-use App\Involucrado;
 use App\Gang;
-use App\Marca;
+use App\Post;
 use App\Type;
+use App\User;
+use App\Aldea;
+use App\Marca;
+use App\Address;
+use App\Headers;
+use App\Category;
 use App\Vehiculo;
+use App\Municipio;
+use Carbon\Carbon;
+use App\Involucrado;
+use App\Subcategory;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Storage;
@@ -41,6 +42,8 @@ class PostsTableSeeder extends Seeder
         Type::truncate();
         Vehiculo::truncate();
         Storage::disk('public')->deleteDirectory('posts');
+        Storage::disk('public')->delete(['banner/footer1.jpeg','banner/footer1.jpg','banner/footer1.png' ]);
+        Storage::disk('public')->delete(['banner/header.jpeg','banner/header.jpg','banner/header.png' ]);
 
         $adminRole = Role::create(['name' => 'Administrador', 'display_name' => 'Admin']);
         $escritorRole = Role::create(['name' => 'Escritor', 'display_name' => 'Escritor']);
@@ -1012,17 +1015,17 @@ class PostsTableSeeder extends Seeder
         $tag->subcategory_id = 10;
         $tag->save();
 
-        // $post = new Post();
-        // $post->title = 'Primer post';
-        // $post->url = str_slug('Primer post');
-        // $post->body = '<p>Contenido primer post</p>';
-        // $post->published_at = Carbon::now();
-        // $post->user_id =  1;
-        // $post->tag_id = 1;
-        // $post->oficio = '1111-1111';
-        // $post->jefe_de_turno_id = 1;
-        // $post->address_id = Address::create(['name' => '1ra. Calle 5-22 zona 3', 'aldea_id' => '1'])->id;
-        // $post->save();
+        $post = new Post();
+        $post->title = 'Primer post';
+        $post->url = str_slug('Primer post');
+        $post->body = '<p>Contenido primer post</p>';
+        $post->published_at = Carbon::now();
+        $post->user_id =  1;
+        $post->tag_id = 1;
+        $post->oficio = '1111-1111';
+        $post->jefe_de_turno_id = 1;
+        $post->address_id = Address::create(['name' => '1ra. Calle 5-22 zona 3', 'aldea_id' => '1'])->id;
+        $post->save();
 
 
 
@@ -1058,6 +1061,8 @@ class PostsTableSeeder extends Seeder
         Marca::create(['name' => 'Toyota', 'modelo' => 'App\Vehiculo']);
         Marca::create(['name' => 'Nissan', 'modelo' => 'App\Vehiculo']);
         Marca::create(['name' => 'Honda', 'modelo' => 'App\Vehiculo']);
+
+        Headers::create(['default_header' => '1', 'default_footer' => '1']);
 
        
     }

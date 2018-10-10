@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Post;
 use PDF;
+use App\Post;
+use App\Headers;
+use Illuminate\Http\Request;
 
 class FileController extends Controller
 {
@@ -58,12 +59,15 @@ class FileController extends Controller
         return response()->download(storage_path($post->url.'.docx'))->deleteFileAfterSend(true);;
     }
 
-    public function pdf($id)
+    public function pdf($id, $size)
     {
+        $header = Headers::first();
         $post = Post::where('id',$id)->with(['owner', 'jefeDeTurno', 'photos'])->first();
-        // $post->load('photos');
-        // dd($post);
-        $pdf = PDF::loadView('posts.pdf', ['post' => $post])->setPaper('folio');
+        if($size === 'carta')
+        $pdf = PDF::loadView('posts.pdf', ['post' => $post, 'header' => $header])->setPaper('letter');
+        else
+        $pdf = PDF::loadView('posts.pdf', ['post' => $post, 'header' => $header])->setPaper('folio');
+
         // return $pdf->stream();
         return $pdf->download($post->url.'.pdf');
     }

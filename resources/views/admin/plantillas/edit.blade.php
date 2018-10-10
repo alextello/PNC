@@ -1,7 +1,5 @@
 @extends('admin.layout')
 
-@section('content')
-@extends('admin.layout')
 
 @section('header')
 <h1>

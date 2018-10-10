@@ -4,7 +4,7 @@
 <div class="box box-primary">
         <div class="box-body">
             <div class="box-header with-border">
-                <h3>Tabla estadistica</h3>
+                    <h3>Tabla estadistica</h3><h2>{{$date->format('m-Y')}}</h2>
             </div>
             <div class="box-body">
                     <table id="posts-table" class="table table-bordered table-striped">

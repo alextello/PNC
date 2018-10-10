@@ -15,8 +15,9 @@
 // $s = Involucrado::find($a);
 // dd($s);
 Route::get('prueba', function(){
-    $post = App\Post::where('url', 'ebriedad-zona-1-san-juan')->first();
-    return view('posts.pdf', ['post' => $post]);
+    $post = App\Post::first();
+    $header = App\Headers::first();
+    return view('posts.pdf', ['post' => $post, 'header' => $header]);
 });
 
 Route::get('/', 'PagesController@home')->name('pages.home');
@@ -45,7 +46,17 @@ Route::group([
         Route::middleware('role:Administrador')->put('users/{user}/permissions', 'UsersPermissionsController@update')->name('admin.users.permissions.update');
         Route::post('posts/{post}/photos', 'PhotosController@store')->name('admin.posts.photos.store');
         Route::delete('photos/{photo}', 'PhotosController@destroy')->name('admin.photos.destroy');
-        Route::resource('plantillas', 'PlantillasController', ['as' => 'admin']);
+        Route::resource('plantillas', 'PlantillasController', ['as' => 'admin'])->only([
+            'index', 'create', 'show', 'edit', 'update', 'destroy', 'store'
+        ]);
+        Route::get('plantillas-header', 'PlantillasController@header')->name('admin.plantillas.header');
+        Route::post('storage/header', 'PlantillasController@storageHeader')->name('storage.header');
+        Route::get('plantillas-footer', 'PlantillasController@footer')->name('admin.plantillas.footer');
+        Route::post('storage/footer', 'PlantillasController@storageFooter')->name('storage.footer');
+        
+        Route::post('storage/header/default', 'PlantillasController@headerDefault')->name('storage.header.default');
+        Route::post('storage/footer/default', 'PlantillasController@footerDefault')->name('storage.footer.default');
+
         Route::post('/plantilla', 'PlantillaSelectController@index');
         Route::get('/subcategoria/{id}', 'SubcategoryController@subDinamicos')->name('subcategorias.dinamicas');
 
@@ -117,7 +128,7 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/word/{id}', 'FileController@word')->name('file.word');
-Route::get('/pfd/{id}', 'FileController@pdf')->name('file.pdf');
+Route::get('/pfd/{id}/{size}', 'FileController@pdf')->name('file.pdf');
 Route::get('/prueba/{id}', function(){
 
 });

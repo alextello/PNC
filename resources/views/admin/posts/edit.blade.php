@@ -328,7 +328,7 @@
                     <input type="text" disabled class="form-control" value="{{$inv->name}}">
 
                     </div>
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <label for="">DPI (opcional)</label>
                         <input type="number" disabled class="form-control" value="{{$inv->dpi}}">
 
@@ -355,7 +355,7 @@
                         <textarea name="tattoos[]" disabled class="form-control" cols="30" rows="2">{{ $inv->tattoos }}</textarea>
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-2">
                         <label for="">Alias</label>
                         <input type="text"  disabled value="{{ $inv->alias }}" class="form-control">
                     </div>
@@ -364,6 +364,12 @@
                         <label for="gang">Mara</label>
                         <input type="text" class="form-control" disabled value="{{optional($inv->mara)->name}}">
                     </div>
+
+                    <div class="form-group col-md-2">
+                        <label for="">Herido o fallecido</label>
+                        <input type="text" class="form-control" disabled value="{{$inv->fallecido = $inv->fallecido ? 'Fallecido' : 'Herido'}}">
+                    </div>
+
                 <div class="form-group col-md-2">
                     <br>
                     <form action=" {{ route('admin.involucrados.destroy', [$inv->id, $post->id] )}} " method="post" style="padding-right: 0px !important;">
@@ -775,7 +781,7 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-
+                                            
                                             <div class="col-md-3 form-group">
                                                 <label for="">Abordo:</label>
                                                 <select name="abordo" id="abordo" class="form-control tags">

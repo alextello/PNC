@@ -110,6 +110,10 @@ class TablasEstadisticasController extends Controller
     public function buscarTag(Request $request)
     {
         $tag = Tag::where('id', $request->tag)->with('subcategory')->first();
+        $date = Carbon::createFromFormat('m-Y', $request->Buscar);
+        $mes = $date->month;
+        $anio = $date->year;
+        
 
         switch($tag->subcategory->name)
         {
@@ -120,11 +124,13 @@ class TablasEstadisticasController extends Controller
                 }])->with(['address' => function($q){
                     $q->with(['aldea']);
                 }])
+                ->whereMonth('published_at', $mes)
+                ->whereYear('published_at', $anio)
                 ->get();
             // dd($posts);
             $tag = Tag::where('id', $request->tag)->select('name')->first();
 
-            return view('admin.TablasEstadisticas.tabla-detenidos', compact('posts', 'tag'));
+            return view('admin.TablasEstadisticas.tabla-detenidos', compact('posts', 'tag', 'date'));
 
             break;
 
@@ -135,11 +141,13 @@ class TablasEstadisticasController extends Controller
                 }])->with(['vehiculo' => function($q){
                     $q->with(['brand', 'tipo']);
                 }])
+                ->whereMonth('published_at', $mes)
+                ->whereYear('published_at', $anio)
                 ->get();
 
             $tag = Tag::where('id', $request->tag)->select('name')->first();
 
-            return view('admin.TablasEstadisticas.tabla-vehiculos-recuperados', compact('posts', 'tag'));
+            return view('admin.TablasEstadisticas.tabla-vehiculos-recuperados', compact('posts', 'tag', 'date'));
                 
             break;
 
@@ -150,10 +158,12 @@ class TablasEstadisticasController extends Controller
                 }])->with(['arma' => function($q){
                     $q->whereNotNull('recuperada_por')->with(['brand', 'tipo']);
                 }])
+                ->whereMonth('published_at', $mes)
+                ->whereYear('published_at', $anio)
                 ->get();
             
             $tag = Tag::where('id', $request->tag)->select('name')->first();
-            return view('admin.TablasEstadisticas.tabla-armas-recuperadas', compact('posts', 'tag'));
+            return view('admin.TablasEstadisticas.tabla-armas-recuperadas', compact('posts', 'tag', 'date'));
             
             break;
 
@@ -163,11 +173,13 @@ class TablasEstadisticasController extends Controller
             ->with(['tags', 'incautacion'])->with(['address' => function($q){
                     $q->with(['aldea']);
                 }])
+                ->whereMonth('published_at', $mes)
+                ->whereYear('published_at', $anio)
                 ->get();
             
             $tag = Tag::where('id', $request->tag)->select('name')->first();
             
-            return view('admin.TablasEstadisticas.tabla-otras-incautaciones', compact('posts', 'tag'));
+            return view('admin.TablasEstadisticas.tabla-otras-incautaciones', compact('posts', 'tag', 'date'));
 
             break;
 
@@ -177,11 +189,13 @@ class TablasEstadisticasController extends Controller
             }])->with(['address' => function($q){
                 $q->with(['aldea']);
             }])
+            ->whereMonth('published_at', $mes)
+            ->whereYear('published_at', $anio)
             ->get();
 
             $tag = Tag::where('id', $request->tag)->select('name')->first();
             
-            return view('admin.TablasEstadisticas.tabla-fallecidos', compact('posts', 'tag'));
+            return view('admin.TablasEstadisticas.tabla-fallecidos', compact('posts', 'tag', 'date'));
 
             break;
 
@@ -192,11 +206,13 @@ class TablasEstadisticasController extends Controller
             }])->with(['address' => function($q){
                 $q->with(['aldea']);
             }])
+            ->whereMonth('published_at', $mes)
+            ->whereYear('published_at', $anio)
             ->get();
 
             $tag = Tag::where('id', $request->tag)->select('name')->first();
             
-            return view('admin.TablasEstadisticas.tabla-heridos', compact('posts', 'tag'));
+            return view('admin.TablasEstadisticas.tabla-heridos', compact('posts', 'tag', 'date'));
 
             break;
 
@@ -205,11 +221,13 @@ class TablasEstadisticasController extends Controller
             $posts = Post::where('tag_id', $request->tag)->with(['tags', 'robo'])->with(['address' => function($q){
                 $q->with(['aldea']);
             }])
+            ->whereMonth('published_at', $mes)
+            ->whereYear('published_at', $anio)
             ->get();
             // dd($posts);
             $tag = Tag::where('id', $request->tag)->select('name')->first();
             
-            return view('admin.TablasEstadisticas.tabla-libertad', compact('posts', 'tag'));
+            return view('admin.TablasEstadisticas.tabla-libertad', compact('posts', 'tag', 'date'));
 
             break;
 
@@ -218,11 +236,13 @@ class TablasEstadisticasController extends Controller
             $posts = Post::where('tag_id', $request->tag)->with(['tags'])->with(['address' => function($q){
                 $q->with(['aldea']);
             }])
+            ->whereMonth('published_at', $mes)
+            ->whereYear('published_at', $anio)
             ->get();
 
             $tag = Tag::where('id', $request->tag)->select('name')->first();
             
-            return view('admin.TablasEstadisticas.tabla-propiedad', compact('posts', 'tag'));
+            return view('admin.TablasEstadisticas.tabla-propiedad', compact('posts', 'tag', 'date'));
             break;
 
             case 'Robo de vehiculos':
@@ -230,10 +250,12 @@ class TablasEstadisticasController extends Controller
             $posts = Post::where('tag_id', $request->tag)->with(['tags', 'vehiculo'])->with(['address' => function($q){
                 $q->with(['aldea']);
             }])
+            ->whereMonth('published_at', $mes)
+            ->whereYear('published_at', $anio)
             ->get();
 
             $tag = Tag::where('id', $request->tag)->select('name')->first();
-            return view('admin.TablasEstadisticas.tabla-robo-vehiculos', compact('posts', 'tag'));
+            return view('admin.TablasEstadisticas.tabla-robo-vehiculos', compact('posts', 'tag', 'date'));
 
             break;
 
@@ -242,9 +264,11 @@ class TablasEstadisticasController extends Controller
             $posts = Post::where('tag_id', $request->tag)->with(['tags', 'arma'])->with(['address' => function($q){
                 $q->with(['aldea']);
             }])
+            ->whereMonth('published_at', $mes)
+            ->whereYear('published_at', $anio)
             ->get();
             $tag = Tag::where('id', $request->tag)->select('name')->first();
-            return view('admin.TablasEstadisticas.tabla-robo-armas', compact('posts', 'tag'));
+            return view('admin.TablasEstadisticas.tabla-robo-armas', compact('posts', 'tag', 'date'));
 
             break;
 

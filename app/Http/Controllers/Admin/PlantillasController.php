@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Headers;
+use App\Plantilla;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Plantilla;
+use Illuminate\Support\Facades\Storage;
 
 class PlantillasController extends Controller
 {
@@ -126,5 +128,72 @@ class PlantillasController extends Controller
         {
             return back()->withError('No tiene permiso');
         }
+    }
+
+    public function header()
+    {
+        $head = Headers::first();
+        return view('admin.plantillas.header-edit', compact('head'));
+    }
+
+    public function footer()
+    {
+        $head = Headers::first();
+        return view('admin.plantillas.footer-edit', compact('head'));
+    }
+  
+    public function storageHeader(Request $request)
+    {
+        // dd('hola');
+        Storage::disk('public')->delete(['banner/header.jpeg','banner/header.jpg','banner/header.png' ]);
+        $head = Headers::first();
+        $ext = $request->file('photo')->extension();
+        $img = $request->file('photo')->storeAs('banner', 'header.'.$ext, 'public');
+        $head->header = $img;
+        $head->save();
+        return redirect()->route('admin.plantillas.header');
+    }
+
+    public function headerDefault(Request $request)
+    {
+        $header = Headers::first();
+
+        if($request->encabezado === 'defecto')
+        {
+            $header->default_header = 1;
+        }
+        else{
+            $header->default_header = 0;
+        }
+        $header->save();
+
+        return redirect()->route('admin.plantillas.header');
+    }
+
+    public function storageFooter(Request $request)
+    {
+        Storage::disk('public')->delete(['banner/footer1.jpeg','banner/footer1.jpg','banner/footer1.png' ]);
+        $head = Headers::first();
+        $ext = $request->file('photo')->extension();
+        $img = $request->file('photo')->storeAs('banner', 'footer1.'.$ext, 'public');
+        $head->footer = $img;
+        $head->save();
+        return redirect()->route('admin.plantillas.footer');
+    }
+
+    public function footerDefault(Request $request)
+    {
+        $header = Headers::first();
+
+        if($request->footer === 'defecto')
+        {
+            $header->default_footer = 1;
+        }
+        else{
+            $header->default_footer = 0;
+        }
+        $header->save();
+
+        return redirect()->route('admin.plantillas.footer');
     }
 }
