@@ -32,7 +32,6 @@
                         <tbody id="miTabla">
                             @php $i=1; @endphp
                             @foreach ($posts as $post)
-                            @if(isset($post->arma))
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $post->oficio }}</td>
@@ -44,16 +43,23 @@
                                 <td>{{ $post->time }}</td>
                                 <td>{{ $post->address->name }}</td>
                                 <td>{{ $post->address->aldea->name }}</td>
+                                @if(isset($post->arma))
                                 <td>{{ $post->arma->tipo->tipo}}</td>
                                 <td>{{ $post->arma->brand->name }}</td>
                                 <td>{{ $post->arma->calibre }}</td>
                                 <td>{{ $post->arma->registro }}</td>
                                 <td>{{ $post->arma->licencia }}</td>
+                                @else
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                @endif
                                 <td>{{$post->guardia}}</td>
                                 <td>{{ $post->juzgado }}</td>
                             </tr>
                                 @php $i++ @endphp
-                                @endif
                             @endforeach
                         </tbody>
                        

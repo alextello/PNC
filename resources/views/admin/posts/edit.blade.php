@@ -1157,8 +1157,8 @@
             dictRemoveFile: 'Eliminar',
             url: '/admin/posts/{{ $post->url }}/photos',
             acceptedFiles: 'image/*',
-            maxFilesize: 2,
-            maxFiles: 2,
+            // maxFilesize: 2,
+            // maxFiles: 2,
             paramName: 'photo',
             dictDefaultMessage: 'Arrastre aquí las fotos o haga click para seleccionarlas',
             removedFile: function (file) {

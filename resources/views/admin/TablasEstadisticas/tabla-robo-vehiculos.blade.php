@@ -33,7 +33,6 @@
                         <tbody id="miTabla">
                             @php $i=1; @endphp
                             @foreach ($posts as $post)
-                            @if(isset($post->vehiculo))
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $post->oficio }}</td>
@@ -45,6 +44,7 @@
                                 <td>{{ $post->time }}</td>
                                 <td>{{ $post->address->name }}</td>
                                 <td>{{ $post->address->aldea->name }}</td>
+                                @if(isset($post->vehiculo))
                                 <td>{{ optional($post->vehiculo->tipo)->tipo}}</td>
                                 <td>{{ optional($post->vehiculo->brand)->name }}</td>
                                 <td>{{ optional($post->vehiculo)->linea }}</td>
@@ -53,9 +53,18 @@
                                 <td>{{ optional($post->vehiculo)->color }}</td>
                                 <td>{{$post->guardia}}</td>
                                 <td>{{ $post->juzgado }}</td>
+                                @else
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                @endif
+                                @php $i++ @endphp
                             </tr>
-                            @php $i++ @endphp
-                            @endif
                             @endforeach
                         </tbody>
                        
