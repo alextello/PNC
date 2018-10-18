@@ -60,21 +60,21 @@ Route::group([
         Route::post('/plantilla', 'PlantillaSelectController@index');
         Route::get('/subcategoria/{id}', 'SubcategoryController@subDinamicos')->name('subcategorias.dinamicas');
 
-        Route::get('/estadisticas/tag', 'EstadisticasController@tag')->name('admin.estadisticas.tag');
-        Route::get('/estadisticas/total', 'EstadisticasController@total')->name('admin.estadisticas.total');
-        Route::post('/estadisticas/tag', 'EstadisticasController@fecha')->name('admin.estadisticas.fecha');
+        // Route::get('/estadisticas/tag', 'EstadisticasController@tag')->name('admin.estadisticas.tag');
+        // Route::get('/estadisticas/total', 'EstadisticasController@total')->name('admin.estadisticas.total');
+        // Route::post('/estadisticas/tag', 'EstadisticasController@fecha')->name('admin.estadisticas.fecha');
 
-        Route::get('/estadisticas/categoria', 'EstadisticasController@cat')->name('admin.estadisticas.categoria');
-        Route::get('/estadisticas/totalcat', 'EstadisticasController@totalcat')->name('admin.estadisticas.totalcat');
-        Route::post('/estadisticas/categoria', 'EstadisticasController@fechacat')->name('admin.estadisticas.fechacat');
+        // Route::get('/estadisticas/categoria', 'EstadisticasController@cat')->name('admin.estadisticas.categoria');
+        // Route::get('/estadisticas/totalcat', 'EstadisticasController@totalcat')->name('admin.estadisticas.totalcat');
+        // Route::post('/estadisticas/categoria', 'EstadisticasController@fechacat')->name('admin.estadisticas.fechacat');
 
-        Route::get('/estadisticas/personas', 'EstadisticasController@personas')->name('admin.estadisticas.personas');
-        Route::get('/estadisticas/totalpersonas', 'EstadisticasController@totalpersonas')->name('admin.estadisticas.totalpersonas');
+        // Route::get('/estadisticas/personas', 'EstadisticasController@personas')->name('admin.estadisticas.personas');
+        // Route::get('/estadisticas/totalpersonas', 'EstadisticasController@totalpersonas')->name('admin.estadisticas.totalpersonas');
 
 
-        Route::get('/estadisticas/personas', 'EstadisticasController@personas')->name('admin.estadisticas.personas');
-        Route::get('/estadisticas/tabla', 'EstadisticasController@tabla')->name('admin.estadisticas.tabla');
-        Route::post('/estadisticas/fecha', 'EstadisticasController@fecha')->name('admin.estadisticas.fecha');
+        // Route::get('/estadisticas/personas', 'EstadisticasController@personas')->name('admin.estadisticas.personas');
+        // Route::get('/estadisticas/tabla', 'EstadisticasController@tabla')->name('admin.estadisticas.tabla');
+        // Route::post('/estadisticas/fecha', 'EstadisticasController@fecha')->name('admin.estadisticas.fecha');
         Route::get('/Subcategory/{id}', 'SubcategoryController@subs')->name('admin.subcategorias.subs');
         Route::delete('/involucrado/{id}/{postid}', 'InvolucradoController@destroy')->name('admin.involucrados.destroy');
         Route::get('/antecedentes', 'AntecedentesController@index')->name('admin.antecedentes.index');
@@ -118,6 +118,11 @@ Route::group([
         Route::get('/estadisticas/Hechos-positivos/tag', 'TablasEstadisticasController@positivosTag')->name('hechospositivos.tag');
 
         Route::post('/estadisticas/Hechos', 'TablasEstadisticasController@buscarTag')->name('buscar.tag');
+
+        Route::get('/graficos/comparacion', 'GraficosController@comparacion')->name('admin.graficos.comparacion');
+        Route::post('/graficos/comparacion/post', 'GraficosController@comparacionPost')->name('admin.graficos.comparacionPost');
+        Route::get('/graficos/rango', 'GraficosController@rango')->name('admin.graficos.rango');
+        Route::post('/graficos/rango/post', 'GraficosController@rangoPost')->name('admin.graficos.rangoPost');
 
 });
 

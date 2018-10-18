@@ -66,6 +66,19 @@
               </ul>
             </li>
 
+          <li class="treeview {{ request()->is('admin/graficos*') ? 'active' : ''}}" >
+              <a href="#"><i class="fa fa-fw fa-bar-chart"></i> <span>Graficos estadisticos</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+              </a>
+              <ul class="treeview-menu">
+                <li {{ request()->is('admin/graficos/comparacion') ? 'class=active' : ''}}><a href="{{ route('admin.graficos.comparacion') }}"><i class="fa fa-fw fa-folder-open"></i>Por comparacion</a></li>
+                <li {{ request()->is('admin/graficos/rango') ? 'class=active' : ''}}><a href="{{ route('admin.graficos.rango') }}"><i class="fa fa-fw fa-exchange"></i>Por rango</a>
+                </li>
+              </ul>
+            </li>
+
 
           <li class="treeview {{ request()->is('admin/estadisticas*') ? 'active' : ''}}" >
             <a href="#"><i class="fa fa-fw fa-table"></i> <span>Tablas estadisticas</span>
