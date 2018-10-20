@@ -18,9 +18,9 @@
         @method('PUT')
         <div class="form-group">
             <label for="name">Nombre:</label>
-            <input type="text" class="form-control" name="name" placeholder="Nombre de la plantilla" autofocus value="{{ $plantilla->name }}">
+            <input type="text" class="form-control" style="max-width: 23cm" name="name" placeholder="Nombre de la plantilla" required value="{{ $plantilla->name }}">
         </div>
-        <textarea name="body" id="editor" class="form-control" rows="10" placeholder="Contenido de plantilla">{!! $plantilla->body !!}</textarea>
+        <textarea name="body" id="editor" class="form-control" rows="10" placeholder="Contenido de plantilla" required>{!! $plantilla->body !!}</textarea>
         <button class="btn btn-primary btn-block">Actualizar</button>
     </form>
 @endsection
@@ -31,7 +31,8 @@
 @endpush
 
 @push('scripts')
-<script src={{asset("/adminlte/bower_components/ckeditor/ckeditor.js")}}></script>
+<script src={{asset('/adminlte/ckeditor/ckeditor.js')}}></script>
+{{-- <script src={{asset('/adminlte/ckeditor/ckeditor.js')}}></script> --}}
 <script src={{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}></script>
 <script>
 
@@ -41,5 +42,9 @@
     });
 
     CKEDITOR.config.height = 315;
+    CKEDITOR.config.width = '23cm';
+    CKEDITOR.config.languaje = 'es';
+    // CKEDITOR.config.uiColor = '#F7B42C';
+
 </script>
 @endpush

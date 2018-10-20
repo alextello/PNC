@@ -102,8 +102,15 @@ class PlantillasController extends Controller
     {
         if(auth()->user()->hasPermissionTo('Editar plantilla'))
         {
-            $plantilla->update($request->all());
-            return back()->withFlash('Plantilla Editada');
+            if(!isset($request->name) || !isset($request->body))
+            {
+                return back()->withError('Faltan campos');
+            }
+            else
+            {
+                $plantilla->update($request->all());
+                return back()->withFlash('Plantilla Editada');
+            }
         }
         else
         {

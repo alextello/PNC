@@ -25,7 +25,7 @@
 @endpush
 
 @push('scripts')
-<script src={{asset("/adminlte/bower_components/ckeditor/ckeditor.js")}}></script>
+<script src={{asset('/adminlte/ckeditor/ckeditor.js')}}></script>
 <script src={{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}></script>
 <script>
 

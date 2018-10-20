@@ -147,27 +147,27 @@ class GraficosController extends Controller
 
         foreach($tagsP1 as $t)
         {
-            $tagsPC1[$t->subcategoria.' '.$t->name] = collect(['name' => $t->subcategoria.' '.$t->name, 'cantidad' => $t->cantidad]);
+            $tagsPC1[$t->subcategoria.': '.$t->name] = collect(['name' => $t->subcategoria.': '.$t->name, 'cantidad' => $t->cantidad]);
         }
 
         foreach($tagsP2 as $t)
         {
-            if(!isset($tagsPC1[$t->subcategoria.' '.$t->name]))
+            if(!isset($tagsPC1[$t->subcategoria.': '.$t->name]))
             {
-                $tagsPC1[$t->subcategoria.' '.$t->name] = collect(['name' => $t->subcategoria.' '.$t->name, 'cantidad' => '0']);
+                $tagsPC1[$t->subcategoria.': '.$t->name] = collect(['name' => $t->subcategoria.': '.$t->name, 'cantidad' => '0']);
             }
         }
 
         foreach($tagsP2 as $t)
         {
-            $tagsPC2[$t->subcategoria.' '.$t->name] = collect(['name' => $t->subcategoria.' '.$t->name, 'cantidad' => $t->cantidad]);
+            $tagsPC2[$t->subcategoria.': '.$t->name] = collect(['name' => $t->subcategoria.': '.$t->name, 'cantidad' => $t->cantidad]);
         }
 
         foreach($tagsP1 as $t)
         {
-            if(!isset($tagsPC2[$t->subcategoria.' '.$t->name]))
+            if(!isset($tagsPC2[$t->subcategoria.': '.$t->name]))
             {
-                $tagsPC2[$t->subcategoria.' '.$t->name] = collect(['name' => $t->subcategoria.' '.$t->name, 'cantidad' => '0']);
+                $tagsPC2[$t->subcategoria.': '.$t->name] = collect(['name' => $t->subcategoria.': '.$t->name, 'cantidad' => '0']);
             }
         }
 
@@ -178,27 +178,27 @@ class GraficosController extends Controller
 
         foreach($tagsN1 as $t)
         {
-            $tagsPN1[$t->subcategoria.' '.$t->name] = collect(['name' => $t->subcategoria.' '.$t->name, 'cantidad' => $t->cantidad]);
+            $tagsPN1[$t->subcategoria.': '.$t->name] = collect(['name' => $t->subcategoria.': '.$t->name, 'cantidad' => $t->cantidad]);
         }
 
         foreach($tagsN2 as $t)
         {
-            if(!isset($tagsPN1[$t->subcategoria.' '.$t->name]))
+            if(!isset($tagsPN1[$t->subcategoria.': '.$t->name]))
             {
-                $tagsPN1[$t->subcategoria.' '.$t->name] = collect(['name' => $t->subcategoria.' '.$t->name, 'cantidad' => 0]);
+                $tagsPN1[$t->subcategoria.': '.$t->name] = collect(['name' => $t->subcategoria.': '.$t->name, 'cantidad' => 0]);
             }
         }
 
         foreach($tagsN2 as $t)
         {
-            $tagsPN2[$t->subcategoria.' '.$t->name] = collect(['name' => $t->subcategoria.' '.$t->name, 'cantidad' => $t->cantidad]);
+            $tagsPN2[$t->subcategoria.': '.$t->name] = collect(['name' => $t->subcategoria.': '.$t->name, 'cantidad' => $t->cantidad]);
         }
 
         foreach($tagsN1 as $t)
         {
-            if(!isset($tagsPN2[$t->subcategoria.' '.$t->name]))
+            if(!isset($tagsPN2[$t->subcategoria.': '.$t->name]))
             {
-                $tagsPN2[$t->subcategoria.' '.$t->name] = collect(['name' => $t->subcategoria.' '.$t->name, 'cantidad' => 0]);
+                $tagsPN2[$t->subcategoria.': '.$t->name] = collect(['name' => $t->subcategoria.': '.$t->name, 'cantidad' => 0]);
             }
         }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use PDF;
 use App\Post;
 use App\Headers;
+use Jenssegers\Date\Date;
 use Illuminate\Http\Request;
 
 class FileController extends Controller
@@ -63,12 +64,25 @@ class FileController extends Controller
     {
         $header = Headers::first();
         $post = Post::where('id',$id)->with(['owner', 'jefeDeTurno', 'photos'])->first();
-        if($size === 'carta')
-        $pdf = PDF::loadView('posts.pdf', ['post' => $post, 'header' => $header])->setPaper('letter');
-        else
-        $pdf = PDF::loadView('posts.pdf', ['post' => $post, 'header' => $header])->setPaper('folio');
 
-        // return $pdf->stream();
+        $sub = $post->tags()->first()->subcategory->first()->id;
+
+        if($sub == '1')
+        {
+            if($size === 'carta')
+        $pdf = PDF::loadView('posts.pdf-aprehenciones', ['post' => $post, 'header' => $header])->setPaper('letter');
+        else
+        $pdf = PDF::loadView('posts.pdf-aprehenciones', ['post' => $post, 'header' => $header])->setPaper('folio');
+        }
+
+        else
+        {
+            if($size === 'carta')
+            $pdf = PDF::loadView('posts.pdf', ['post' => $post, 'header' => $header])->setPaper('letter');
+            else
+            $pdf = PDF::loadView('posts.pdf', ['post' => $post, 'header' => $header])->setPaper('folio');
+        }
+
         return $pdf->download($post->url.'.pdf');
     }
 }

@@ -1033,7 +1033,7 @@
     @push('scripts')
     <script src={{asset("/js/dropzone.min.js")}}></script>
     <script src={{asset("/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}></script>
-    <script src={{asset("/adminlte/bower_components/ckeditor/ckeditor.js")}}></script>
+    <script src={{asset('/adminlte/ckeditor/ckeditor.js')}}></script>
     <script src={{asset("/adminlte/plugins/timepicker/bootstrap-timepicker.min.js")}}></script>
     <script src={{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}></script>
     <script src="/adminlte/plugins/input-mask/jquery.inputmask.js"></script>
@@ -1067,6 +1067,9 @@
         });
 
         CKEDITOR.replace('editor');
+        CKEDITOR.config.languaje = 'es';
+        CKEDITOR.config.height = 600;
+        CKEDITOR.config.width = '18cm';
         $('.select2').select2({
             tags: true,
             language: {
@@ -1147,7 +1150,7 @@
         $('[data-mask]').inputmask()
 
 
-        CKEDITOR.config.height = 315;
+        
 
         Dropzone.autoDiscover = false;
 

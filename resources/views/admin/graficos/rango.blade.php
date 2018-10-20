@@ -30,7 +30,7 @@
                 <h3 class="box-title">Hechos positivos y negativos</h3>
     
                 <div class="box-tools pull-right">
-                  <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                  {{-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> --}}
                   </button>
                   {{-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> --}}
                 </div>
@@ -51,7 +51,7 @@
                <h3 class="box-title">Hechos negativos</h3>
 
                <div class="box-tools pull-right">
-                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                 {{-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> --}}
                  </button>
                  {{-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> --}}
                </div>
@@ -72,7 +72,7 @@
             <h3 class="box-title">Hechos positivos</h3>
 
             <div class="box-tools pull-right">
-              <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+              {{-- <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> --}}
               </button>
               {{-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> --}}
             </div>
@@ -159,11 +159,11 @@
             dataC.push(result.categorias[i].cantidad);
             }  
             for(var i in result.tagsN) {
-            labelsTN.push(result.tagsN[i].subcategoria + " " + result.tagsN[i].name);
+            labelsTN.push(result.tagsN[i].subcategoria + ": " + result.tagsN[i].name);
             dataTN.push(result.tagsN[i].cantidad);
             }  
             for(var i in result.tagsP) {
-            labelsTP.push(result.tagsP[i].subcategoria + " " + result.tagsP[i].name);
+            labelsTP.push(result.tagsP[i].subcategoria + ": " + result.tagsP[i].name);
             dataTP.push(result.tagsP[i].cantidad);
             }   
             
