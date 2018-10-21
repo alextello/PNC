@@ -45,9 +45,9 @@
   @endif
   <div class="footer"><span class="pagenum"></span></div>
   <main>
-  <p style="text-align: center"><strong>Dirección General Policía Nacional Civil</strong></p><br><br>
-  <p style="text-align: left"><strong>Dependencia policial:</strong><u>41-31 San Juan Ostuncalco, Quetzaltenango</u></p><br>
-  <p style="text-align: right"><strong>Acta de Prevención No.</strong><u>{{$post->oficio}}</u></p><br>
+  {{-- <p style="text-align: center"><strong>Dirección General Policía Nacional Civil</strong></p><br><br> --}}
+  {{-- <p style="text-align: left"><strong>Dependencia policial:</strong><u>41-31 San Juan Ostuncalco, Quetzaltenango</u></p><br> --}}
+  {{-- <p style="text-align: right"><strong>Acta de Prevención No.</strong><u>{{$post->oficio}}</u></p><br> --}}
   {{-- <h2 style="text-align: center;" class="flyleaf">{{$post->title}}</h2> --}}
 
   {!!$post->body!!}

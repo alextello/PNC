@@ -167,7 +167,7 @@ class PostsTableSeeder extends Seeder
 
         //subcategorias hechos positivos
         $subcategory = new Subcategory();
-        $subcategory->name = 'Detenido por';
+        $subcategory->name = 'Detenidos por';
         $subcategory->category_id = '1';
         $subcategory->save();
 

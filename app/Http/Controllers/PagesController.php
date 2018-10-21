@@ -59,6 +59,20 @@ class PagesController extends Controller
             ->where('published_at', '>=', Carbon::createFromFormat('d/m/Y', $fechas[0])->subDays(1))
             ->paginate();
         }
+        else if($request->filled('buscarT'))
+        {
+            $posts = Post::with(['tags' => function ($q){
+                $q->with(['subcategory' => function ($query){
+                    $query->with('category');
+                }]);
+            }])->with(['address' => function ($t){
+                $t->with('aldea');
+            }])->with('photos')->with('owner')
+            ->whereNotNull('published_at')
+            ->latest('published_at')
+            ->where('title', 'like', '%' . $request->titulo . '%')
+            ->paginate();
+        }
         else
         {
             $posts = $this->helper();

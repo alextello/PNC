@@ -8,9 +8,7 @@
 		<h2>{{ $title}}</h2>
 	@endif
 		@foreach($posts as $post)
-		<article class="post">
-	
-
+		<article class="post" style="width: 100%">
 			<div class="content-post">
 				@include('posts.header')
 				<h1>{{$post->title}}</h1>

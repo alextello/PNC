@@ -65,8 +65,8 @@ class FileController extends Controller
         $header = Headers::first();
         $post = Post::where('id',$id)->with(['owner', 'jefeDeTurno', 'photos'])->first();
 
-        $sub = $post->tags()->first()->subcategory->first()->id;
-
+        $sub = $post->tags->subcategory_id;
+ 
         if($sub == '1')
         {
             if($size === 'carta')

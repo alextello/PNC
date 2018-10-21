@@ -19,6 +19,11 @@ class GraficosController extends Controller
         return view('admin.graficos.comparacion');
     }
 
+    public function delito()
+    {
+        return view('admin.graficos.delito');
+    }
+
     public function rangoPost(Request $request)
     {
         $fechas = explode(' ', request()->rango);
@@ -220,6 +225,29 @@ class GraficosController extends Controller
             'tagsPN1' => $tagsPN1,
             'tagsPN2' => $tagsPN2,
             // 'tagasN' => $tagsN
+        ]);
+    }
+
+    public function delitoPost(Request $request)
+    {
+
+        $fechas = explode(' ', request()->rango);
+        $fechaInicio = Carbon::createFromFormat('d/m/Y',$fechas[0]);
+        $fechaFin = Carbon::createFromFormat('d/m/Y',$fechas[2]);
+
+        $post = DB::table('posts')
+        ->join('tags', 'tags.id', '=', 'posts.tag_id')
+        ->join('subcategories', 'subcategories.id', '=', 'tags.subcategory_id')
+        ->select(DB::raw('count(tag_id) as cantidad'))
+        ->where('posts.tag_id', $request->tag)
+        ->WhereBetween('published_at', [$fechaInicio, $fechaFin])
+        ->groupBy('tag_id')
+        ->addSelect('tags.name', 'subcategories.name as subcategoria')
+        ->orderBy('cantidad', 'desc')
+        ->get();
+
+        return response()->json([
+            'post' => $post
         ]);
     }
 }

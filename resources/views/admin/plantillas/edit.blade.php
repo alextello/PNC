@@ -42,7 +42,7 @@
     });
 
     CKEDITOR.config.height = 315;
-    CKEDITOR.config.width = '23cm';
+    CKEDITOR.config.width = '18cm';
     CKEDITOR.config.languaje = 'es';
     // CKEDITOR.config.uiColor = '#F7B42C';
 

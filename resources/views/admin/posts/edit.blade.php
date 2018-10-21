@@ -621,7 +621,7 @@
                         <div class="dropzone"></div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
+                        <button type="submit" class="btn btn-info btn-block">Guardar</button>
                     </div>
 
                 </div>

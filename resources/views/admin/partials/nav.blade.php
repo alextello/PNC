@@ -74,8 +74,8 @@
               </a>
               <ul class="treeview-menu">
                 <li {{ request()->is('admin/graficos/comparacion') ? 'class=active' : ''}}><a href="{{ route('admin.graficos.comparacion') }}"><i class="fa fa-fw fa-folder-open"></i>Por comparacion</a></li>
-                <li {{ request()->is('admin/graficos/rango') ? 'class=active' : ''}}><a href="{{ route('admin.graficos.rango') }}"><i class="fa fa-fw fa-exchange"></i>Por rango</a>
-                </li>
+                <li {{ request()->is('admin/graficos/rango') ? 'class=active' : ''}}><a href="{{ route('admin.graficos.rango') }}"><i class="fa fa-fw fa-exchange"></i>Por rango</a></li>
+                <li {{ request()->is('admin/graficos/delito') ? 'class=active' : ''}}><a href="{{ route('admin.graficos.delito') }}"><i class="fa fa-fw fa-tag"></i>Por delito</a></li>
               </ul>
             </li>
 

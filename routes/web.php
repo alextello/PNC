@@ -121,12 +121,18 @@ Route::group([
 
         Route::get('/graficos/comparacion', 'GraficosController@comparacion')->name('admin.graficos.comparacion');
         Route::post('/graficos/comparacion/post', 'GraficosController@comparacionPost')->name('admin.graficos.comparacionPost');
+        
         Route::get('/graficos/rango', 'GraficosController@rango')->name('admin.graficos.rango');
         Route::post('/graficos/rango/post', 'GraficosController@rangoPost')->name('admin.graficos.rangoPost');
+        
+        Route::get('/graficos/delito', 'GraficosController@delito')->name('admin.graficos.delito');
+        Route::post('/graficos/rango/delito', 'GraficosController@delitoPost')->name('admin.graficos.rangoDelito');
 
 });
 
 Route::get('reportes/{post}', 'PostsController@show')->name('posts.show');
+
+Route::get('buscar-novedad', 'PagesController@home')->name('buscar.novedad');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
