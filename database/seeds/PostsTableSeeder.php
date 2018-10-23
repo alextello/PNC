@@ -1015,17 +1015,17 @@ class PostsTableSeeder extends Seeder
         $tag->subcategory_id = 10;
         $tag->save();
 
-        $post = new Post();
-        $post->title = 'Primer post';
-        $post->url = str_slug('Primer post');
-        $post->body = '<p>Contenido primer post</p>';
-        $post->published_at = Carbon::now();
-        $post->user_id =  1;
-        $post->tag_id = 1;
-        $post->oficio = '1111-1111';
-        $post->jefe_de_turno_id = 1;
-        $post->address_id = Address::create(['name' => '1ra. Calle 5-22 zona 3', 'aldea_id' => '1'])->id;
-        $post->save();
+        // $post = new Post();
+        // $post->title = 'Primer post';
+        // $post->url = str_slug('Primer post');
+        // $post->body = '<p>Contenido primer post</p>';
+        // $post->published_at = Carbon::now();
+        // $post->user_id =  1;
+        // $post->tag_id = 1;
+        // $post->oficio = '1111-1111';
+        // $post->jefe_de_turno_id = 1;
+        // $post->address_id = Address::create(['name' => '1ra. Calle 5-22 zona 3', 'aldea_id' => '1'])->id;
+        // $post->save();
 
 
 

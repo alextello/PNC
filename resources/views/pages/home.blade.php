@@ -39,18 +39,18 @@
 @endsection
 
 @push('styles')
-  <link rel="stylesheet" type="text/css" href={{asset("/css/twitter-bootstrap.css")}}>
-  <link rel="stylesheet" href={{asset("/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css")}}>
-  <link rel="stylesheet" href={{asset("/css/style.css")}}>
-  <link rel="stylesheet" href={{asset("/adminlte/bower_components/font-awesome/css/font-awesome.min.css")}}>
-  <link rel="stylesheet" href={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css")}}>
+  <link rel="stylesheet" href="{{asset("/css/twitter-bootstrap.css")}}">
+  <link rel="stylesheet" href="{{asset("/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css")}}">
+  <link rel="stylesheet" href="{{asset("/css/style.css")}}">
+  <link rel="stylesheet" href="{{asset("/adminlte/bower_components/font-awesome/css/font-awesome.min.css")}}">
+  <link rel="stylesheet" href="{{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css")}}">
 @endpush
 
 @push('scripts')
-<script src={{asset("/adminlte/bower_components/jquery/dist/jquery.min.js")}}></script>
-<script src={{asset("/js/twitter-bootstrap.js")}}></script>
-<script src={{asset("/adminlte/bower_components/moment/min/moment.min.js")}}></script>
-<script src={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}></script>
+<script src="{{asset("/adminlte/bower_components/jquery/dist/jquery.min.js")}}"></script>
+<script src="{{asset("/js/twitter-bootstrap.js")}}"></script>
+<script src="{{asset("/adminlte/bower_components/moment/min/moment.min.js")}}"></script>
+<script src="{{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}"></script>
 <script>
     $('#reservation').daterangepicker({
         'startDate': '01/01/2019',

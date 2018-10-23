@@ -7,11 +7,11 @@
 	<title>@yield('title', 'Reportes PNC')</title>
 	<meta content="{{csrf_token()}}" name="csrf-token" >
 	<meta name="description" content="@yield('meta-content', 'Sistema de reporteria de la Policia Nacional Civil de Guatemala')">
-	<link rel="stylesheet" href="/css/normalize.css">
-	<link rel="stylesheet" href="/css/framework.css">
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/responsive.css">
-	<link rel="stylesheet" href="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" href="{{asset('/css/normalize.css')}}">
+	<link rel="stylesheet" href="{{asset('/css/framework.css')}}">
+	<link rel="stylesheet" href="{{asset('/css/style.css')}}">
+	<link rel="stylesheet" href="{{asset('/css/responsive.css')}}">
+	<link rel="stylesheet" href="{{asset('/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <style>
@@ -86,17 +86,15 @@
         </section>
     </div>
     </body>
-    <link rel="stylesheet" href={{asset("/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css")}}>
-    <link rel="stylesheet" type="text/css" href={{asset("/css/twitter-bootstrap.css")}}>
-    <link rel="stylesheet" href={{asset("/css/style.css")}}>
-    <link rel="stylesheet" href={{asset("/adminlte/bower_components/font-awesome/css/font-awesome.min.css")}}>
-    <link rel="stylesheet" href={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css")}}>
-    <script src={{asset("/adminlte/bower_components/jquery/dist/jquery.min.js")}}></script>
-<script src={{asset("/js/twitter-bootstrap.js")}}></script>
-<script src={{asset("/adminlte/bower_components/moment/min/moment.min.js")}}></script>
-<script src={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}></script>
-    <script src={{asset("/adminlte/bower_components/moment/min/moment.min.js")}}></script>
-    <script src={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}></script>
+    <link rel="stylesheet" href="{{asset("/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css")}}">
+    <link rel="stylesheet" href="{{asset("/css/twitter-bootstrap.css")}}">
+    <link rel="stylesheet" href="{{asset("/css/style.css")}}">
+    <link rel="stylesheet" href="{{asset("/adminlte/bower_components/font-awesome/css/font-awesome.min.css")}}">
+    <link rel="stylesheet" href="{{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css")}}">
+    <script src="{{asset("/adminlte/bower_components/jquery/dist/jquery.min.js")}}"></script>
+<script src="{{asset("/js/twitter-bootstrap.js")}}"></script>
+    <script src="{{asset("/adminlte/bower_components/moment/min/moment.min.js")}}"></script>
+    <script src="{{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}"></script>
 <script>
     $('#reservation').daterangepicker({
         'startDate': '01/01/2019',

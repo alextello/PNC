@@ -48,12 +48,12 @@
 
 @push('styles')
 <link rel="stylesheet" type="text/css" href="{{asset("/DataTables/datatables.min.css")}}"/>
-<link rel="stylesheet" href={{asset("/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")}}>
+<link rel="stylesheet" href="{{asset("/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")}}">
 @endpush
 
 @push('scripts')
 <script type="text/javascript" src="{{asset("/DataTables/datatables.min.js")}}"></script>
-<script src={{asset("/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}></script>
+<script src="{{asset("/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}"></script>
 
 <script>
   $( document ).ready(function() {

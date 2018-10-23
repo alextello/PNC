@@ -57,8 +57,8 @@
 		</footer>
 	</section>
 </body>
-<script src={{asset("/adminlte/bower_components/moment/min/moment.min.js")}}></script>
-<script src={{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}></script>
+<script src="{{asset("/adminlte/bower_components/moment/min/moment.min.js")}}"></script>
+<script src="{{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js")}}"></script>
 <script>
 	$('#reservation').daterangepicker({
 	  maxDate: new Date(),

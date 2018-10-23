@@ -36,11 +36,11 @@
 
   @if($header->default_header)
   <header class="header" id="header">
-  <img src={{asset('/storage/banner/banner.jpg')}} style="width: 100%; height: 2.5cm; opacity: 0.5;" alt="">
+  <img src="{{asset('/storage/banner/banner.jpg')}}" style="width: 100%; height: 2.5cm; opacity: 0.5;" alt="">
   </header>
   @else
   <header class="header" id="header">
-    <img src={{asset('/storage/'.$header->header)}} style="width: 100%; height: 2.5cm; opacity: 0.5;" alt="">
+    <img src="{{asset('/storage/'.$header->header)}}" style="width: 100%; height: 2.5cm; opacity: 0.5;" alt="">
     </header>
   @endif
   <div class="footer"><span class="pagenum"></span></div>

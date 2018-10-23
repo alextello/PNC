@@ -90,14 +90,14 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="{{asset("/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css")}}">
 @endpush
 
 @push('scripts')
-<script src="/js/Chart.min.js"></script>
+<script src="{{asset('/js/Chart.min.js')}}"></script>
 {{-- <script src="/adminlte/bower_components/chart.js/Chart.js"></script> --}}
-<script src="/adminlte/bower_components/moment/min/moment.min.js"></script>
-<script src="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<script src="{{asset('/adminlte/bower_components/moment/min/moment.min.js')}}"></script>
+<script src="{{asset('/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <script src="/js/jQuery.print.min.js"></script>
 <script>
     $('#reservation').daterangepicker({

@@ -56,11 +56,11 @@
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href={{asset("/adminlte/bower_components/select2/dist/css/select2.min.css")}}>
+<link rel="stylesheet" href="{{asset("/adminlte/bower_components/select2/dist/css/select2.min.css")}}">
 @endpush
 
 @push('scripts')
-<script src={{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}></script>
+<script src="{{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}"></script>
 <script>
  $('.select2').select2({
      tags: true

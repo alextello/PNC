@@ -17,25 +17,27 @@
         @csrf
         <div class="form-group {{$errors->has('name') ? 'has-error' : ''}}">
             <label for="name">Nombre:</label>
-            <input type="text" class="form-control" name="name" placeholder="Nombre de la plantilla" autofocus value="{{ old('name')}}">
+            <input type="text" class="form-control" name="name" style="width: 18cm" placeholder="Nombre de la plantilla" autofocus value="{{ old('name')}}">
             {!! $errors->first('name', '<span class="help-block">:message</span>') !!}
         </div>
         <div class="form-gruop {{$errors->has('body') ? 'has-error' : ''}}">
             <textarea name="body" id="editor" class="form-control" rows="10" placeholder="Contenido de plantilla">{{ old('body')}}</textarea>
-            <button class="btn btn-primary btn-block">Crear plantilla</button>
             {!! $errors->first('body', '<span class="help-block">:message</span>') !!}
+        </div>
+        <div style="width: 18cm;" >
+            <button class="pull-right btn btn-primary">Crear plantilla</button>
         </div>
     </form>
 @endsection
 
 @push('styles')
-<link rel="stylesheet" href={{asset("/css/dropzone.css")}}>
-<link rel="stylesheet" href={{asset("/adminlte/bower_components/select2/dist/css/select2.min.css")}}>
+<link rel="stylesheet" href="{{asset("/css/dropzone.css")}}">
+<link rel="stylesheet" href="{{asset("/adminlte/bower_components/select2/dist/css/select2.min.css")}}">
 @endpush
 
 @push('scripts')
-<script src={{asset('/adminlte/ckeditor/ckeditor.js')}}></script>
-<script src={{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}></script>
+<script src="{{asset('/adminlte/ckeditor/ckeditor.js')}}"></script>
+<script src="{{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}"></script>
 <script>
 
     CKEDITOR.replace('editor');
@@ -44,5 +46,7 @@
     });
 
     CKEDITOR.config.height = 315;
+    CKEDITOR.config.width = '18cm';
+    CKEDITOR.config.languaje = 'es';
 </script>
 @endpush

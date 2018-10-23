@@ -1026,19 +1026,19 @@
             </div>
 
     @endsection @push('styles')
-    <link rel="stylesheet" href={{asset("/css/dropzone.css")}}>
-    <link rel="stylesheet" href={{asset("/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")}}>
-    <link rel="stylesheet" href={{asset("/adminlte/bower_components/select2/dist/css/select2.min.css")}}>
-    <link rel="stylesheet" href={{asset("/adminlte/plugins/timepicker/bootstrap-timepicker.min.css")}}> @endpush 
+    <link rel="stylesheet" href="{{asset("/css/dropzone.css")}}">
+    <link rel="stylesheet" href="{{asset("/adminlte/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css")}}">
+    <link rel="stylesheet" href="{{asset("/adminlte/bower_components/select2/dist/css/select2.min.css")}}">
+    <link rel="stylesheet" href="{{asset("/adminlte/plugins/timepicker/bootstrap-timepicker.min.css")}}"> @endpush 
     @push('scripts')
-    <script src={{asset("/js/dropzone.min.js")}}></script>
-    <script src={{asset("/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}></script>
-    <script src={{asset('/adminlte/ckeditor/ckeditor.js')}}></script>
-    <script src={{asset("/adminlte/plugins/timepicker/bootstrap-timepicker.min.js")}}></script>
-    <script src={{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}></script>
-    <script src="/adminlte/plugins/input-mask/jquery.inputmask.js"></script>
-    <script src="/adminlte/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-    <script src="/adminlte/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <script src="{{asset("/js/dropzone.min.js")}}"></script>
+    <script src="{{asset("/adminlte/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js")}}"></script>
+    <script src="{{asset('/adminlte/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{asset("/adminlte/plugins/timepicker/bootstrap-timepicker.min.js")}}"></script>
+    <script src="{{asset("/adminlte/bower_components/select2/dist/js/select2.full.min.js")}}"></script>
+    <script src="{{asset('/adminlte/plugins/input-mask/jquery.inputmask.js')}}"></script>
+    <script src="{{asset('/adminlte/plugins/input-mask/jquery.inputmask.date.extensions.js')}}"></script>
+    <script src="{{asset('/adminlte/plugins/input-mask/jquery.inputmask.extensions.js')}}"></script>
     
     <script>
         function cambio(selectObject) {

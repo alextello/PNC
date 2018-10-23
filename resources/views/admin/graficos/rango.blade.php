@@ -89,10 +89,10 @@
 @endsection
 
 @push('scripts')
-<script src="/adminlte/bower_components/moment/min/moment.min.js"></script>
-<script src="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script src="/js/Chart.min.js"></script>
-<script src="/js/chartjs-plugin-datalabels.js"></script>
+<script src="{{asset('/adminlte/bower_components/moment/min/moment.min.js')}}"></script>
+<script src="{{asset('/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+<script src="{{asset('/js/Chart.min.js')}}"></script>
+<script src="{{asset('/js/chartjs-plugin-datalabels.js')}}"></script>
  <script>
         var thisYear = (new Date()).getFullYear();    
         var start = new Date("1/1/" + thisYear);
@@ -286,5 +286,5 @@
 @endpush
 
 @push('styles')
-<link rel="stylesheet" href="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+<link rel="stylesheet" href="{{asset('/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css')}}">
 @endpush
