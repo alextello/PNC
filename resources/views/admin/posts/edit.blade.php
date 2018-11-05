@@ -469,7 +469,7 @@
 
                     <div class="form-group {{$errors->has('guardia') ? 'has-error' : ''}}">
                         <label>Guardia:</label>
-                        <select name="guardia"  class="form-control multiple" id="guardia">
+                        <select name="guardia"  class="form-control guardia" id="guardia">
                             <option value="">Seleccione guardia</option>
                             <option value="A" {{ old('guardia', $post->guardia) == 'A' ? 'selected' : '' }}>A</option>
                             <option value="B" {{ old('guardia',$post->guardia) == 'B' ? 'selected' : '' }}>B</option>
@@ -1145,7 +1145,20 @@
             return "Buscando..";
             }
             }
-        })
+        });
+       
+        $('.guardia').select2({
+            language: {
+            noResults: function() {
+
+            return "No hay resultados";        
+            },
+            searching: function() {
+
+            return "Buscando..";
+            }
+            }
+        });
        
         $('[data-mask]').inputmask()
 

@@ -52,7 +52,7 @@ class UsersController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|confirmed|min:4',
-            'telefono' => 'required',
+            'telefono' => 'required|unique:users',
             'codigo' => 'required',
             'roles' => 'required'
         ]);
