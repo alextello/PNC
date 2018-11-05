@@ -47,9 +47,15 @@
   <main>
   <p style="text-align: right">Oficio: {{$post->oficio}}</p>
   <p style="text-align: right">Ref. {{strtolower(optional($post->owner)->reference)}}/{{strtoupper(optional($post->jefeDeTurno)->reference)}}</p>
+<<<<<<< HEAD
   {{-- <h2 style="text-align: center;" class="flyleaf">{{$post->title}}</h2> --}}
 
   {!!$post->body!!}
+=======
+  <h2 style="text-align: center;" class="flyleaf">{{$post->title}}</h2>
+
+  <p style="text-align: justify;">{!!$post->body!!}</p>
+>>>>>>> 0568c5a713d271f6d45c41ea8bc3e6c87e4364f4
   
   @if($post->photos->count())
   <div class="text-center">
