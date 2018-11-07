@@ -7,22 +7,22 @@
 	<title>@yield('title', 'Reportes PNC')</title>
 	<meta content="{{csrf_token()}}" name="csrf-token" >
 	<meta name="description" content="@yield('meta-content', 'Sistema de reporteria de la Policia Nacional Civil de Guatemala')">
-	<link rel="stylesheet" href="/css/normalize.css">
-	<link rel="stylesheet" href="/css/framework.css">
-	<link rel="stylesheet" href="/css/style.css">
-	<link rel="stylesheet" href="/css/responsive.css">
+	<link rel="stylesheet" href="{{'/css/normalize.css'}}">
+	<link rel="stylesheet" href="{{'/css/framework.css'}}">
+	<link rel="stylesheet" href="{{'/css/style.css'}}">
+	<link rel="stylesheet" href="{{'/css/responsive.css'}}">
 	{{-- <link rel="stylesheet" href={{asset("/adminlte/bower_components/bootstrap/dist/css/bootstrap.min.css")}}> --}}
 	<link rel="stylesheet" href="/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 	@stack('styles')
-	<link rel="shortcut icon" type="image/x-icon" href="/adminlte/img/pnc.jpg" />
+	<link rel="shortcut icon" type="image/x-icon" href="{{'/adminlte/img/pnc.jpg'}}" />
 </head>
 <body>
 	<div class="preload"></div>
 	<header class="space-inter">
 		<div class="container container-flex space-between">
-			<figure class="logo"><img src="/img/logo.png" alt=""></figure>
+			<figure class="logo"><img src="{{'/img/logo.png'}}" alt=""></figure>
 			@include('partials.nav')
 		</div>
 		@stack('scripts')
@@ -34,7 +34,7 @@
     <section class="footer">
 		<footer>
 			<div class="container">
-				<figure class="logo"><img src="/img/logo.png" alt=""></figure>
+				<figure class="logo"><img src="{{'/img/logo.png'}}" alt=""></figure>
 				<nav>
 					<ul class="container-flex space-center list-unstyled">
 						<li><a href=" {{ route('pages.home') }}" class="text-uppercase c-white">Inicio</a></li>
